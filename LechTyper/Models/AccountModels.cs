@@ -70,7 +70,7 @@ namespace LechTyper.Models
         [Display(Name = "Hasło")]
         public string Password { get; set; }
 
-        [Display(Name = "Pamiętaj mnie?")]
+        [Display(Name = "Zapamiętać?")]
         public bool RememberMe { get; set; }
     }
 

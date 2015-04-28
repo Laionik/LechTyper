@@ -14,7 +14,7 @@
         <div class="container">
             <div class="navbar-header">
                 <a href='@Url.Action("Index", "Home")'>
-                    LOGO @*<img src='@Url.Content("~/Images/logo.png")' style="width:20%; height:auto;">*@
+                    <img src='@Url.Content("~/Images/logo.png")' style="width:8%; height:auto;"> #LechTyper
                 </a>
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                     <span class="icon-bar"></span>
@@ -67,7 +67,7 @@
 
 
 
-        <br /><br />
+        <br /><br /><br /><br />
         <footer>
             <div class="row">
                 <div class="col-lg-12">
@@ -79,9 +79,9 @@
                     </ul>
                     <p>
                         <ul class="list-inline">
-                            <li>@DateTime.Now.Year - InstaScore</li>
+                            <li>@DateTime.Now.Year - LechTyper</li>
                             <li class="pull-right">@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                            <li class="pull-right">@Html.ActionLink("O nas", "About", "Home")</li>
+                            <li class="pull-right">@Html.ActionLink("O mnie", "About", "Home")</li>
                             <li class="pull-right">@Html.ActionLink("Strona główna", "Index", "Home")</li>
                         </ul>
                     </p>

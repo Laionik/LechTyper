@@ -1,50 +1,39 @@
 ﻿@{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Kontakt";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>@ViewBag.Message</h2>
-</hgroup>
+<div class="page-header">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>@ViewBag.Title</h1>
+            <h2>@ViewBag.Message</h2>
+        </div>
+    </div>
+</div>
 
-<section class="contact">
-    <header>
-        <h3>Phone</h3>
-    </header>
-    <p>
-        <span class="label">Main:</span>
-        <span>425.555.0100</span>
-    </p>
-    <p>
-        <span class="label">After Hours:</span>
-        <span>425.555.0199</span>
-    </p>
-</section>
+<div class="bs-docs-section">
+    <div class="row">
+        <div class="col-lg-4">
+            <h3>Konta społecznościowe</h3>
+            <p class="bs-component">
+                <span><a href="facebook.com/laionik">Facebook</a></span><br />
+                <span><a href="twitter.com/laionik">Twitter</a></span>
+            </p>
+        </div>
 
-<section class="contact">
-    <header>
-        <h3>Email</h3>
-    </header>
-    <p>
-        <span class="label">Support:</span>
-        <span><a href="mailto:Support@example.com">Support@example.com</a></span>
-    </p>
-    <p>
-        <span class="label">Marketing:</span>
-        <span><a href="mailto:Marketing@example.com">Marketing@example.com</a></span>
-    </p>
-    <p>
-        <span class="label">General:</span>
-        <span><a href="mailto:General@example.com">General@example.com</a></span>
-    </p>
-</section>
+        <div class="col-lg-4">
+            <h3>Email</h3>
+            <p class="bs-component">
+                <span class="label">Laionik:</span>
+                <span><a href="mailto:Support@example.com">lukasz.sosinski4@gmail.com</a></span>
+            </p>
+        </div>
 
-<section class="contact">
-    <header>
-        <h3>Address</h3>
-    </header>
-    <p>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399
-    </p>
-</section>
+        <div class="col-lg-4">
+            <h3>Portfolio</h3>
+            <p class="bs-component">
+                <span><a href="github.com/Laionik">GitHub</a></span>
+            </p>
+        </div>
+    </div>
+</div>

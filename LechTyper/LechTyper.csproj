@@ -245,6 +245,8 @@
     <None Include="Properties\PublishProfiles\LechTyper.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Images\Error\403.jpg" />
+    <Content Include="Images\logo.png" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -296,6 +298,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\General.cshtml" />
+    <Content Include="Views\Shared\404.cshtml" />
+    <Content Include="Views\Shared\403.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
