@@ -1,0 +1,34 @@
+﻿@model LechTyper.Models.LocalPasswordModel
+@{
+    ViewBag.Title = "Zarządzanie kontem";
+    ViewBag.Nick = User.Identity.Name;
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<p class="message-success">@ViewBag.StatusMessage</p>
+
+<p>
+    Jesetś zalogowany jako <strong>@ViewBag.Nick</strong>.
+
+    @if (ViewBag.HasLocalPassword)
+    {
+        @Html.Partial("_ChangePasswordPartial")
+    }
+    else
+    {
+        @Html.Partial("_SetPasswordPartial")
+    }
+
+
+    <section id="externalLogins">
+        @Html.Action("RemoveExternalLogins")
+
+        @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+    </section>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

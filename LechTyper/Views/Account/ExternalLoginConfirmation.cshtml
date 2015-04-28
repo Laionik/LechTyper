@@ -1,0 +1,53 @@
+﻿@model LechTyper.Models.RegisterExternalLoginModel
+@{
+    ViewBag.Title = "Rejestracja";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Utwórz konto lokalne</legend>
+        <p>
+            Udało Ci się zweryfikować konto <strong>@ViewBag.ProviderDisplayName</strong>.
+            Proszę wpisz Twoją nazwę użytkownika poniżej i kliknij "Zaloguj" by zakończyć proces rejestracji.
+        </p>
+        @Html.HiddenFor(m => m.ExternalLoginData)
+
+        <table class="table table-striped table-hover" style="width:40%">
+            <tr>
+                <td>@Html.LabelFor(m => m.UserName)</td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </td>
+            </tr>
+            @{
+    if (ViewBag.ProviderDisplayName == "Twitter")
+    {
+        <tr>
+            <td>@Html.LabelFor(m => m.UserMail)</td>
+            <td>
+                @Html.TextBoxFor(m => m.UserMail)
+                @Html.ValidationMessageFor(m => m.UserMail)
+            </td>
+        </tr>
+    }
+    else
+    {
+        @Html.HiddenFor(m => m.UserMail)
+    }
+            }
+        </table>
+        <input type="submit" value="Zaloguj" />
+    </fieldset>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

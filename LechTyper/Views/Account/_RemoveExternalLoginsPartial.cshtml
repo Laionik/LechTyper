@@ -1,0 +1,34 @@
+﻿@model ICollection<LechTyper.Models.ExternalLogin>
+
+@if (Model.Count > 0)
+{
+    <h3>Powiązane konta</h3>
+    <table class="table table-striped table-hover" style="width:20%">
+        <tbody>
+            @foreach (InstaScore.Models.ExternalLogin externalLogin in Model)
+            {
+                <tr>
+                    <td>@externalLogin.ProviderDisplayName</td>
+                    <td>
+                        @if (ViewBag.ShowRemoveButton)
+                        {
+                            using (Html.BeginForm("Disassociate", "Account"))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div>
+                                    @Html.Hidden("provider", externalLogin.Provider)
+                                    @Html.Hidden("providerUserId", externalLogin.ProviderUserId)
+                                    <input type="submit" class="btn btn-default" value="Usuń" title="Usuń powiązanie z kontem @externalLogin.ProviderDisplayName" />
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            @: &nbsp;
+                    }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
