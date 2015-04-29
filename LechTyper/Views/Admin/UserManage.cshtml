@@ -1,0 +1,39 @@
+﻿@model IPagedList<LechTyper.Models.UserProfile>
+@{
+    ViewBag.Title = "Zarządzaj użytkownikami";
+}
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+<section class="panel">
+    <p>
+        @Html.ActionLink("Panel admina", "Admin")
+    </p>
+    <table class="table table-striped table-hover ">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Login</th>
+                <th>Mail</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var userprofile in Model)
+            {
+                <tr>
+                    <td>@userprofile.UserId</td>
+                    <td>@userprofile.UserName</td>
+                    <td>@userprofile.UserMail</td>
+                    <td>@Html.ActionLink("Edytuj", "UserEdit", new { x = userprofile.UserId, page = Model.PageNumber })</td>
+                    <td>@Html.ActionLink("Usuń", "UserDelete", new { x = userprofile.UserId, page = Model.PageNumber })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="pager">
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o => o
+            .DisplayTemplate("BootstrapPagination"))
+    </div>
+</section>

@@ -42,6 +42,10 @@
     <Reference Include="Microsoft.CSharp">
       <Private>True</Private>
     </Reference>
+    <Reference Include="MvcPaging, Version=2.1.2.28, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcPaging.2.1.2\lib\net40\MvcPaging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System">
       <Private>True</Private>
     </Reference>
@@ -229,6 +233,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -305,6 +310,13 @@
     <Content Include="Views\Shared\General.cshtml" />
     <Content Include="Views\Shared\404.cshtml" />
     <Content Include="Views\Shared\403.cshtml" />
+    <Content Include="Views\Admin\Admin.cshtml" />
+    <Content Include="Views\Admin\RoleCreate.cshtml" />
+    <Content Include="Views\Admin\RoleIndex.cshtml" />
+    <Content Include="Views\Admin\RoleAddToUser.cshtml" />
+    <Content Include="Views\Admin\UserManage.cshtml" />
+    <Content Include="Views\Admin\UserEdit.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\BootstrapPagination.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

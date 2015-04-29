@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Panel administratora";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section class="panel">
+    <p>
+        Cześć <b>@User.Identity.Name</b>. Co planujesz zepsuć?
+    </p>
+    <ul id="list">
+        @{
+            <li>@Html.ActionLink("Zarządzaj użytkownikami", "UserManage", "Admin")</li>
+            <li>@Html.ActionLink("Zarządzaj rolami", "RoleIndex", "Admin")</li>
+        }
+    </ul>
+</section>

@@ -1,0 +1,30 @@
+﻿@model LechTyper.Models.UserProfile
+@{
+    ViewBag.Title = "Edycja";
+}
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h3>Edytujesz @Model.UserName</h3>
+</hgroup>
+<section class="panel">
+    <p>
+        @Html.ActionLink("Panel admina", "Admin")
+    </p>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(m => m.UserId);
+        <p>
+            @Html.LabelFor(m => m.UserName)
+            @Html.TextBoxFor(m => m.UserName)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.UserMail)
+            @Html.TextBoxFor(m => m.UserMail)
+        </p>
+        <input type="submit" value="Zapisz" />
+    }
+
+</section>

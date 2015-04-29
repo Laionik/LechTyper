@@ -24,20 +24,19 @@
             </div>
 
             <div class="navbar-collapse collapse" id="navbar-main">
-                @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Zdjęcia", "Photo", "Home")</li>
-                    <li>@Html.ActionLink("Ranking", "Ranking", "Home")</li>
-                    @{if (User.IsInRole("user"))
-                    {
-                        <li>@Html.ActionLink("Porównywarka", "Compare", "Home")</li>
-                    }
-
-                    if (User.IsInRole("admin"))
+                <ul class="nav navbar-nav">
+                    @*   <li>@Html.ActionLink("Zdjęcia", "Photo", "Home")</li>
+                        <li>@Html.ActionLink("Ranking", "Ranking", "Home")</li>>
+                                         {if (User.IsInRole("user"))
+                            {
+                                <li>@Html.ActionLink("Porównywarka", "Compare", "Home")</li>
+                            }
+                    *@
+                    @if (User.IsInRole("admin"))
                     {
                         <li>@Html.ActionLink("Panel administracyjny", "Admin", "Admin")</li>
                     }
-                    }
-                </ul>*@
+                </ul>
 
                 <ul class="nav navbar-nav navbar-right">
                     @Html.Partial("_LoginPartial")

@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Zarządzanie rolami użytkownika";
+}
+<div class="spacerBody">
+    <p>&nbsp;</p>
+    @Html.ActionLink("Utwórz nowe role", "RoleCreate") | @Html.ActionLink("Role", "RoleIndex") | @Html.ActionLink("Panel admina", "Admin")
+
+    <h2>@ViewBag.Title</h2>
+
+    @using (Html.BeginForm("RoleAddToUser", "Admin"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="message-success">@ViewBag.ResultMessage</div>
+        <p>
+            Użytkownik: @Html.TextBox("UserName")
+            Rola: @Html.DropDownList("RoleName", ViewBag.Roles as SelectList)
+        </p>
+        <input type="submit" value="Dodaj" />
+
+    }
+
+    <h3>Usuń rolę użytkownikowi</h3>
+
+    @using (Html.BeginForm("DeleteRoleForUser", "Admin"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <p>
+            Użytkownik: @Html.TextBox("UserName")
+            Rola: @Html.DropDownList("RoleName", ViewBag.Roles as SelectList)
+        </p>
+        <input type="submit" value="Usuń" />
+    }
+
+    <div class="hr"></div>
+    <h3>Wyświetl role użytkownika</h3>
+    @using (Html.BeginForm("GetRoles", "Admin"))
+    {
+        @Html.AntiForgeryToken()
+        <p>
+            Username : @Html.TextBox("UserName")
+        </p>
+        <input type="submit" value="Pobierz role użytkownika" />
+    }
+
+    @if (ViewBag.RolesForThisUser != null)
+    {
+        <text>
+            <h3>Role użytkownika</h3>
+            <ol>
+                @foreach (string s in ViewBag.RolesForThisUser)
+                {
+                    <li>@s</li>
+                }
+            </ol>
+        </text>
+    }
+</div>

@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Role";
+}
+<p>&nbsp;</p>
+<div class="spacerBody">
+    @Html.ActionLink("Utwórz nowe role", "RoleCreate") | @Html.ActionLink("Zarządzanie rolami użytkownika", "RoleAddToUser") | @Html.ActionLink("Panel admina", "Admin")
+    <h2>@ViewBag.Title</h2>
+    <div class="table">
+        @foreach (string s in Model)
+        {
+            <div class="tr">
+                <div class="td">
+                    @s
+                </div>
+                <div class="td">
+                    <span onclick="return confirm('Jeseś pewny by usunąć?')">
+                        <a href="/Admin/RoleDelete?RoleName=@s" class="delLink"><img src="/images/deleteicon.png" alt="Usuń" class="imgBorder0" />  Usuń</a>
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+</div>
