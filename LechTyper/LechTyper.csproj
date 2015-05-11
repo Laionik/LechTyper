@@ -236,11 +236,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TwitterController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Oauth\OAuthBase.cs" />
+    <Compile Include="Oauth\OAuthMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -318,7 +321,7 @@
     <Content Include="Views\Admin\UserManage.cshtml" />
     <Content Include="Views\Admin\UserEdit.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\BootstrapPagination.cshtml" />
-    <Content Include="Views\Home\Twitter.cshtml" />
+    <Content Include="Views\Twitter\Twitter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

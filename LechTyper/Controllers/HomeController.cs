@@ -28,10 +28,5 @@ namespace LechTyper.Controllers
 
             return View();
         }
-
-        public ActionResult Twitter()
-        {
-            return View();
-        }
     }
 }
