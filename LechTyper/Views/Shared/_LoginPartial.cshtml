@@ -1,6 +1,6 @@
 ﻿@if (Request.IsAuthenticated)
 {
-    <ul class="list-inline">
+    <ul class="nav navbar-nav navbar-right">
         <li>Cześć, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!</li>
         <li>
             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
@@ -13,7 +13,7 @@
 }
 else
 {
-    <ul class="list-inline">
+    <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Zarejestruj", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>

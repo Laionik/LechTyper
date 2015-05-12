@@ -10,41 +10,35 @@
     <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a href='@Url.Action("Index", "Home")'>
-                    <img src='@Url.Content("~/Images/logo.png")' style="width:8%; height:auto;"> #LechTyper
-                </a>
-                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
+    @*<div class="navbar navbar-default navbar-fixed-top">*@
+        <div class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    @*<a href='@Url.Action("Index", "Home")' class="navbar-brand">
+                        <img src='@Url.Content("~/Images/logo.png")' style="width:8%; height:auto;"> #LechTyper
+                    </a>*@
+                    <a href='@Url.Action("Index", "Home")' class="navbar-brand">
+                        #LechTyper
+                    </a>
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
 
-            <div class="navbar-collapse collapse" id="navbar-main">
-                <ul class="nav navbar-nav">
-                    @*   <li>@Html.ActionLink("Zdjęcia", "Photo", "Home")</li>
-                        <li>@Html.ActionLink("Ranking", "Ranking", "Home")</li>>
-                                         {if (User.IsInRole("user"))
-                            {
-                                <li>@Html.ActionLink("Porównywarka", "Compare", "Home")</li>
-                            }
-                    *@
-                    <li>@Html.ActionLink("Twitter", "Twitter", "Twitter")</li>
-                    @if (User.IsInRole("admin"))
-                    {
-                        <li>@Html.ActionLink("Panel administracyjny", "Admin", "Admin")</li>
-                    }
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right">
+                <div class="navbar-collapse collapse" id="navbar-main">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Twitter", "Twitter", "Twitter")</li>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li>@Html.ActionLink("Panel administracyjny", "Admin", "Admin")</li>
+                        }
+                    </ul>
                     @Html.Partial("_LoginPartial")
-                </ul>
+                </div>
             </div>
         </div>
-    </div>
 
     <div class="container">
         <div class="page-header" id="banner">
