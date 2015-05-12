@@ -1,0 +1,37 @@
+﻿@model  IList<Newtonsoft.Json.Linq.JToken>
+@{
+    ViewBag.Title = "Twitter";
+}
+<div class="page-header">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>@ViewBag.Title</h1>
+        </div>
+    </div>
+</div>
+<div class="bs-docs-section">
+    <div class="row">
+        <div class="col-lg-10">
+            <p class="bs-component">
+                <h3>Wczytane wpisy (Razem: @Model.Count())</h3>
+                @{
+                    foreach (var x in Model)
+                    {
+                        string temp = " @CA: " + x["created_at"] + "@TTID: " + x["id_str"] + "@TEXT: " + x["text"] + "@USERIDSTR: "
+                            + x["user"]["id_str"] + "@NAME: " + x["user"]["name"] + "@NICK: " + x["user"]["screen_name"];
+                        @temp
+                        <br /><br /><br />
+                    }
+                }
+            </p>
+        </div>
+        @*<div class="col-lg-2">
+                        <h3>Inne tagi</h3>
+                        <ul>
+                            @{
+            <li><a href="instascore.somee.com">InstaScore</a></li>
+                            }
+                        </ul>
+                    </div>*@
+    </div>
+</div>
