@@ -1,5 +1,6 @@
-﻿@model  IList<Newtonsoft.Json.Linq.JToken>
+﻿@model List<LechTyper.Models.ReadTwitter>
 @{
+    //@model  IList<Newtonsoft.Json.Linq.JToken>
     ViewBag.Title = "Twitter";
 }
 <div class="page-header">
@@ -17,8 +18,8 @@
                 @{
                     foreach (var x in Model)
                     {
-                        string temp = " @CA: " + x["created_at"] + "@TTID: " + x["id_str"] + "@TEXT: " + x["text"] + "@USERIDSTR: "
-                            + x["user"]["id_str"] + "@NAME: " + x["user"]["name"] + "@NICK: " + x["user"]["screen_name"];
+                        string temp = " @CA: " + x.created_at + "@TTID: " + x.post_id + "@TEXT: " + x.text + "@USERIDSTR: "
+                            + x.user_id + "@NAME: " + x.user_name + "@NICK: " + x.user_nick;
                         @temp
                         <br /><br /><br />
                     }
