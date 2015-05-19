@@ -130,5 +130,3 @@ namespace LechTyper.Models
         public string ReturnToken { get; set; }
     }
 }
-
-}
