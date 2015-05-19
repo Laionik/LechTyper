@@ -36,20 +36,22 @@ namespace LechTyper.Controllers
             string _address = "https://api.twitter.com/1.1/search/tweets.json?q=RAZEMpoMistrzostwo&count=100";
             HttpClient client = new HttpClient(new OAuthMessageHandler(new HttpClientHandler()));
             HttpResponseMessage response = await client.GetAsync(_address);
+            int x;
             if (response.IsSuccessStatusCode)
             {
                 JToken statuses = await response.Content.ReadAsAsync<JToken>();
 
                 do
                 {
-                    var child = statuses.Last();
-                    _address = "https://api.twitter.com/1.1/search/tweets.json?q=RAZEMpoMistrzostwo&count=100&max_id=" + (int.Parse(child["id_str"].ToString()) - 1);
+                    var child = statuses["statuses"].Last();
+                    _address = "https://api.twitter.com/1.1/search/tweets.json?q=RAZEMpoMistrzostwo&count=100&max_id=" + child["id_str"].ToString();
                     response = await client.GetAsync(_address);
                     if (response.IsSuccessStatusCode)
                     {
-                        statuses.AddAfterSelf(await response.Content.ReadAsAsync<JToken>());
+                        statuses.AddAfterSelf(await response.Content.ReadAsAsync<JToken>()); //COŚ JEST ZJE***
                     }
-                } while (statuses.Count() % 100 == 0);
+                    x = statuses["statuses"].Count();
+                } while (statuses.Count() % 100 == 0 && statuses.Count() != 0);
                 return statuses;
             }
             return null;
