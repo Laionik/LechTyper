@@ -103,4 +103,32 @@ namespace LechTyper.Models
         public string ProviderDisplayName { get; set; }
         public string ProviderUserId { get; set; }
     }
+
+    
+    public class LostPasswordModel
+    {
+        [Required(ErrorMessage = "Do zresetowania hasła potrzebujemy Twojego adresu e-mail!")]
+        [Display(Name = "Twój adres e-mail")]
+        [EmailAddress(ErrorMessage = "Zły adres e-mail!")]
+        public string Email { get; set; }
+    }
+
+    public class ResetPasswordModel
+    {
+        [Required]
+        [Display(Name = "Nowe hasło")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [Required]
+        [Display(Name = "Potwierdź hasło")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Hasła nie pasują do siebie!")]
+        public string ConfirmPassword { get; set; }
+
+        [Required]
+        public string ReturnToken { get; set; }
+    }
+}
+
 }

@@ -76,21 +76,137 @@ namespace LechTyper.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { model.UserMail });
-                    WebSecurity.Login(model.UserName, model.Password);
-                    Roles.AddUserToRole(model.UserName, "user");
-                    return RedirectToAction("Index", "Home");
+                    string confirmationToken = WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { UserMail = model.UserMail }, true);
+                    dynamic email = new Email("RegEmail");
+                    email.To = model.UserMail;
+                    email.UserName = model.UserName;
+                    email.ConfirmationLink = Url.Action("RegisterConfirmation", "Account", null, "http") + "/" + confirmationToken;
+                    email.Send();
+                    return RedirectToAction("RegisterStepTwo", "Account");
                 }
                 catch (MembershipCreateUserException e)
                 {
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                 }
             }
+            return View(model);
+        }
 
-            // If we got this far, something failed, redisplay form
+        [AllowAnonymous]
+        public ActionResult RegisterStepTwo()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult RegisterConfirmation(string Id)
+        {
+            if (WebSecurity.ConfirmAccount(Id))
+            {
+                return RedirectToAction("ConfirmationSuccess");
+            }
+            return RedirectToAction("ConfirmationFailure");
+        }
+
+        [AllowAnonymous]
+        public ActionResult ConfirmationSuccess()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult ConfirmationFailure()
+        {
+            return View();
+        }
+
+        // GET: Account/LostPassword
+        [AllowAnonymous]
+        public ActionResult LostPassword()
+        {
+            return View();
+        }
+
+        // POST: Account/LostPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult LostPassword(LostPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                MembershipUser user;
+                using (var context = new UsersContext())
+                {
+                    var foundUserName = (from u in context.UserProfiles
+                                         where u.UserMail == model.Email
+                                         select u.UserName).FirstOrDefault();
+                    if (foundUserName != null)
+                    {
+                        user = Membership.GetUser(foundUserName.ToString());
+                    }
+                    else
+                    {
+                        user = null;
+                    }
+                }
+                if (user != null)
+                {
+                    var token = WebSecurity.GeneratePasswordResetToken(user.UserName);
+
+                    dynamic email = new Email("ResetPass");
+                    email.UserName = user.UserName;
+                    email.To = model.Email;
+                    email.resetlink = Url.Action("ResetPassword", "Account", new { rt = token }, "http");
+
+                    try
+                    {
+                        email.Send();
+                        ViewBag.MailSent = "Sprawdź swoją pocztę, link do zreseotwania hasła został wysłany.";
+                    }
+                    catch (Exception e)
+                    {
+                        ModelState.AddModelError("", "Błąd wysyłania wiadomości: " + e.Message);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Nie znaleziono użytkownika z danym adresem e-mail.");
+                }
+            }
+
+            return View(model);
+        }
+
+        // GET: /Account/ResetPassword
+        [AllowAnonymous]
+        public ActionResult ResetPassword(string rt)
+        {
+            ResetPasswordModel model = new ResetPasswordModel();
+            model.ReturnToken = rt;
+            return View(model);
+        }
+
+        // POST: /Account/ResetPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(ResetPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                bool resetResponse = WebSecurity.ResetPassword(model.ReturnToken, model.Password);
+                if (resetResponse)
+                {
+                    ViewBag.ResetPasswordMessage = "Udana zmiana hasła. Możesz teraz się zalogować przy pomocy nowego hasła";
+                }
+                else
+                {
+                    ViewBag.ResetPasswordMessage = "Nie udało się zmienić hasła!";
+                }
+            }
             return View(model);
         }
 
