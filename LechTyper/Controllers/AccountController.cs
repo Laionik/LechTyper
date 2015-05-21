@@ -77,19 +77,27 @@ namespace LechTyper.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
+                using (var context = new UsersContext())
                 {
-                    string confirmationToken = WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { UserMail = model.UserMail }, true);
-                    dynamic email = new Email("RegEmail");
-                    email.To = model.UserMail;
-                    email.UserName = model.UserName;
-                    email.ConfirmationLink = Url.Action("RegisterConfirmation", "Account", null, "http") + "/" + confirmationToken;
-                    email.Send();
-                    return RedirectToAction("RegisterStepTwo", "Account");
-                }
-                catch (MembershipCreateUserException e)
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    UserProfile userEmail = context.UserProfiles.FirstOrDefault(u => u.UserMail.ToLower() == model.UserMail.ToLower());
+                    try
+                    {
+                        if (userEmail == null)
+                        {
+                            string confirmationToken = WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { UserMail = model.UserMail }, true);
+                            dynamic email = new Email("RegEmail");
+                            email.To = model.UserMail;
+                            email.UserName = model.UserName;
+                            email.ConfirmationLink = Url.Action("RegisterConfirmation", "Account", null, "http") + "/" + confirmationToken;
+                            email.Send();
+                            return RedirectToAction("RegisterStepTwo", "Account");
+                        }
+                        ModelState.AddModelError("", ErrorCodeToString(MembershipCreateStatus.DuplicateEmail));
+                    }
+                    catch (MembershipCreateUserException e)
+                    {
+                        ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    }
                 }
             }
             return View(model);

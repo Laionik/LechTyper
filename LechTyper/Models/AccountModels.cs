@@ -25,6 +25,9 @@ namespace LechTyper.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+        [EmailAddress]
+        [Required]
+        [Display(Name = "Email")]
         public string UserMail { get; set; }
     }
 
