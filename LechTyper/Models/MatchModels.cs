@@ -24,7 +24,7 @@ namespace LechTyper.Models
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int MatchID { get; set; }
-        public DateTime date { get; set; }
+        public string date { get; set; }
         public string Competition { get; set; }
         public string Host { get; set; }
         public string Guest { get; set; }
@@ -33,7 +33,7 @@ namespace LechTyper.Models
         public int FTHostGoal { get; set; }
         public int FTGuestGoal { get; set; }
 
-        public Game(DateTime dt, string comp, string host, string guest, int fthg, int ftgg)
+        public Game(string dt, string comp, string host, string guest, int fthg, int ftgg)
         {
             this.date = dt;
             this.Competition = comp;
@@ -43,7 +43,7 @@ namespace LechTyper.Models
             this.FTGuestGoal = ftgg;
         }
 
-        public Game(DateTime dt, string comp, string host, string guest)
+        public Game(string dt, string comp, string host, string guest)
         {
             this.date = dt;
             this.Competition = comp;

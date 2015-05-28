@@ -10,13 +10,9 @@
     <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
 </head>
 <body>
-    @*<div class="navbar navbar-default navbar-fixed-top">*@
         <div class="navbar navbar-inverse">
             <div class="container">
                 <div class="navbar-header">
-                    @*<a href='@Url.Action("Index", "Home")' class="navbar-brand">
-                        <img src='@Url.Content("~/Images/logo.png")' style="width:8%; height:auto;"> #LechTyper
-                    </a>*@
                     <a href='@Url.Action("Index", "Home")' class="navbar-brand">
                         #LechTyper
                     </a>
@@ -30,8 +26,8 @@
                 <div class="navbar-collapse collapse" id="navbar-main">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Twitter", "Twitter", "Twitter")</li>
-                        <li>@Html.ActionLink("Mecze", "Fixture", "Match")</li>
-                        <li>@Html.ActionLink("HTML", "FixtureHTML", "Match")</li>
+                        <li>@Html.ActionLink("TME", "FixtureTME", "Match")</li>
+                        <li>@Html.ActionLink("PP", "FixturePP", "Match")</li>
                         
                         @if (User.IsInRole("admin"))
                         {
