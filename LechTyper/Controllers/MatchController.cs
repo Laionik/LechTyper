@@ -105,26 +105,27 @@ namespace LechTyper.Controllers
         //    return temp;
         //}
 
-        //public ActionResult FixtureHTML()
-        //{
-        //    var htmlWeb = new HtmlWeb();
-        //    var document = htmlWeb.Load("http://www.meczyki.pl/druzyna,lech-poznan,1653");
-        //    var TableTag = document.DocumentNode.SelectSingleNode("//table[@class='leaguetable teammatches']");
+        public ActionResult FixtureHTML()
+        {
+            var htmlWeb = new HtmlWeb();
+            //var document = htmlWeb.Load("http://www.meczyki.pl/druzyna,lech-poznan,1653");
+            var document = htmlWeb.Load("http://www.90minut.pl/liga/0/liga7466.html");
+            //tr align left, td nowrap (powinno dawać spis meczy)
+            //var TableTag = document.DocumentNode.SelectSingleNode("//table[@class='leaguetable teammatches']");
 
-        //    var test = from x in TableTag.SelectNodes("//tr")
-        //               where x != null
-        //               select x.InnerText;
-        //    List<string> gamesList = GamesList(test.ToList());
+            //var test = from x in TableTag.SelectNodes("//tr")
+            //           where x != null
+            //           select x.InnerText;
+            //List<string> gamesList = GamesList(test.ToList());
+            //List<Game> MatchList = new List<Game>();
+            //for (int i = 0; i < dayList.Count(); i ++)
+            //{
+            //    MatchList.Add(new Match(dayList.ToList()[i], team1List.ToList()[i], team2List.ToList()[i]));
+            //}
 
-        //    //List<Game> MatchList = new List<Game>();
-        //    //for (int i = 0; i < dayList.Count(); i ++)
-        //    //{
-        //    //    MatchList.Add(new Match(dayList.ToList()[i], team1List.ToList()[i], team2List.ToList()[i]));
-        //    //}
 
-
-        //    return View();
-        //}
+            return View();
+        }
 
     }
 }
