@@ -26,7 +26,7 @@ namespace LechTyper.Controllers
             }
             else
             {
-                return View();
+                return RedirectToAction("Index", "Home");
             }
         }
 

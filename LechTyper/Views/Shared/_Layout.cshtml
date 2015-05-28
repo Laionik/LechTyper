@@ -30,6 +30,9 @@
                 <div class="navbar-collapse collapse" id="navbar-main">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Twitter", "Twitter", "Twitter")</li>
+                        <li>@Html.ActionLink("Mecze", "Fixture", "Match")</li>
+                        <li>@Html.ActionLink("HTML", "FixtureHTML", "Match")</li>
+                        
                         @if (User.IsInRole("admin"))
                         {
                             <li>@Html.ActionLink("Panel administracyjny", "Admin", "Admin")</li>
