@@ -8,30 +8,37 @@ using System.Web;
 
 namespace LechTyper.Models
 {
-    public class MatchContext :DbContext
+    public class GameContext : DbContext
     {
-        public MatchContext()
+        public GameContext()
             : base("DefaultConnection")
         {
-         }
-        public DbSet<MatchContext> MatchDatas { get; set; }
+        }
+        public DbSet<Game> GameData { get; set; }
     }
 
-
-    [Table("Match")]
+    [Table("Game")]
     public class Game
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int MatchID { get; set; }
+        [Display(Name = "Data rozegrania meczu")]
         public string date { get; set; }
+        [Display(Name = "Rozgrywki")]
         public string Competition { get; set; }
+        [Display(Name = "Gospodarz")]
         public string Host { get; set; }
+        [Display(Name = "Gość")]
         public string Guest { get; set; }
+        [Display(Name = "Barmki gospodarzy")]
         public int FTHostGoal { get; set; }
+        [Display(Name = "Bramki gości")]
         public int FTGuestGoal { get; set; }
+        [Display(Name = "Stan")]
         public bool isCompleted { get; set; }
 
+        public Game() { }
         public Game(string dt, string comp, string host, string guest, int hostgoal, int guestgoal, bool isCompleted)
         {
             this.date = dt;

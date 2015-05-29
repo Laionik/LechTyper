@@ -16,6 +16,8 @@ namespace LechTyper.Controllers
     {
         
         UsersContext dbUser = new UsersContext();
+        GameContext dbGame = new GameContext();
+        TwitterContext dbTweet = new TwitterContext();
         //
         // GET: /Admin/
         [Authorize(Roles = "admin")]
@@ -24,6 +26,7 @@ namespace LechTyper.Controllers
             return View();
         }
 
+        #region RoleEdit
         [Authorize(Roles = "admin")]
         public ActionResult RoleCreate()
         {
@@ -145,8 +148,9 @@ namespace LechTyper.Controllers
 
             return View("RoleAddToUser");
         }
-       
+        #endregion
 
+        #region UserEdit
         [Authorize(Roles = "admin")]
         public ActionResult UserManage(int? page)
         {
@@ -213,5 +217,151 @@ namespace LechTyper.Controllers
 
             return RedirectToAction("UserManage", new { page = page });
         }
+        #endregion
+
+        #region MatchEdit
+        [Authorize(Roles = "admin")]
+        public ActionResult MatchIndex(int? page)
+        {
+            ViewBag.UserManage = "Zarządzanie meczami";
+            var MatchesList = dbGame.GameData.ToList();
+            int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
+            return View(MatchesList.ToPagedList(currentPageIndex, 20));
+        }
+
+        [Authorize(Roles = "admin")]
+        public ActionResult MatchEdit()
+        {
+            int id = int.Parse(Request.QueryString["x"]);
+            var page = Request.QueryString["page"];
+            var MatchesList = dbGame.GameData.ToList();
+            ViewBag.Page = page;
+            var game = MatchesList.Find(r => r.MatchID == id);
+            return View(game);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public ActionResult MatchEdit(string matchid, string date, string Competition, string host, string guest, string FTHostGoal, string FTGuestGoal, string isCompleted)
+        {
+            var game = dbGame.GameData.ToList();
+            var up = game.Find(a => a.MatchID == int.Parse(matchid));
+            up.MatchID = int.Parse(matchid);
+            up.date = date;
+            up.Competition = Competition;
+            up.Host = host;
+            up.Guest = guest;
+            up.FTHostGoal = int.Parse(FTHostGoal);
+            up.FTGuestGoal = int.Parse(FTGuestGoal);
+            up.isCompleted = bool.Parse(isCompleted);
+            if (TryUpdateModel(up))
+            {
+                try
+                {
+                    dbGame.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    ViewBag.ErrorMessage = e;
+                    return RedirectToAction("DatabaseError", "Error");
+                }
+            }
+            return RedirectToAction("MatchIndex");
+        }
+
+
+        [Authorize(Roles = "admin")]
+        public ActionResult MatchDelete()
+        {
+            var id = Request.QueryString["x"];
+            var page = Request.QueryString["page"];
+            var x = dbGame.GameData.ToList();
+            var up = x.Find(a => a.MatchID == int.Parse(id));
+            try
+            {
+                dbGame.GameData.Remove(up);
+                dbGame.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ErrorMessage = e;
+                return RedirectToAction("DatabaseError", "Error");
+            }
+
+            return RedirectToAction("MatchIndex", new { page = page });
+        }
+        #endregion
+
+        #region TweetEdit
+        [Authorize(Roles = "admin")]
+        public ActionResult TweetIndex(int? page)
+        {
+            ViewBag.UserManage = "Zarządzanie typami";
+            var TweetsList = dbTweet.Tweets.ToList();
+            int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
+            return View(TweetsList.ToPagedList(currentPageIndex, 20));
+        }
+
+        [Authorize(Roles = "admin")]
+        public ActionResult TweetEdit()
+        {
+            int id = int.Parse(Request.QueryString["x"]);
+            var page = Request.QueryString["page"];
+            var TweetsList = dbTweet.Tweets.ToList();
+            ViewBag.Page = page;
+            var tweet = TweetsList.Find(r => r.tweetid == id);
+            return View(tweet);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public ActionResult TweetEdit(string tweetid, string created_at, string post_id, string text, string user_id, string user_name, string user_nick)
+        {
+            var x = dbTweet.Tweets.ToList();
+            var up = x.Find(a => a.tweetid == int.Parse(tweetid));
+            up.tweetid = int.Parse(tweetid);
+            up.created_at = created_at;
+            up.post_id = post_id;
+            up.user_id = user_id;
+            up.user_name = user_name;
+            up.user_nick = user_nick;
+            up.text = text;
+            if (TryUpdateModel(up))
+            {
+                try
+                {
+                    dbTweet.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    ViewBag.ErrorMessage = e;
+                    return RedirectToAction("DatabaseError", "Error");
+                }
+            }
+            return RedirectToAction("TweetIndex");
+        }
+
+
+        [Authorize(Roles = "admin")]
+        public ActionResult TweetDelete()
+        {
+            var id = Request.QueryString["x"];
+            var page = Request.QueryString["page"];
+            var TweetsList = dbTweet.Tweets.ToList();
+            var up = TweetsList.Find(a => a.tweetid == int.Parse(id));
+            try
+            {
+                dbTweet.Tweets.Remove(up);
+                dbTweet.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ErrorMessage = e;
+                return RedirectToAction("DatabaseError", "Error");
+            }
+
+            return RedirectToAction("TweetIndex", new { page = page });
+        }
+        #endregion
     }
 }

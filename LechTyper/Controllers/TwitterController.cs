@@ -9,19 +9,36 @@ using LechTyper.OAuth;
 using System.Net.Http;
 using System.Threading.Tasks;
 using LechTyper.Models;
+using System.Text.RegularExpressions;
 
 namespace LechTyper.Controllers
 {
     public class TwitterController : Controller
     {
+        TwitterContext db = new TwitterContext();
         //
         // GET: /Twitter/
-
         public async Task<ActionResult> Twitter()
         {
             var tweets = await RunClient();
             if (tweets != null)
             {
+                foreach (var x in tweets)
+                {
+                    Tweet tweetsData = db.Tweets.FirstOrDefault(u => u.post_id.ToLower() == x.post_id.ToLower());
+                    try
+                    {
+                        if (tweetsData == null)
+                        {
+                            db.Tweets.Add(x);
+                            db.SaveChanges();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        return RedirectToAction("DatabaseError", "Error");
+                    }
+                }
                 return View(tweets);
             }
             else
@@ -30,24 +47,41 @@ namespace LechTyper.Controllers
             }
         }
 
-        async Task<List<ReadTwitter>> RunClient()
+        public bool TextValidate(string text)
         {
-            string _address = "https://api.twitter.com/1.1/search/tweets.json?q=czterydychylecha&count=100";
+            Regex form1 = new Regex(@"^\s*[0-9]+-[0-9]+");
+            Regex form2 = new Regex(@"^\s*[0-9]+:[0-9]+");
+            text = text.Replace("@lechtyperdev", "");
+            if (form1.IsMatch(text) || form2.IsMatch(text))
+                return true;
+            else
+                return false;
+        }
+
+        async Task<List<Tweet>> RunClient()
+        {
+            string _address = "https://api.twitter.com/1.1/search/tweets.json?q=ltlecpog&count=100";
             HttpClient client = new HttpClient(new OAuthMessageHandler(new HttpClientHandler()));
             HttpResponseMessage response = await client.GetAsync(_address);
-            List<ReadTwitter> tweets = new List<ReadTwitter>();
+            List<Tweet> tweets = new List<Tweet>();
+            long last = 0;
+            string text = "";
             if (response.IsSuccessStatusCode)
             {
                 JToken statuses = await response.Content.ReadAsAsync<JToken>();
                 foreach (var x in statuses["statuses"])
                 {
-                    tweets.Add(new ReadTwitter(x["created_at"].ToString(), x["id_str"].ToString(), x["text"].ToString(), x["user"]["id_str"].ToString(), x["user"]["name"].ToString(), x["user"]["screen_name"].ToString()));
+                    if (TextValidate(x["text"].ToString()))
+                    {
+                        text = x["text"].ToString().Replace("@lechtyperdev", "");
+                        tweets.Add(new Tweet(x["created_at"].ToString(), x["id_str"].ToString(), text, x["user"]["id_str"].ToString(), x["user"]["name"].ToString(), x["user"]["screen_name"].ToString()));
+                     }
+                    last = long.Parse(x["id_str"].ToString()) - 1;
                 }
 
                 do
                 {
-                    var last = long.Parse(tweets.Last().post_id);
-                    _address = "https://api.twitter.com/1.1/search/tweets.json?q=czterydychylecha&count=100&max_id=" + (last-1).ToString();
+                    _address = "https://api.twitter.com/1.1/search/tweets.json?q=ltlecpog&count=100&max_id=" + last.ToString();
                     response = await client.GetAsync(_address);
                     if (response.IsSuccessStatusCode)
                     {
@@ -58,7 +92,12 @@ namespace LechTyper.Controllers
                         {
                             foreach (var x in statuses["statuses"])
                             {
-                                tweets.Add(new ReadTwitter(x["created_at"].ToString(), x["id_str"].ToString(), x["text"].ToString(), x["user"]["id_str"].ToString(), x["user"]["name"].ToString(), x["user"]["screen_name"].ToString()));
+                                if (TextValidate(x["text"].ToString()))
+                                {
+                                    text = x["text"].ToString().Replace("@lechtyperdev", "");
+                                    tweets.Add(new Tweet(x["created_at"].ToString(), x["id_str"].ToString(), text, x["user"]["id_str"].ToString(), x["user"]["name"].ToString(), x["user"]["screen_name"].ToString()));
+                                 }
+                                last = long.Parse(x["id_str"].ToString()) - 1;
                             }
                         }
                     }

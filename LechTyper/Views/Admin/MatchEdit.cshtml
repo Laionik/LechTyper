@@ -1,0 +1,55 @@
+﻿@model LechTyper.Models.Game
+@{
+    ViewBag.Title = "Edycja meczu";
+}
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h3>Edytujesz mecz @Model.Host vs @Model.Guest</h3>
+</hgroup>
+<section class="panel">
+    <p>
+        @Html.ActionLink("Panel admina", "Admin")
+    </p>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Zaloguj się</legend>
+        <table class="table table-striped table-hover" style="width:60%">
+            <tr>
+                @Html.HiddenFor(m => m.MatchID)
+                <td> @Html.LabelFor(m => m.date)</td>
+                <td> @Html.TextBoxFor(m => m.date)</td>
+            </tr>
+            <tr>
+                <td> @Html.LabelFor(m => m.Competition)</td>
+                <td> @Html.TextBoxFor(m => m.Competition)</td>
+            </tr>
+            <tr>
+                <td> @Html.LabelFor(m => m.Host)</td>
+                <td> @Html.TextBoxFor(m => m.Host)</td>
+            </tr>
+            <tr>
+                <td> @Html.LabelFor(m => m.Guest)</td>
+                <td> @Html.TextBoxFor(m => m.Guest)</td>
+            </tr>
+            <tr>
+                <td> @Html.LabelFor(m => m.FTHostGoal)</td>
+                <td> @Html.TextBoxFor(m => m.FTHostGoal)</td>
+            </tr>
+            <tr>
+                <td> @Html.LabelFor(m => m.FTGuestGoal)</td>
+                <td> @Html.TextBoxFor(m => m.FTGuestGoal)</td>
+            </tr>
+            <tr>
+                <td> @Html.LabelFor(m => m.isCompleted)</td>
+                <td> @Html.TextBoxFor(m => m.isCompleted)</td>
+            </tr>
+        </table>
+        <br />
+        <input class="btn btn-default" type="submit" value="Zapisz" />
+    </fieldset>
+    }
+    </section>

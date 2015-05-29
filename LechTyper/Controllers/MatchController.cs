@@ -20,6 +20,8 @@ namespace LechTyper.Controllers
 {
     public class MatchController : Controller
     {
+        GameContext db = new GameContext();
+
         #region GetResults
         public string dateParse(string toParse)
         {
@@ -90,7 +92,22 @@ namespace LechTyper.Controllers
                          where x != null
                          select x.InnerText;
             List<Game> fixture = gamesParse(trTags.ToList(), "Ekstraklasa");
-
+            foreach (var x in fixture)
+            {
+                Game matchdata = db.GameData.FirstOrDefault(u => u.date.ToLower() == x.date.ToLower());
+                try
+                {
+                    if (matchdata == null)
+                    {
+                        db.GameData.Add(x);
+                        db.SaveChanges();
+                    }
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("DatabaseError", "Error");
+                }
+            }
             return View(fixture);
         }
 
@@ -112,7 +129,33 @@ namespace LechTyper.Controllers
                          where x != null
                          select x.InnerText;
             List<Game> fixture = gamesParse(trTags.ToList(), "Puchar Polski");
-
+            foreach (var x in fixture)
+            {
+                Game matchdata = db.GameData.FirstOrDefault(u => u.date.ToLower() == x.date.ToLower());
+                try
+                {
+                    if (matchdata == null)
+                    {
+                        db.GameData.Add(x);
+                        db.SaveChanges();
+                    }
+                    else if (TryUpdateModel(x))
+                    {
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            return RedirectToAction("DatabaseError", "Error");
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("DatabaseError", "Error");
+                }
+            }
             return View(fixture);
         }
 
@@ -132,7 +175,33 @@ namespace LechTyper.Controllers
                          where x != null
                          select x.InnerText;
             List<Game> fixture = gamesParse(trTags.ToList(), "Superpuchar");
-
+            foreach (var x in fixture)
+            {
+                Game matchdata = db.GameData.FirstOrDefault(u => u.date.ToLower() == x.date.ToLower());
+                try
+                {
+                    if (matchdata == null)
+                    {
+                        db.GameData.Add(x);
+                        db.SaveChanges();
+                    }
+                    else if (TryUpdateModel(x))
+                    {
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            return RedirectToAction("DatabaseError", "Error");
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("DatabaseError", "Error");
+                }
+            }
             return View(fixture);
         }
 
@@ -152,7 +221,33 @@ namespace LechTyper.Controllers
                          where x != null
                          select x.InnerText;
             List<Game> fixture = gamesParseINT(trTags.ToList(), "Liga Mistrzów");
-
+            foreach (var x in fixture)
+            {
+                Game matchdata = db.GameData.FirstOrDefault(u => u.date.ToLower() == x.date.ToLower());
+                try
+                {
+                    if (matchdata == null)
+                    {
+                        db.GameData.Add(x);
+                        db.SaveChanges();
+                    }
+                    else if (TryUpdateModel(x))
+                    {
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            return RedirectToAction("DatabaseError", "Error");
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("DatabaseError", "Error");
+                }
+            }
             return View(fixture);
         }
 
@@ -172,7 +267,33 @@ namespace LechTyper.Controllers
                          where x != null
                          select x.InnerText;
             List<Game> fixture = gamesParseINT(trTags.ToList(), "Liga Europy");
-
+            foreach (var x in fixture)
+            {
+                Game matchdata = db.GameData.FirstOrDefault(u => u.date.ToLower() == x.date.ToLower());
+                try
+                {
+                    if (matchdata == null)
+                    {
+                        db.GameData.Add(x);
+                        db.SaveChanges();
+                    }
+                    else if (TryUpdateModel(x))
+                    {
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            return RedirectToAction("DatabaseError", "Error");
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("DatabaseError", "Error");
+                }
+            }
             return View(fixture);
         }
     }
