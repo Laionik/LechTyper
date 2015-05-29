@@ -245,6 +245,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
     <Compile Include="Controllers\TwitterController.cs" />
@@ -288,6 +289,12 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="TME.html" />
+    <Content Include="Views\Match\FixturePP.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Match\FixtureTME.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -347,8 +354,10 @@
     <Content Include="Views\Emails\ResetPass.cshtml" />
     <Content Include="Views\Emails\Web.config" />
     <Content Include="Views\Emails\_ViewStart.cshtml" />
-    <Content Include="Views\Match\FixtureTME.cshtml" />
-    <Content Include="Views\Match\FixturePP.cshtml" />
+    <Content Include="Views\Match\FixtureLM.cshtml" />
+    <Content Include="Views\Match\FixtureLE.cshtml" />
+    <Content Include="Views\Match\FixtureSP.cshtml" />
+    <Content Include="Views\Bet\Bet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -20,9 +20,10 @@ namespace LechTyper.Controllers
 {
     public class MatchController : Controller
     {
+        #region GetResults
         public string dateParse(string toParse)
         {
-            return Regex.Replace(toParse, @"\s*\([0-9]+\)\s*", "");
+            return Regex.Replace(toParse, @"\s*\([0-9]+\s*[0-9]+\)\s*", "");
         }
 
         public void ResultParse(string result, out string goal1, out string goal2)
@@ -35,7 +36,7 @@ namespace LechTyper.Controllers
         public List<Game> gamesParse(List<string> games, string comp)
         {
             Regex goalrgx = new Regex(@"^[0-9]+$");
-            Regex clubrgx = new Regex(@"Lech Pozna�");
+            Regex clubrgx = new Regex(@"Lech Poznań");
             string goal1, goal2;
             List<Game> returnGame = new List<Game>();
             for (int i = 0; i < games.Count(); i += 4)
@@ -44,18 +45,44 @@ namespace LechTyper.Controllers
                 {
                     ResultParse(games[i + 1], out goal1, out goal2);
                     if (goalrgx.IsMatch(goal1) && goalrgx.IsMatch(goal2))
-                        returnGame.Add(new Game(dateParse(games[i + 3]), comp, games[i], games[i + 2], int.Parse(goal1), int.Parse(goal2)));
+                        returnGame.Add(new Game(dateParse(games[i + 3]), comp, games[i].Replace("\n", ""), games[i + 2].Replace("\n", ""), int.Parse(goal1), int.Parse(goal2), true));
                     else
-                        returnGame.Add(new Game(dateParse(games[i + 3]), comp, games[i], games[i + 2]));
+                        returnGame.Add(new Game(dateParse(games[i + 3]), comp, games[i].Replace("\n", ""), games[i + 2].Replace("\n", ""), false));
                 }
             }
             return returnGame;
         }
 
+        public List<Game> gamesParseINT(List<string> games, string comp)
+        {
+            Regex goalrgx = new Regex(@"^[0-9]+$");
+            Regex clubrgx = new Regex(@"Lech Poznań");
+            string goal1, goal2;
+            List<Game> returnGame = new List<Game>();
+            for (int i = 0; i < games.Count(); i += 6)
+            {
+                if (clubrgx.IsMatch(games[i + 1]) || clubrgx.IsMatch(games[i + 3]))
+                {
+                    ResultParse(games[i + 2], out goal1, out goal2);
+                    if (goalrgx.IsMatch(goal1) && goalrgx.IsMatch(goal2))
+                        returnGame.Add(new Game(dateParse(games[i + 5]), comp, games[i + 1].Replace("\n", ""), games[i + 3].Replace("\n", ""), int.Parse(goal1), int.Parse(goal2), true));
+                    else
+                        returnGame.Add(new Game(dateParse(games[i + 5]), comp, games[i + 1].Replace("\n", ""), games[i + 3].Replace("\n", ""), false));
+                }
+            }
+            return returnGame;
+        }
+        #endregion
+
         // GET: /FixtureTME/
         public ActionResult FixtureTME()
         {
-            var htmlWeb = new HtmlWeb();
+            Encoding iso = Encoding.GetEncoding("iso-8859-2");
+            var htmlWeb = new HtmlWeb()
+            {
+                AutoDetectEncoding = false,
+                OverrideEncoding = iso,
+            };
             var document = htmlWeb.Load("http://www.90minut.pl/liga/0/liga7466.html");
             var tableTag = document.DocumentNode.SelectNodes("//table[@class='main']");
             HtmlAgilityPack.HtmlNode temp = tableTag.FirstOrDefault();
@@ -64,14 +91,21 @@ namespace LechTyper.Controllers
                          select x.InnerText;
             List<Game> fixture = gamesParse(trTags.ToList(), "Ekstraklasa");
 
-            return View();
+            return View(fixture);
         }
 
         // GET: /FixturePP/
         public ActionResult FixturePP()
         {
-            var htmlWeb = new HtmlWeb();
+
+            Encoding iso = Encoding.GetEncoding("iso-8859-2");
+            var htmlWeb = new HtmlWeb()
+              {
+                  AutoDetectEncoding = false,
+                  OverrideEncoding = iso,
+              };
             var document = htmlWeb.Load("http://www.90minut.pl/liga/0/liga7470.html");
+
             var tableTag = document.DocumentNode.SelectNodes("//table[@class='main']");
             HtmlAgilityPack.HtmlNode temp = tableTag.FirstOrDefault();
             var trTags = from x in temp.SelectNodes("//tr[@align='left']/td[@valign='top']")
@@ -79,11 +113,67 @@ namespace LechTyper.Controllers
                          select x.InnerText;
             List<Game> fixture = gamesParse(trTags.ToList(), "Puchar Polski");
 
-            return View();
+            return View(fixture);
         }
 
+        // GET: /FixtureSP/
+        public ActionResult FixtureSP()
+        {
+            Encoding iso = Encoding.GetEncoding("iso-8859-2");
+            var htmlWeb = new HtmlWeb()
+            {
+                AutoDetectEncoding = false,
+                OverrideEncoding = iso,
+            };
+            var document = htmlWeb.Load("http://www.90minut.pl/liga/0/liga7465.html");
+            var tableTag = document.DocumentNode.SelectNodes("//table[@class='main']");
+            HtmlAgilityPack.HtmlNode temp = tableTag.FirstOrDefault();
+            var trTags = from x in temp.SelectNodes("//tr[@align='left']/td[@valign='top']")
+                         where x != null
+                         select x.InnerText;
+            List<Game> fixture = gamesParse(trTags.ToList(), "Superpuchar");
 
+            return View(fixture);
+        }
 
+        // GET: /FixtureLM/
+        public ActionResult FixtureLM()
+        {
+            Encoding iso = Encoding.GetEncoding("iso-8859-2");
+            var htmlWeb = new HtmlWeb()
+            {
+                AutoDetectEncoding = false,
+                OverrideEncoding = iso,
+            };
+            var document = htmlWeb.Load("http://www.90minut.pl/liga/0/liga7474.html");
+            var tableTag = document.DocumentNode.SelectNodes("//table[@class='main']");
+            HtmlAgilityPack.HtmlNode temp = tableTag.FirstOrDefault();
+            var trTags = from x in temp.SelectNodes("//tr[@align='left']/td[@valign='top']")
+                         where x != null
+                         select x.InnerText;
+            List<Game> fixture = gamesParseINT(trTags.ToList(), "Liga Mistrzów");
 
+            return View(fixture);
+        }
+
+        // GET: /FixtureLE/
+        public ActionResult FixtureLE()
+        {
+            Encoding iso = Encoding.GetEncoding("iso-8859-2");
+            var htmlWeb = new HtmlWeb()
+            {
+                AutoDetectEncoding = false,
+                OverrideEncoding = iso,
+            };
+            var document = htmlWeb.Load("http://www.90minut.pl/liga/0/liga7475.html");
+            var tableTag = document.DocumentNode.SelectNodes("//table[@class='main']");
+            HtmlAgilityPack.HtmlNode temp = tableTag.FirstOrDefault();
+            var trTags = from x in temp.SelectNodes("//tr[@align='left']/td[@valign='top']")
+                         where x != null
+                         select x.InnerText;
+            List<Game> fixture = gamesParseINT(trTags.ToList(), "Liga Europy");
+
+            return View(fixture);
+        }
     }
 }

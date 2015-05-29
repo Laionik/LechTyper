@@ -28,27 +28,28 @@ namespace LechTyper.Models
         public string Competition { get; set; }
         public string Host { get; set; }
         public string Guest { get; set; }
-        public int HTHostGoal { get; set; }
-        public int HTGuestGoal { get; set; }
         public int FTHostGoal { get; set; }
         public int FTGuestGoal { get; set; }
+        public bool isCompleted { get; set; }
 
-        public Game(string dt, string comp, string host, string guest, int fthg, int ftgg)
+        public Game(string dt, string comp, string host, string guest, int hostgoal, int guestgoal, bool isCompleted)
         {
             this.date = dt;
             this.Competition = comp;
             this.Host = host;
             this.Guest = guest;
-            this.FTHostGoal = fthg;
-            this.FTGuestGoal = ftgg;
+            this.FTHostGoal = hostgoal;
+            this.FTGuestGoal = guestgoal;
+            this.isCompleted = isCompleted;
         }
 
-        public Game(string dt, string comp, string host, string guest)
+        public Game(string dt, string comp, string host, string guest, bool isCompleted)
         {
             this.date = dt;
             this.Competition = comp;
             this.Host = host;
             this.Guest = guest;
+            this.isCompleted = isCompleted;
         }
     }
 }
