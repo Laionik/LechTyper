@@ -1,22 +1,32 @@
 ﻿@{
     ViewBag.Title = "Tworzenie roli";
 }
-<div class="spacerBody">
-    <p>&nbsp;</p>
-    @Html.ActionLink("Role", "RoleIndex") | @Html.ActionLink("Zarządzanie rolami użytkownika", "RoleAddToUser") | @Html.ActionLink("Panel admina", "Admin")
-    <h2>@ViewBag.Title</h2>
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
+<section class="panel">
+    <p>
+        @Html.ActionLink("Powrót", "Admin")
+    </p>
+    <table class="table table-striped table-hover ">
 
-        <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+    <tr>
+        <td>
             Nazwa roli:
-        </div>
-        <p>
+        </td>
+        <td>
             @Html.TextBox("RoleName")
-        </p>
-        <input type="submit" value="Zapisz" />
-    }
-</div>
+        </td>
+    </tr>
+
+        }
+    </table>
+    <input type="submit" class="btn btn-default" value="Zapisz" />
+</section>>
+
+

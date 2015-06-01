@@ -1,59 +1,63 @@
 ﻿@{
     ViewBag.Title = "Zarządzanie rolami użytkownika";
 }
-<div class="spacerBody">
-    <p>&nbsp;</p>
-    @Html.ActionLink("Utwórz nowe role", "RoleCreate") | @Html.ActionLink("Role", "RoleIndex") | @Html.ActionLink("Panel admina", "Admin")
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
 
-    <h2>@ViewBag.Title</h2>
+<section class="panel">
+    <p>
+        @Html.ActionLink("Powrót", "Admin")
+    </p>
 
-    @using (Html.BeginForm("RoleAddToUser", "Admin"))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-        <div class="message-success">@ViewBag.ResultMessage</div>
-        <p>
-            Użytkownik: @Html.TextBox("UserName")
-            Rola: @Html.DropDownList("RoleName", ViewBag.Roles as SelectList)
-        </p>
-        <input type="submit" value="Dodaj" />
-
-    }
+    <div class="message-success">@ViewBag.ResultMessage</div>
+    <h3>Dodaj rolę użytownikowi</h3>
+    <table class="table table-striped table-hover ">
+        @using (Html.BeginForm("RoleAddToUser", "Admin"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <tr>
+                <td>@Html.TextBox("UserName")</td>
+                <td>@Html.DropDownList("RoleName", ViewBag.Roles as SelectList)</td>
+            </tr>
+        }
+    </table>
+    <input type="submit" class="btn btn-default" value="Zapisz" />
 
     <h3>Usuń rolę użytkownikowi</h3>
+    <table class="table table-striped table-hover ">
+        @using (Html.BeginForm("DeleteRoleForUser", "Admin"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <tr>
+                <td>@Html.TextBox("UserName")</td>
+                <td>@Html.DropDownList("RoleName", ViewBag.Roles as SelectList)</td>
+            </tr>
+        }
+    </table>
+    <input type="submit" class="btn btn-default" value="Usuń" />
 
-    @using (Html.BeginForm("DeleteRoleForUser", "Admin"))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-        <p>
-            Użytkownik: @Html.TextBox("UserName")
-            Rola: @Html.DropDownList("RoleName", ViewBag.Roles as SelectList)
-        </p>
-        <input type="submit" value="Usuń" />
-    }
-
-    <div class="hr"></div>
-    <h3>Wyświetl role użytkownika</h3>
-    @using (Html.BeginForm("GetRoles", "Admin"))
-    {
-        @Html.AntiForgeryToken()
-        <p>
-            Username : @Html.TextBox("UserName")
-        </p>
-        <input type="submit" value="Pobierz role użytkownika" />
-    }
-
-    @if (ViewBag.RolesForThisUser != null)
-    {
-        <text>
-            <h3>Role użytkownika</h3>
-            <ol>
-                @foreach (string s in ViewBag.RolesForThisUser)
-                {
-                    <li>@s</li>
-                }
-            </ol>
-        </text>
-    }
-</div>
+        <h3>Wyświetl role użytkownika</h3>
+        @using (Html.BeginForm("GetRoles", "Admin"))
+        {
+            @Html.AntiForgeryToken()
+            <p>
+                Username : @Html.TextBox("UserName")
+            </p>
+            <input type="submit" value="Pobierz role użytkownika" />
+        }
+        @if (ViewBag.RolesForThisUser != null)
+        {
+            <text>
+                <h3>Role użytkownika</h3>
+                <ol>
+                    @foreach (string s in ViewBag.RolesForThisUser)
+                    {
+                        <li>@s</li>
+                    }
+                </ol>
+            </text>
+        }
+</section>

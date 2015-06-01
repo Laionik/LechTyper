@@ -8,7 +8,7 @@
 </hgroup>
 <section class="panel">
     <p>
-        @Html.ActionLink("Panel admina", "Admin")
+        @Html.ActionLink("Powrót", "UserIndex")
     </p>
     @using (Html.BeginForm())
     {
@@ -17,7 +17,7 @@
         <fieldset>
             <legend>Zaloguj się</legend>
             <table class="table table-striped table-hover" style="width:60%">
-                @Html.HiddenFor(m => m.UserId);
+                @Html.HiddenFor(m => m.UserId)
                 <tr>
                     <td>@Html.LabelFor(m => m.UserName)</td>
                     <td>@Html.TextBoxFor(m => m.UserName)</td>

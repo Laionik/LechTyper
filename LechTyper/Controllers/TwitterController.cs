@@ -51,7 +51,7 @@ namespace LechTyper.Controllers
         {
             Regex form1 = new Regex(@"^\s*[0-9]+-[0-9]+");
             Regex form2 = new Regex(@"^\s*[0-9]+:[0-9]+");
-            text = text.Replace("@lechtyperdev", "");
+            text = Regex.Replace(text, @"@lechtyperdev\s*", "");
             if (form1.IsMatch(text) || form2.IsMatch(text))
                 return true;
             else
@@ -73,9 +73,10 @@ namespace LechTyper.Controllers
                 {
                     if (TextValidate(x["text"].ToString()))
                     {
-                        text = x["text"].ToString().Replace("@lechtyperdev", "");
-                        tweets.Add(new Tweet(x["created_at"].ToString(), x["id_str"].ToString(), text, x["user"]["id_str"].ToString(), x["user"]["name"].ToString(), x["user"]["screen_name"].ToString()));
-                     }
+                        text = Regex.Replace(text, @"@lechtyperdev\s*", "");
+                        text = x["text"].ToString().Replace("-", ":");
+                        tweets.Add(new Tweet(x["created_at"].ToString(), x["id_str"].ToString(), text.ToLower(), x["user"]["id_str"].ToString(), x["user"]["name"].ToString(), x["user"]["screen_name"].ToString()));
+                    }
                     last = long.Parse(x["id_str"].ToString()) - 1;
                 }
 
@@ -95,8 +96,8 @@ namespace LechTyper.Controllers
                                 if (TextValidate(x["text"].ToString()))
                                 {
                                     text = x["text"].ToString().Replace("@lechtyperdev", "");
-                                    tweets.Add(new Tweet(x["created_at"].ToString(), x["id_str"].ToString(), text, x["user"]["id_str"].ToString(), x["user"]["name"].ToString(), x["user"]["screen_name"].ToString()));
-                                 }
+                                    tweets.Add(new Tweet(x["created_at"].ToString(), x["id_str"].ToString(), text.ToLower(), x["user"]["id_str"].ToString(), x["user"]["name"].ToString(), x["user"]["screen_name"].ToString()));
+                                }
                                 last = long.Parse(x["id_str"].ToString()) - 1;
                             }
                         }

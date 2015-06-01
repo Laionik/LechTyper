@@ -10,12 +10,24 @@
     <p>
         Cześć <b>@User.Identity.Name</b>. Co planujesz zepsuć?
     </p>
-    <ul id="list">
+    <ul id="list-group">
         @{
-            <li>@Html.ActionLink("Zarządzaj użytkownikami", "UserManage", "Admin")</li>
-            <li>@Html.ActionLink("Zarządzaj rolami", "RoleIndex", "Admin")</li>
-            <li>@Html.ActionLink("Zarządzaj meczami", "MatchIndex", "Admin")</li>
-            <li>@Html.ActionLink("Zarządzaj typami", "TweetIndex", "Admin")</li>
+            <li class="list-group-item">@Html.ActionLink("Zarządzaj użytkownikami", "UserIndex", "Admin")</li>
+            <li class="list-group-item">@Html.ActionLink("Zarządzaj rolami", "RoleIndex", "Admin")</li>
+            <li class="list-group-item">@Html.ActionLink("Zarządzaj meczami", "MatchIndex", "Admin")</li>
+            <li class="list-group-item">@Html.ActionLink("Zarządzaj typami", "TweetIndex", "Admin")</li>
+            <li class="list-group-item">@Html.ActionLink("Zarządzaj kursami", "OddIndex", "Admin")</li>
         }
+    </ul>
+
+    <p>
+        Aktualizuj listę meczów
+    </p>
+    <ul id="list-group">
+        <li class="list-group-item">@Html.ActionLink("T-Mobile Ekstraklasa", "UpdateTME", "Match")</li>
+        <li class ="list-group-item">@Html.ActionLink("Puchar Polski", "UpdatePP", "Match")</li>
+        <li class="list-group-item">@Html.ActionLink("Liga Mistrzów", "UpdateLM", "Match")</li>
+        <li class="list-group-item">@Html.ActionLink("Liga Europy", "UpdateLE", "Match")</li>
+        <li class="list-group-item">@Html.ActionLink("Superpuchar Polski", "UpdateSP", "Match")</li>
     </ul>
 </section>

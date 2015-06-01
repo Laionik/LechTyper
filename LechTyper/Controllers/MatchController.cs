@@ -25,7 +25,7 @@ namespace LechTyper.Controllers
         #region GetResults
         public string dateParse(string toParse)
         {
-            return Regex.Replace(toParse, @"\s*\([0-9]+\s*[0-9]+\)\s*", "");
+            return Regex.Replace(toParse, @",\s[0-9]{2}:[0-9]{2}\s*(\([0-9]+\s*[0-9]+\)\s*)?", "");
         }
 
         public void ResultParse(string result, out string goal1, out string goal2)
@@ -76,8 +76,10 @@ namespace LechTyper.Controllers
         }
         #endregion
 
-        // GET: /FixtureTME/
-        public ActionResult FixtureTME()
+        #region DatabaseUpdate
+        // GET: /UpdateTME/
+        [Authorize(Roles = "admin")]
+        public ActionResult UpdateTME()
         {
             Encoding iso = Encoding.GetEncoding("iso-8859-2");
             var htmlWeb = new HtmlWeb()
@@ -102,6 +104,19 @@ namespace LechTyper.Controllers
                         db.GameData.Add(x);
                         db.SaveChanges();
                     }
+                    else
+                    {
+                        try
+                        {
+                            UpdateModel(x);
+                            db.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            //Zapisywanie do logów błędu [Database] e.message
+                            return RedirectToAction("DatabaseError", "Error");
+                        }
+                    }
                 }
                 catch (Exception e)
                 {
@@ -111,8 +126,9 @@ namespace LechTyper.Controllers
             return View(fixture);
         }
 
-        // GET: /FixturePP/
-        public ActionResult FixturePP()
+        // GET: /UpdatePP/
+        [Authorize(Roles = "admin")]
+        public ActionResult UpdatePP()
         {
 
             Encoding iso = Encoding.GetEncoding("iso-8859-2");
@@ -159,8 +175,9 @@ namespace LechTyper.Controllers
             return View(fixture);
         }
 
-        // GET: /FixtureSP/
-        public ActionResult FixtureSP()
+        // GET: /UpdateSP/
+        [Authorize(Roles = "admin")]
+        public ActionResult UpdateSP()
         {
             Encoding iso = Encoding.GetEncoding("iso-8859-2");
             var htmlWeb = new HtmlWeb()
@@ -205,8 +222,9 @@ namespace LechTyper.Controllers
             return View(fixture);
         }
 
-        // GET: /FixtureLM/
-        public ActionResult FixtureLM()
+        // GET: /UpdateLM/
+        [Authorize(Roles = "admin")]
+        public ActionResult UpdateLM()
         {
             Encoding iso = Encoding.GetEncoding("iso-8859-2");
             var htmlWeb = new HtmlWeb()
@@ -251,8 +269,9 @@ namespace LechTyper.Controllers
             return View(fixture);
         }
 
-        // GET: /FixtureLE/
-        public ActionResult FixtureLE()
+        // GET: /UpdateLE/
+        [Authorize(Roles = "admin")]
+        public ActionResult UpdateLE()
         {
             Encoding iso = Encoding.GetEncoding("iso-8859-2");
             var htmlWeb = new HtmlWeb()
@@ -296,5 +315,83 @@ namespace LechTyper.Controllers
             }
             return View(fixture);
         }
+        #endregion
+
+        #region DisplayFixture
+        // GET: /FixtureTME/
+        [AllowAnonymous]
+        public ActionResult FixtureTME()
+        {
+            ViewBag.Title = "Mecze Ekstraklasy";
+            var GamesList = db.GameData.ToList();
+            List<Game> Matches = new List<Game>();
+            foreach (var match in GamesList)
+            {
+                if (match.Competition == "Ekstraklasa")
+                    Matches.Add(match);
+            }
+            return View(Matches);
+        }
+
+        // GET: /FixturePP/
+        [AllowAnonymous]
+        public ActionResult FixturePP()
+        {
+            ViewBag.Title = "Mecze Pucharu Polski";
+            var GamesList = db.GameData.ToList();
+            List<Game> Matches = new List<Game>();
+            foreach (var match in GamesList)
+            {
+                if (match.Competition == "Puchar Polski")
+                    Matches.Add(match);
+            }
+            return View(Matches);
+        }
+
+        // GET: /FixtureSP/
+        [AllowAnonymous]
+        public ActionResult FixtureSP()
+        {
+            ViewBag.Title = "Mecze Superpucharu Polski";
+            var GamesList = db.GameData.ToList();
+            List<Game> Matches = new List<Game>();
+            foreach (var match in GamesList)
+            {
+                if (match.Competition == "Superpuchar")
+                    Matches.Add(match);
+            }
+            return View(Matches);
+        }
+
+        // GET: /FixtureLM/
+        [AllowAnonymous]
+        public ActionResult FixtureLM()
+        {
+            ViewBag.Title = "Mecze Ligi Mistrzów";
+            var GamesList = db.GameData.ToList();
+            List<Game> Matches = new List<Game>();
+            foreach (var match in GamesList)
+            {
+                if (match.Competition == "Liga Mistrzów")
+                    Matches.Add(match);
+            }
+            return View(Matches);
+        }
+
+        // GET: /FixtureLE/
+        [AllowAnonymous]
+        public ActionResult FixtureLE()
+        {
+            ViewBag.Title = "Mecze Ligi Europy";
+            var GamesList = db.GameData.ToList();
+            List<Game> Matches = new List<Game>();
+            foreach (var match in GamesList)
+            {
+                if (match.Competition == "Liga Europy")
+                    Matches.Add(match);
+            }
+            return View(Matches);
+        }
+        #endregion
     }
 }

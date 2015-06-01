@@ -17,10 +17,9 @@
                 @{
                     foreach (var x in Model)
                     {
-                        string temp = "\nCA: " + x.created_at + "\nTTID: " + x.post_id + "\nTEXT: " + x.text + "\nUSERIDSTR: "
-                            + x.user_id + "\nNAME: " + x.user_name + "\nNICK: " + x.user_nick;
-                     <span style="white-space: pre-line">@temp</span>
-                        <br /><br /><br />
+                        string link = "https://twitter.com/" + x.user_nick + "/status/" + x.post_id;
+                        <span style="white-space: pre-line"><a href="@link">@x.user_nick</a></span>
+                        <br />
                     }
                 }
             </p>

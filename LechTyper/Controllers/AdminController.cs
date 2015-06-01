@@ -14,10 +14,12 @@ namespace LechTyper.Controllers
     [InitializeSimpleMembership]
     public class AdminController : Controller
     {
-        
         UsersContext dbUser = new UsersContext();
         GameContext dbGame = new GameContext();
         TwitterContext dbTweet = new TwitterContext();
+        OddContext dbOdd = new OddContext();
+
+
         //
         // GET: /Admin/
         [Authorize(Roles = "admin")]
@@ -152,7 +154,7 @@ namespace LechTyper.Controllers
 
         #region UserEdit
         [Authorize(Roles = "admin")]
-        public ActionResult UserManage(int? page)
+        public ActionResult UserIndex(int? page)
         {
             ViewBag.UserManage = "Zarządzanie użytkownikami";
             var UsersList = dbUser.UserProfiles.ToList();
@@ -191,7 +193,7 @@ namespace LechTyper.Controllers
                     return RedirectToAction("DatabaseError", "Error");
                 }
             }
-            return RedirectToAction("UserManage");
+            return RedirectToAction("UserIndex");
         }
 
 
@@ -215,7 +217,7 @@ namespace LechTyper.Controllers
                 return RedirectToAction("DatabaseError", "Error");
             }
 
-            return RedirectToAction("UserManage", new { page = page });
+            return RedirectToAction("UserIndex", new { page = page });
         }
         #endregion
 
@@ -361,6 +363,109 @@ namespace LechTyper.Controllers
             }
 
             return RedirectToAction("TweetIndex", new { page = page });
+        }
+        #endregion
+
+        #region OddEdit
+        [Authorize(Roles = "admin")]
+        public ActionResult OddIndex(int? page)
+        {
+            ViewBag.UserManage = "Zarządzanie kursami";
+            var OddsList = dbOdd.Odds.ToList();
+            int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
+            return View(OddsList.ToPagedList(currentPageIndex, 20));
+        }
+
+        [Authorize(Roles = "admin")]
+        public ActionResult OddEdit()
+        {
+            int id = int.Parse(Request.QueryString["x"]);
+            var page = Request.QueryString["page"];
+            var OddsList = dbOdd.Odds.ToList();
+            ViewBag.Page = page;
+            var tweet = OddsList.Find(r => r.OddID == id);
+            return View(tweet);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public ActionResult OddEdit(string OddID, string MatchID, string odd_1, string odd_x, string odd_2)
+        {
+            var x = dbOdd.Odds.ToList();
+            var up = x.Find(a => a.OddID == int.Parse(OddID));
+            up.MatchID = int.Parse(MatchID);
+            up.odd_1 = int.Parse(odd_1);
+            up.odd_x = int.Parse(odd_x);
+            up.odd_2 = int.Parse(odd_2);
+            if (TryUpdateModel(up))
+            {
+                try
+                {
+                    dbOdd.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    ViewBag.ErrorMessage = e;
+                    return RedirectToAction("DatabaseError", "Error");
+                }
+            }
+            return RedirectToAction("OddIndex");
+        }
+
+        [Authorize(Roles = "admin")]
+        public ActionResult OddCreate()
+        {
+            var MatchList = dbGame.GameData.ToList();
+            var OddsList = dbOdd.Odds.ToList();
+            Odd odd = new Odd();
+            ViewBag.Games = MatchList;
+            ViewBag.Odds = OddsList;
+            return View(odd);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public ActionResult OddCreate(string OddID, string MatchID, string odd_1, string odd_x, string odd_2)
+        {
+            var oddslist = dbOdd.Odds.ToList();
+            var odd = oddslist.Find(a => a.MatchID == int.Parse(MatchID));
+            if (odd == null)
+            {
+                    try
+                    {
+                        dbOdd.Odds.Add(new Odd(int.Parse(MatchID), double.Parse(odd_1), double.Parse(odd_x), double.Parse(odd_2)));
+                        dbOdd.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        ViewBag.ErrorMessage = e;
+                        return RedirectToAction("DatabaseError", "Error");
+                    }
+                    ViewBag.OddCreated = "Udało się utworzyć nowy kurs";
+            }
+            return RedirectToAction("OddIndex");
+        }
+
+
+        [Authorize(Roles = "admin")]
+        public ActionResult OddDelete()
+        {
+            var id = Request.QueryString["x"];
+            var page = Request.QueryString["page"];
+            var OddsList = dbOdd.Odds.ToList();
+            var up = OddsList.Find(a => a.OddID == int.Parse(id));
+            try
+            {
+                dbOdd.Odds.Remove(up);
+                dbOdd.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ErrorMessage = e;
+                return RedirectToAction("DatabaseError", "Error");
+            }
+
+            return RedirectToAction("OddIndex", new { page = page });
         }
         #endregion
     }

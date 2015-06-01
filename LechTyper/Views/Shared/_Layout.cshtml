@@ -26,13 +26,19 @@
                 <div class="navbar-collapse collapse" id="navbar-main">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Twitter", "Twitter", "Twitter")</li>
-                        <li>@Html.ActionLink("TME", "FixtureTME", "Match")</li>
-                        <li>@Html.ActionLink("PP", "FixturePP", "Match")</li>
-                        <li>@Html.ActionLink("LM", "FixtureLM", "Match")</li>
-                        <li>@Html.ActionLink("LE", "FixtureLE", "Match")</li>
-                        <li>@Html.ActionLink("SP", "FixtureSP", "Match")</li>
-                        <li>@Html.ActionLink("Typy", "Bet", "Bet")</li>
-                        
+                        <li>@Html.ActionLink("Typy", "Odd", "Odd")</li>
+                        <li>@Html.ActionLink("Wyniki", "BetResult", "Odd")</li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Terminarz<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>@Html.ActionLink("T-Mobile Ekstraklasa", "FixtureTME", "Match")</li>
+                                <li>@Html.ActionLink("Puchar Polski", "FixturePP", "Match")</li>
+                                <li>@Html.ActionLink("Superpuchar Polski", "FixtureSP", "Match")</li>
+                                <li class="divider"></li>
+                                <li>@Html.ActionLink("Liga Mistrzów", "FixtureLM", "Match")</li>
+                                <li>@Html.ActionLink("Liga Europy", "FixtureLE", "Match")</li>
+                            </ul>
+                        </li>
                         @if (User.IsInRole("admin"))
                         {
                             <li>@Html.ActionLink("Panel administracyjny", "Admin", "Admin")</li>

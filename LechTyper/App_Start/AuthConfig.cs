@@ -17,7 +17,7 @@ namespace LechTyper
             //OAuthWebSecurity.RegisterMicrosoftClient(
             //    clientId: "",
             //    clientSecret: "");
-
+            
             OAuthWebSecurity.RegisterTwitterClient(
                 consumerKey: "EpfmvWrsmtncANw5Rfsn4xMQ3",
                 consumerSecret: "0gdIryMSHwVYMvyx8Jj1K0ncx71Apjep0JHOpSuBVfRw1owSMQ");

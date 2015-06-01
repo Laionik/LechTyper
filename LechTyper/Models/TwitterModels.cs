@@ -23,12 +23,12 @@ namespace LechTyper.Models
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int tweetid { get; set; }
-        public string created_at {get; set;}
-        public string post_id {get; set;}
+        public string created_at { get; set; }
+        public string post_id { get; set; }
         public string text { get; set; }
-        public string user_id {get; set;}
-        public string user_name {get; set;}
-        public string user_nick {get;set;}
+        public string user_id { get; set; }
+        public string user_name { get; set; }
+        public string user_nick { get; set; }
 
         public Tweet() { }
         public Tweet(string created_at, string post_id, string text, string user_id, string user_name, string user_nick)

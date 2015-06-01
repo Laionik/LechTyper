@@ -245,7 +245,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\BetController.cs" />
+    <Compile Include="Controllers\OddController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
@@ -255,7 +255,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\OddModels.cs" />
     <Compile Include="Models\MatchModels.cs" />
+    <Compile Include="Models\RankingModels.cs" />
+    <Compile Include="Models\TagModels.cs" />
     <Compile Include="Models\TwitterModels.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -341,7 +344,6 @@
     <Content Include="Views\Admin\RoleCreate.cshtml" />
     <Content Include="Views\Admin\RoleIndex.cshtml" />
     <Content Include="Views\Admin\RoleAddToUser.cshtml" />
-    <Content Include="Views\Admin\UserManage.cshtml" />
     <Content Include="Views\Admin\UserEdit.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\BootstrapPagination.cshtml" />
     <Content Include="Views\Twitter\Twitter.cshtml" />
@@ -357,13 +359,23 @@
     <Content Include="Views\Match\FixtureLM.cshtml" />
     <Content Include="Views\Match\FixtureLE.cshtml" />
     <Content Include="Views\Match\FixtureSP.cshtml" />
-    <Content Include="Views\Bet\Bet.cshtml" />
+    <Content Include="Views\Odd\Odd.cshtml" />
     <Content Include="Views\Error\DatabaseError.cshtml" />
     <Content Include="Views\Error\AdminError.cshtml" />
     <Content Include="Views\Admin\MatchIndex.cshtml" />
     <Content Include="Views\Admin\MatchEdit.cshtml" />
     <Content Include="Views\Admin\TweetIndex.cshtml" />
     <Content Include="Views\Admin\TweetEdit.cshtml" />
+    <Content Include="Views\Admin\OddIndex.cshtml" />
+    <Content Include="Views\Admin\OddEdit.cshtml" />
+    <Content Include="Views\Admin\OddCreate.cshtml" />
+    <Content Include="Views\Admin\UserIndex.cshtml" />
+    <Content Include="Views\Match\UpdateTME.cshtml" />
+    <Content Include="Views\Match\UpdatePP.cshtml" />
+    <Content Include="Views\Match\UpdateSP.cshtml" />
+    <Content Include="Views\Match\UpdateLM.cshtml" />
+    <Content Include="Views\Match\UpdateLE.cshtml" />
+    <Content Include="Views\Odd\BetResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
