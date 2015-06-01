@@ -24,6 +24,7 @@
         <tbody>
             @foreach (var game in Model)
             {
+                string iscompleted = game.isCompleted? "tak" : "nie";
                 <tr>
                     <td>@game.date</td>
                     <td>@game.Competition</td>
@@ -31,7 +32,7 @@
                     <td>@game.Guest</td>
                     <td>@game.FTHostGoal</td>
                     <td>@game.FTGuestGoal</td>
-                    <td>@game.isCompleted</td>
+                    <td>@iscompleted</td>
                     <td>@Html.ActionLink("Edytuj", "MatchEdit", new { x = game.MatchID, page = Model.PageNumber })</td>
                     <td>@Html.ActionLink("Usuń", "MatchDelete", new { x = game.MatchID, page = Model.PageNumber })</td>
                 </tr>

@@ -16,21 +16,38 @@ namespace LechTyper.Controllers
     public class TwitterController : Controller
     {
         TwitterContext db = new TwitterContext();
+        RankingContext dbRank = new RankingContext();
+
+        public void UserAddtoRank(string uid)
+        {
+            var user_rank = dbRank.Ranks.ToList().Find(u => u.UserID == uid);
+            if (user_rank == null)
+            {
+                dbRank.Ranks.Add(new Rank(uid, 100, 0, 0, 0, 0, 0));
+                dbRank.SaveChanges();
+            }
+        }
         //
         // GET: /Twitter/
         public async Task<ActionResult> Twitter()
         {
-            var tweets = await RunClient();
-            if (tweets != null)
+            var twitts = await RunClient();
+            if (twitts != null)
             {
-                foreach (var x in tweets)
+                foreach (var x in twitts)
                 {
-                    Tweet tweetsData = db.Tweets.FirstOrDefault(u => u.post_id.ToLower() == x.post_id.ToLower());
+                    Twitt twittsData = db.Twitts.FirstOrDefault(u => u.post_id.ToLower() == x.post_id.ToLower());
                     try
                     {
-                        if (tweetsData == null)
+                        if (twittsData == null)
                         {
-                            db.Tweets.Add(x);
+                            UserAddtoRank(x.user_id);
+                            db.Twitts.Add(x);
+                            db.SaveChanges();
+                        }
+                        else if (TryUpdateModel(x))
+                        {
+
                             db.SaveChanges();
                         }
                     }
@@ -39,7 +56,7 @@ namespace LechTyper.Controllers
                         return RedirectToAction("DatabaseError", "Error");
                     }
                 }
-                return View(tweets);
+                return View(twitts);
             }
             else
             {
@@ -58,12 +75,12 @@ namespace LechTyper.Controllers
                 return false;
         }
 
-        async Task<List<Tweet>> RunClient()
+        async Task<List<Twitt>> RunClient()
         {
             string _address = "https://api.twitter.com/1.1/search/tweets.json?q=ltlecpog&count=100";
             HttpClient client = new HttpClient(new OAuthMessageHandler(new HttpClientHandler()));
             HttpResponseMessage response = await client.GetAsync(_address);
-            List<Tweet> tweets = new List<Tweet>();
+            List<Twitt> twitts = new List<Twitt>();
             long last = 0;
             string text = "";
             if (response.IsSuccessStatusCode)
@@ -75,7 +92,7 @@ namespace LechTyper.Controllers
                     {
                         text = Regex.Replace(text, @"@lechtyperdev\s*", "");
                         text = x["text"].ToString().Replace("-", ":");
-                        tweets.Add(new Tweet(x["created_at"].ToString(), x["id_str"].ToString(), text.ToLower(), x["user"]["id_str"].ToString(), x["user"]["name"].ToString(), x["user"]["screen_name"].ToString()));
+                        twitts.Add(new Twitt(x["created_at"].ToString(), x["id_str"].ToString(), text.ToLower(), x["user"]["id_str"].ToString(), x["user"]["name"].ToString(), x["user"]["screen_name"].ToString()));
                     }
                     last = long.Parse(x["id_str"].ToString()) - 1;
                 }
@@ -96,14 +113,14 @@ namespace LechTyper.Controllers
                                 if (TextValidate(x["text"].ToString()))
                                 {
                                     text = x["text"].ToString().Replace("@lechtyperdev", "");
-                                    tweets.Add(new Tweet(x["created_at"].ToString(), x["id_str"].ToString(), text.ToLower(), x["user"]["id_str"].ToString(), x["user"]["name"].ToString(), x["user"]["screen_name"].ToString()));
+                                    twitts.Add(new Twitt(x["created_at"].ToString(), x["id_str"].ToString(), text.ToLower(), x["user"]["id_str"].ToString(), x["user"]["name"].ToString(), x["user"]["screen_name"].ToString()));
                                 }
                                 last = long.Parse(x["id_str"].ToString()) - 1;
                             }
                         }
                     }
                 } while (true);
-                return tweets;
+                return twitts;
             }
             return null;
         }

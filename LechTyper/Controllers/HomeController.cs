@@ -10,22 +10,19 @@ namespace LechTyper.Controllers
     {
         public ActionResult Index()
         {
-            //ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
+            ViewBag.Title = "LechTyper";
             return View();
         }
 
         public ActionResult About()
         {
-            //ViewBag.Message = "Your app description page.";
-
+            ViewBag.Title = "Kontakt";
             return View();
         }
 
         public ActionResult Contact()
         {
-           // ViewBag.Message = "Your contact page.";
-
+            ViewBag.Title = "O mnie";
             return View();
         }
     }

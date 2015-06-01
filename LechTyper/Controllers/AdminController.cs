@@ -16,7 +16,7 @@ namespace LechTyper.Controllers
     {
         UsersContext dbUser = new UsersContext();
         GameContext dbGame = new GameContext();
-        TwitterContext dbTweet = new TwitterContext();
+        TwitterContext dbTwitt = new TwitterContext();
         OddContext dbOdd = new OddContext();
 
 
@@ -157,7 +157,7 @@ namespace LechTyper.Controllers
         public ActionResult UserIndex(int? page)
         {
             ViewBag.UserManage = "Zarządzanie użytkownikami";
-            var UsersList = dbUser.UserProfiles.ToList();
+            var UsersList = dbUser.UserProfiles.ToList().OrderBy(c => c.UserId);
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
             return View(UsersList.ToPagedList(currentPageIndex, 20));
         }
@@ -294,34 +294,34 @@ namespace LechTyper.Controllers
         }
         #endregion
 
-        #region TweetEdit
+        #region TwittEdit
         [Authorize(Roles = "admin")]
-        public ActionResult TweetIndex(int? page)
+        public ActionResult TwittIndex(int? page)
         {
             ViewBag.UserManage = "Zarządzanie typami";
-            var TweetsList = dbTweet.Tweets.ToList();
+            var TwittList = dbTwitt.Twitts.ToList().OrderBy(c => c.Twittid);
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
-            return View(TweetsList.ToPagedList(currentPageIndex, 20));
+            return View(TwittList.ToPagedList(currentPageIndex, 20));
         }
 
         [Authorize(Roles = "admin")]
-        public ActionResult TweetEdit()
+        public ActionResult TwittEdit()
         {
             int id = int.Parse(Request.QueryString["x"]);
             var page = Request.QueryString["page"];
-            var TweetsList = dbTweet.Tweets.ToList();
+            var TwittList = dbTwitt.Twitts.ToList();
             ViewBag.Page = page;
-            var tweet = TweetsList.Find(r => r.tweetid == id);
-            return View(tweet);
+            var Twitt = TwittList.Find(r => r.Twittid == id);
+            return View(Twitt);
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public ActionResult TweetEdit(string tweetid, string created_at, string post_id, string text, string user_id, string user_name, string user_nick)
+        public ActionResult TwittEdit(string Twittid, string created_at, string post_id, string text, string user_id, string user_name, string user_nick)
         {
-            var x = dbTweet.Tweets.ToList();
-            var up = x.Find(a => a.tweetid == int.Parse(tweetid));
-            up.tweetid = int.Parse(tweetid);
+            var x = dbTwitt.Twitts.ToList();
+            var up = x.Find(a => a.Twittid == int.Parse(Twittid));
+            up.Twittid = int.Parse(Twittid);
             up.created_at = created_at;
             up.post_id = post_id;
             up.user_id = user_id;
@@ -332,7 +332,7 @@ namespace LechTyper.Controllers
             {
                 try
                 {
-                    dbTweet.SaveChanges();
+                    dbTwitt.SaveChanges();
                 }
                 catch (Exception e)
                 {
@@ -340,21 +340,21 @@ namespace LechTyper.Controllers
                     return RedirectToAction("DatabaseError", "Error");
                 }
             }
-            return RedirectToAction("TweetIndex");
+            return RedirectToAction("TwittIndex");
         }
 
 
         [Authorize(Roles = "admin")]
-        public ActionResult TweetDelete()
+        public ActionResult TwittDelete()
         {
             var id = Request.QueryString["x"];
             var page = Request.QueryString["page"];
-            var TweetsList = dbTweet.Tweets.ToList();
-            var up = TweetsList.Find(a => a.tweetid == int.Parse(id));
+            var TwittList = dbTwitt.Twitts.ToList();
+            var up = TwittList.Find(a => a.Twittid == int.Parse(id));
             try
             {
-                dbTweet.Tweets.Remove(up);
-                dbTweet.SaveChanges();
+                dbTwitt.Twitts.Remove(up);
+                dbTwitt.SaveChanges();
             }
             catch (Exception e)
             {
@@ -362,7 +362,7 @@ namespace LechTyper.Controllers
                 return RedirectToAction("DatabaseError", "Error");
             }
 
-            return RedirectToAction("TweetIndex", new { page = page });
+            return RedirectToAction("TwittIndex", new { page = page });
         }
         #endregion
 
@@ -371,7 +371,7 @@ namespace LechTyper.Controllers
         public ActionResult OddIndex(int? page)
         {
             ViewBag.UserManage = "Zarządzanie kursami";
-            var OddsList = dbOdd.Odds.ToList();
+            var OddsList = dbOdd.Odds.ToList().OrderBy(c => c.OddID);
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
             return View(OddsList.ToPagedList(currentPageIndex, 20));
         }
@@ -383,8 +383,8 @@ namespace LechTyper.Controllers
             var page = Request.QueryString["page"];
             var OddsList = dbOdd.Odds.ToList();
             ViewBag.Page = page;
-            var tweet = OddsList.Find(r => r.OddID == id);
-            return View(tweet);
+            var Twitt = OddsList.Find(r => r.OddID == id);
+            return View(Twitt);
         }
 
         [HttpPost]

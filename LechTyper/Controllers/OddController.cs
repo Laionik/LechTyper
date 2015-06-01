@@ -49,13 +49,13 @@ namespace LechTyper.Controllers
             var TagsList = dbTag.Tags.ToList();
             var odd = dbOdd.Odds.ToList().Find(x => x.MatchID == TagsList[0].MatchID);
             var game = dbGame.GameData.ToList().Find(x => x.MatchID == TagsList[0].MatchID);
-            var BetsList = dbTwitt.Tweets.ToList();
+            var BetsList = dbTwitt.Twitts.ToList();
             string tag = "#" + TagsList[0].TagText;
             Regex tagrgx = new Regex(tag);
             string result = game.FTHostGoal + ":" + game.FTGuestGoal;
             int hda = (game.FTHostGoal > game.FTGuestGoal) ? 1 : (game.FTHostGoal == game.FTGuestGoal) ? 0 : 2;
-            List<Tweet> won = new List<Tweet>(); //exactly result
-            List<Tweet> won_hda = new List<Tweet>(); //homde/draw/away
+            List<Twitt> won = new List<Twitt>(); //exactly result
+            List<Twitt> won_hda = new List<Twitt>(); //homde/draw/away
             foreach (var bet in BetsList)
             {
                 int bet_hda = (bet.text[0] > bet.text[2]) ? 1 : (bet.text[0] > bet.text[2]) ? 0 : 2;
@@ -74,5 +74,6 @@ namespace LechTyper.Controllers
             ViewBag.hda = won_hda;
             return View(won);
         }
+
     }
 }

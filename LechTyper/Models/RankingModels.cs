@@ -23,7 +23,7 @@ namespace LechTyper.Models
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int RankID { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         [Display(Name = "Stan konta")]
         public double Balance { get; set; }
         [Display(Name = "Dokładne wyniki")]
@@ -37,7 +37,7 @@ namespace LechTyper.Models
         [Display(Name = "Liczba typów")]
         public int Played_number { get; set; }
         public Rank() { }
-        public Rank(int uid, double balance, int bet_ex, int gda, double prize, double bet_avg, int pl_number)
+        public Rank(string uid, double balance, int bet_ex, int gda, double prize, double bet_avg, int pl_number)
         {
             this.UserID = uid;
             this.Balance = balance;

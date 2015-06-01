@@ -1,4 +1,4 @@
-﻿@model IPagedList<LechTyper.Models.Tweet>
+﻿@model IPagedList<LechTyper.Models.Twitt>
 @{
     ViewBag.Title = "Zarządzaj typami";
 }
@@ -21,17 +21,17 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var tweet in Model)
+            @foreach (var twitt in Model)
             {
                 <tr>
-                    <td>@tweet.created_at</td>
-                    <td>@tweet.post_id</td>
-                    <td>@tweet.text</td>
-                    <td>@tweet.user_id</td>
-                    <td>@tweet.user_name</td>
-                    <td>@tweet.user_nick</td>
-                    <td>@Html.ActionLink("Edytuj", "TweetEdit", new { x = tweet.tweetid, page = Model.PageNumber })</td>
-                    <td>@Html.ActionLink("Usuń", "TweetDelete", new { x = tweet.tweetid, page = Model.PageNumber })</td>
+                    <td>@twitt.created_at</td>
+                    <td>@twitt.post_id</td>
+                    <td>@twitt.text</td>
+                    <td>@twitt.user_id</td>
+                    <td>@twitt.user_name</td>
+                    <td>@twitt.user_nick</td>
+                    <td>@Html.ActionLink("Edytuj", "TweetEdit", new { x = twitt.Twittid, page = Model.PageNumber })</td>
+                    <td>@Html.ActionLink("Usuń", "TweetDelete", new { x = twitt.Twittid, page = Model.PageNumber })</td>
                 </tr>
             }
         </tbody>

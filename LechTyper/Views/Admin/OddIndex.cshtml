@@ -1,0 +1,48 @@
+﻿@model IPagedList<LechTyper.Models.Odd>
+@{
+    ViewBag.Title = "Zarządzaj kursami";
+}
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+
+</hgroup>
+<section class="panel">
+    <p>
+        @Html.ActionLink("Panel admina", "Admin")
+    </p>
+    <p class="text-success">
+        @ViewBag.OddCreated
+    </p>
+        <table class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ID meczu</th>
+                    <th>1</th>
+                    <th>x</th>
+                    <th>2</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var odd in Model)
+                {
+                    <tr>
+                        <td>@odd.OddID</td>
+                        <td>@odd.MatchID</td>
+                        <td>@odd.odd_1</td>
+                        <td>@odd.odd_x</td>
+                        <td>@odd.odd_2</td>
+                        <td>@Html.ActionLink("Edytuj", "OddEdit", new { x = odd.OddID, page = Model.PageNumber })</td>
+                        <td>@Html.ActionLink("Usuń", "OddDelete", new { x = odd.OddID, page = Model.PageNumber })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="pager">
+            @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o => o
+            .DisplayTemplate("BootstrapPagination"))
+        </div>
+<p class="text-info">
+        @Html.ActionLink("Dodaj nowy kurs", "OddCreate", null, new { @class = "text-info" }).
+    </p>
+</section>
