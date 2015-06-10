@@ -6,7 +6,7 @@
             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
             {
                 @Html.AntiForgeryToken()
-                @Html.ActionLink("Wyloguj", "Index", new { onlick = "javascript:document.getElementById('logoutForm').submit();" });
+                  <a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a>
             }
         </li>
     </ul>

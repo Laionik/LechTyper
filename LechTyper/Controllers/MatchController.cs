@@ -104,18 +104,13 @@ namespace LechTyper.Controllers
                         db.GameData.Add(x);
                         db.SaveChanges();
                     }
-                    else
+                    else if (matchdata.isCompleted != x.isCompleted)
                     {
-                        try
-                        {
-                            UpdateModel(x);
-                            db.SaveChanges();
-                        }
-                        catch (Exception e)
-                        {
-                            //Zapisywanie do logów błędu [Database] e.message
-                            return RedirectToAction("DatabaseError", "Error");
-                        }
+                        matchdata.FTGuestGoal = x.FTGuestGoal;
+                        matchdata.FTHostGoal = x.FTHostGoal;
+                        matchdata.isCompleted = true;
+                        UpdateModel(matchdata);
+                        db.SaveChanges();
                     }
                 }
                 catch (Exception e)
@@ -155,16 +150,13 @@ namespace LechTyper.Controllers
                         db.GameData.Add(x);
                         db.SaveChanges();
                     }
-                    else if (TryUpdateModel(x))
+                    else if (matchdata.isCompleted != x.isCompleted)
                     {
-                        try
-                        {
-                            db.SaveChanges();
-                        }
-                        catch (Exception e)
-                        {
-                            return RedirectToAction("DatabaseError", "Error");
-                        }
+                        matchdata.FTGuestGoal = x.FTGuestGoal;
+                        matchdata.FTHostGoal = x.FTHostGoal;
+                        matchdata.isCompleted = true;
+                        UpdateModel(matchdata);
+                        db.SaveChanges();
                     }
                 }
                 catch (Exception e)
@@ -202,16 +194,13 @@ namespace LechTyper.Controllers
                         db.GameData.Add(x);
                         db.SaveChanges();
                     }
-                    else if (TryUpdateModel(x))
+                    else if (matchdata.isCompleted != x.isCompleted)
                     {
-                        try
-                        {
-                            db.SaveChanges();
-                        }
-                        catch (Exception e)
-                        {
-                            return RedirectToAction("DatabaseError", "Error");
-                        }
+                        matchdata.FTGuestGoal = x.FTGuestGoal;
+                        matchdata.FTHostGoal = x.FTHostGoal;
+                        matchdata.isCompleted = true;
+                        UpdateModel(matchdata);
+                        db.SaveChanges();
                     }
                 }
                 catch (Exception e)
@@ -249,16 +238,13 @@ namespace LechTyper.Controllers
                         db.GameData.Add(x);
                         db.SaveChanges();
                     }
-                    else if (TryUpdateModel(x))
+                    else if (matchdata.isCompleted != x.isCompleted)
                     {
-                        try
-                        {
-                            db.SaveChanges();
-                        }
-                        catch (Exception e)
-                        {
-                            return RedirectToAction("DatabaseError", "Error");
-                        }
+                        matchdata.FTGuestGoal = x.FTGuestGoal;
+                        matchdata.FTHostGoal = x.FTHostGoal;
+                        matchdata.isCompleted = true;
+                        UpdateModel(matchdata);
+                        db.SaveChanges();
                     }
                 }
                 catch (Exception e)
@@ -296,16 +282,13 @@ namespace LechTyper.Controllers
                         db.GameData.Add(x);
                         db.SaveChanges();
                     }
-                    else if (TryUpdateModel(x))
+                    else if (matchdata.isCompleted != x.isCompleted)
                     {
-                        try
-                        {
-                            db.SaveChanges();
-                        }
-                        catch (Exception e)
-                        {
-                            return RedirectToAction("DatabaseError", "Error");
-                        }
+                        matchdata.FTGuestGoal = x.FTGuestGoal;
+                        matchdata.FTHostGoal = x.FTHostGoal;
+                        matchdata.isCompleted = true;
+                        UpdateModel(matchdata);
+                        db.SaveChanges();
                     }
                 }
                 catch (Exception e)
