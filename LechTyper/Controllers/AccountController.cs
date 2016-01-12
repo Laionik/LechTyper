@@ -397,9 +397,9 @@ namespace LechTyper.Controllers
                 // Insert a new user into the database
                 using (UsersContext db = new UsersContext())
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                    var users = db.UserProfiles.Where(u => u.UserName.ToLower() == model.UserName.ToLower()).Count();
                     // Check if user already exists
-                    if (user == null)
+                    if ( users == 0)
                     {
                         // Insert name into the profile table
                         db.UserProfiles.Add(new UserProfile { UserName = model.UserName, UserMail = model.UserMail });

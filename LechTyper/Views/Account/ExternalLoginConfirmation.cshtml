@@ -1,25 +1,20 @@
-﻿@model LechTyper.Models.RegisterExternalLoginModel
-@{
-    ViewBag.Title = "Rejestracja";
-}
-
+﻿@using LechTyper.Resources
+@model LechTyper.Models.RegisterExternalLoginModel
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>@ResourceMain.Registration</h1>
 </hgroup>
-
 @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Utwórz konto lokalne</legend>
+        <legend>@ResourceMain.AccountLocalCreate</legend>
         <p>
-            Udało Ci się zweryfikować konto <strong>@ViewBag.ProviderDisplayName</strong>.
-            Proszę wpisz Twoją nazwę użytkownika poniżej i kliknij "Zaloguj" by zakończyć proces rejestracji.
+            @ResourceMain.VerificationSuccess @ResourceMain.Hello <strong>@ViewBag.ProviderDisplayName</strong>!
+            @ResourceMain.VerificationMessage
         </p>
         @Html.HiddenFor(m => m.ExternalLoginData)
-
         <table class="table table-striped table-hover" style="width:40%">
             <tr>
                 <td>@Html.LabelFor(m => m.UserName)</td>
@@ -29,23 +24,23 @@
                 </td>
             </tr>
             @{
-    if (ViewBag.ProviderDisplayName == "Twitter")
-    {
-        <tr>
-            <td>@Html.LabelFor(m => m.UserMail)</td>
-            <td>
-                @Html.TextBoxFor(m => m.UserMail)
-                @Html.ValidationMessageFor(m => m.UserMail)
-            </td>
-        </tr>
-    }
-    else
-    {
-        @Html.HiddenFor(m => m.UserMail)
-    }
+                if (ViewBag.ProviderDisplayName == "Twitter")
+                {
+                    <tr>
+                        <td>@Html.LabelFor(m => m.UserMail)</td>
+                        <td>
+                            @Html.TextBoxFor(m => m.UserMail)
+                            @Html.ValidationMessageFor(m => m.UserMail)
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @Html.HiddenFor(m => m.UserMail)
+                }
             }
         </table>
-        <input type="submit" class="btn btn-default" value="Zaloguj" />
+        <input type="submit" class="btn btn-default" value=@ResourceMain.LogIn />
     </fieldset>
 }
 @section Scripts {

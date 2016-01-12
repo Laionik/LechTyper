@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutMe" xml:space="preserve">
+    <value>O mnie</value>
+  </data>
+  <data name="AccountActivation" xml:space="preserve">
+    <value>Aktywacja konta</value>
+  </data>
+  <data name="AccountActivationMessage" xml:space="preserve">
+    <value>Do ukończenia rejestracji wymagane jest kliknięcie w link zawarty w wiadomości email wysłanej do Ciebie</value>
+  </data>
+  <data name="AccountAssociate" xml:space="preserve">
+    <value>Powiązane konta</value>
+  </data>
+  <data name="AccountAssociateDeleteWith" xml:space="preserve">
+    <value>Usuń powiązanie z kontem</value>
+  </data>
+  <data name="AccountLocalCreate" xml:space="preserve">
+    <value>Utwórz konto lokalne!</value>
+  </data>
+  <data name="AccountRetrive" xml:space="preserve">
+    <value>Odzyskaj konto</value>
+  </data>
+  <data name="ActivationError" xml:space="preserve">
+    <value>Błąd aktywacji!</value>
+  </data>
+  <data name="ActivationErrorMessage" xml:space="preserve">
+    <value>W Twojej wiadomości był błąd. Proszę spróbować jeszcze raz lub skontatkować się z administratorem.</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="AdminPanel" xml:space="preserve">
+    <value>Panel administracyjny</value>
+  </data>
+  <data name="AdminWelcome" xml:space="preserve">
+    <value>Co planujesz zepsuć?</value>
+  </data>
+  <data name="ChampionsLeague" xml:space="preserve">
+    <value>Liga Mistrzów</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Utworzony</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edytuj</value>
+  </data>
+  <data name="Ekstraklasa" xml:space="preserve">
+    <value>Ekstraklasa</value>
+  </data>
+  <data name="EuropaLeague" xml:space="preserve">
+    <value>Liga Europy</value>
+  </data>
+  <data name="ExternalLoginFailure" xml:space="preserve">
+    <value>Nieudane logowanie przy pomocy serwisu społecznościowego.</value>
+  </data>
+  <data name="Fixture" xml:space="preserve">
+    <value>Terminarz</value>
+  </data>
+  <data name="GoTop" xml:space="preserve">
+    <value>Do góry</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Cześć</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="LogFailure" xml:space="preserve">
+    <value>Błąd logowania!</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Zaloguj się</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Wyloguj</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>Strona Główna</value>
+  </data>
+  <data name="MatchCompetition" xml:space="preserve">
+    <value>Rozgrywki</value>
+  </data>
+  <data name="MatchEdit" xml:space="preserve">
+    <value>Edycja meczu</value>
+  </data>
+  <data name="MatchEditing" xml:space="preserve">
+    <value>Edytujesz mecz</value>
+  </data>
+  <data name="MatchGuest" xml:space="preserve">
+    <value>Gość</value>
+  </data>
+  <data name="MatchHome" xml:space="preserve">
+    <value>Gospodarz</value>
+  </data>
+  <data name="MatchManage" xml:space="preserve">
+    <value>Zarządzanie meczami</value>
+  </data>
+  <data name="MatchPlayed" xml:space="preserve">
+    <value>Rozegrany?</value>
+  </data>
+  <data name="MatchResult" xml:space="preserve">
+    <value>Wynik</value>
+  </data>
+  <data name="MatchVs" xml:space="preserve">
+    <value>vs</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="Nickname" xml:space="preserve">
+    <value>Nick</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nie</value>
+  </data>
+  <data name="PasswordChange" xml:space="preserve">
+    <value>Zmień hasło</value>
+  </data>
+  <data name="PasswordForgot" xml:space="preserve">
+    <value>Zapomniałeś hasła?</value>
+  </data>
+  <data name="PasswordReset" xml:space="preserve">
+    <value>Resetowanie hasła</value>
+  </data>
+  <data name="PasswordSet" xml:space="preserve">
+    <value>Ustaw hasło</value>
+  </data>
+  <data name="PaswordMessage" xml:space="preserve">
+    <value>Nie masz jeszcze ustawionego hasła. Dodaj je aby nie korzystać z zewnętrznego serwisu do logowania.</value>
+  </data>
+  <data name="PolishCup" xml:space="preserve">
+    <value>Puchar Polski</value>
+  </data>
+  <data name="PolishSupercup" xml:space="preserve">
+    <value>Superpuchar Polski</value>
+  </data>
+  <data name="PostEdit" xml:space="preserve">
+    <value>Edycja wpisu</value>
+  </data>
+  <data name="PostEditing" xml:space="preserve">
+    <value>Edytujesz wpis</value>
+  </data>
+  <data name="PostId" xml:space="preserve">
+    <value>Id postu</value>
+  </data>
+  <data name="Prediction" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="PredictionEdit" xml:space="preserve">
+    <value>Edycja typu</value>
+  </data>
+  <data name="PredictionManage" xml:space="preserve">
+    <value>Zarządzaj typami</value>
+  </data>
+  <data name="Predicts" xml:space="preserve">
+    <value>Typy</value>
+  </data>
+  <data name="Ranking" xml:space="preserve">
+    <value>Ranking</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Zarejestruj się</value>
+  </data>
+  <data name="RegisterMessage" xml:space="preserve">
+    <value>Zarejestruj się jeśli jeszcze nie masz konta.</value>
+  </data>
+  <data name="RegisterSocial" xml:space="preserve">
+    <value>Zarejestruj się przy pomocy Twojego konta społecznościowego</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Rejestracja</value>
+  </data>
+  <data name="RegistrationMessage" xml:space="preserve">
+    <value>Udało Ci się ukończyć proces rejestracji. Teraz możesz się zalogować!</value>
+  </data>
+  <data name="RegistrationSuccess" xml:space="preserve">
+    <value>Rejestracja zakończona!</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Zapamiętać?</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Resetuj</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>Wyniki</value>
+  </data>
+  <data name="Return" xml:space="preserve">
+    <value>Wróć</value>
+  </data>
+  <data name="RoleAddToUser" xml:space="preserve">
+    <value>Zarządzanie rolami użytkowników</value>
+  </data>
+  <data name="RoleAddUser" xml:space="preserve">
+    <value>Przypisz rolę użytkownikowi</value>
+  </data>
+  <data name="RoleCreate" xml:space="preserve">
+    <value>Utwórz nowe role</value>
+  </data>
+  <data name="RoleCreating" xml:space="preserve">
+    <value>Tworzenie roli</value>
+  </data>
+  <data name="RoleGet" xml:space="preserve">
+    <value>Pobierz role użytkownika</value>
+  </data>
+  <data name="RoleName" xml:space="preserve">
+    <value>Nazwa roli</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="RolesManage" xml:space="preserve">
+    <value>Zarządzanie rolami</value>
+  </data>
+  <data name="RoleUser" xml:space="preserve">
+    <value>Role użytkownika</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Zapisz</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SureDelete" xml:space="preserve">
+    <value>Jesteś pewny by usunąć?</value>
+  </data>
+  <data name="Twitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="UserAccountManage" xml:space="preserve">
+    <value>Zarządzanie kontem</value>
+  </data>
+  <data name="UserCurrentlyLoged" xml:space="preserve">
+    <value>Jesteś zalogowany jako</value>
+  </data>
+  <data name="UserEdit" xml:space="preserve">
+    <value>Edycja użytkownika</value>
+  </data>
+  <data name="UserEditing" xml:space="preserve">
+    <value>Edytujesz</value>
+  </data>
+  <data name="UserId" xml:space="preserve">
+    <value>Id użytkownika</value>
+  </data>
+  <data name="UserManage" xml:space="preserve">
+    <value>Zarządzaj użytkownikami</value>
+  </data>
+  <data name="VerificationMessage" xml:space="preserve">
+    <value>Proszę wpisz Twoją nazwę użytkownika poniżej i kliknij "Zaloguj" by zakończyć proces rejestracji.</value>
+  </data>
+  <data name="VerificationSuccess" xml:space="preserve">
+    <value>Udało Ci się zweryfikować konto!</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Tak</value>
+  </data>
+</root>

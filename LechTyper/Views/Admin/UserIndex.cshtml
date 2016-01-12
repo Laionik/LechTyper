@@ -1,20 +1,18 @@
-﻿@model IPagedList<LechTyper.Models.UserProfile>
-@{
-    ViewBag.Title = "Zarządzaj użytkownikami";
-}
+﻿@using LechTyper.Resources
+@model IPagedList<LechTyper.Models.UserProfile>
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>@ResourceMain.UserManage</h1>
 </hgroup>
 <section class="panel">
     <p>
-        @Html.ActionLink("Panel admina", "Admin")
+        @Html.ActionLink(@ResourceMain.AdminPanel, "Admin")
     </p>
     <table class="table table-striped table-hover ">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Login</th>
-                <th>Mail</th>
+                <th>@ResourceMain.Id</th>
+                <th>@ResourceMain.Name</th>
+                <th>@ResourceMain.Mail</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -26,8 +24,8 @@
                     <td>@userprofile.UserId</td>
                     <td>@userprofile.UserName</td>
                     <td>@userprofile.UserMail</td>
-                    <td>@Html.ActionLink("Edytuj", "UserEdit", new { x = userprofile.UserId, page = Model.PageNumber })</td>
-                    <td>@Html.ActionLink("Usuń", "UserDelete", new { x = userprofile.UserId, page = Model.PageNumber })</td>
+                    <td>@Html.ActionLink(@ResourceMain.Edit, "UserEdit", new { x = userprofile.UserId, page = Model.PageNumber })</td>
+                    <td>@Html.ActionLink(@ResourceMain.Delete, "UserDelete", new { x = userprofile.UserId, page = Model.PageNumber })</td>
                 </tr>
             }
         </tbody>

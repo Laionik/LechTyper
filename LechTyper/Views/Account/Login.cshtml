@@ -1,8 +1,7 @@
-﻿@model LechTyper.Models.LoginModel
+﻿@using LechTyper.Resources
+@model LechTyper.Models.LoginModel
 
-@{
-    ViewBag.Title = "Zaloguj się";
-}
+<h1>@ResourceMain.LogIn</h1>
 
 <section id="loginForm">
     @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
@@ -11,7 +10,6 @@
         @Html.ValidationSummary(true)
 
         <fieldset>
-            <legend>Zaloguj się</legend>
             <table class="table table-striped table-hover" style="width:40%">
                 <tr>
                     <td>@Html.LabelFor(m => m.UserName)</td>
@@ -28,17 +26,17 @@
                     </td>
                 </tr>
             </table>
-             @Html.CheckBoxFor(m => m.RememberMe) Zapamiętać?
+             @Html.CheckBoxFor(m => m.RememberMe) @ResourceMain.Remember
             <br />
-            <input class="btn btn-default" type="submit" value="Loguj" />
+            <input class="btn btn-default" type="submit" value=@ResourceMain.LogIn />
 
         </fieldset>
         <br />
     <p>
-            @Html.ActionLink("Zapomniałeś hasła?", "LostPassword", null, new { @class = "text-warning" })
+            @Html.ActionLink(@ResourceMain.PasswordForgot, "LostPassword", null, new { @class = "text-warning" })
         </p>
         <p class="text-info">
-            @Html.ActionLink("Zarejestruj", "Register", null, new { @class = "text-info" }) się jeśli jeszcze nie masz konta.
+            @Html.ActionLink( @ResourceMain.RegisterMessage, "Register", null, new { @class = "text-info" })
         </p>
     }
 </section>

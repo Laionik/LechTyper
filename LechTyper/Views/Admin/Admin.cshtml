@@ -1,22 +1,18 @@
-﻿@{
-    ViewBag.Title = "Panel administratora";
-}
-
+﻿@using LechTyper.Resources
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>@ResourceMain.AdminPanel</h1>
 </hgroup>
 
 <section class="panel">
     <p>
-        Cześć <b>@User.Identity.Name</b>. Co planujesz zepsuć?
+        @ResourceMain.Hello <b>@User.Identity.Name</b>. @ResourceMain.AdminWelcome
     </p>
     <ul id="list-group">
         @{
-            <li class="list-group-item">@Html.ActionLink("Zarządzaj użytkownikami", "UserIndex", "Admin")</li>
-            <li class="list-group-item">@Html.ActionLink("Zarządzaj rolami", "RoleIndex", "Admin")</li>
-            <li class="list-group-item">@Html.ActionLink("Zarządzaj meczami", "MatchIndex", "Admin")</li>
-            <li class="list-group-item">@Html.ActionLink("Zarządzaj typami", "TwittIndex", "Admin")</li>
-            <li class="list-group-item">@Html.ActionLink("Zarządzaj kursami", "OddIndex", "Admin")</li>
+            <li class="list-group-item">@Html.ActionLink(@ResourceMain.UserManage, "UserIndex", "Admin")</li>
+            <li class="list-group-item">@Html.ActionLink(@ResourceMain.RoleCreate, "RoleIndex", "Admin")</li>
+            <li class="list-group-item">@Html.ActionLink(@ResourceMain.MatchManage, "MatchIndex", "Admin")</li>
+            <li class="list-group-item">@Html.ActionLink(@ResourceMain.PredictionManage, "TwittIndex", "Admin")</li>
         }
     </ul>
 
@@ -24,10 +20,10 @@
         Aktualizuj listę meczów
     </p>
     <ul id="list-group">
-        <li class="list-group-item">@Html.ActionLink("T-Mobile Ekstraklasa", "UpdateTME", "Match")</li>
-        <li class ="list-group-item">@Html.ActionLink("Puchar Polski", "UpdatePP", "Match")</li>
-        <li class="list-group-item">@Html.ActionLink("Liga Mistrzów", "UpdateLM", "Match")</li>
-        <li class="list-group-item">@Html.ActionLink("Liga Europy", "UpdateLE", "Match")</li>
-        <li class="list-group-item">@Html.ActionLink("Superpuchar Polski", "UpdateSP", "Match")</li>
+        <li class="list-group-item">@Html.ActionLink(@ResourceMain.Ekstraklasa, "UpdateTME", "Match")</li>
+        <li class ="list-group-item">@Html.ActionLink(@ResourceMain.PolishCup, "UpdatePP", "Match")</li>
+        <li class="list-group-item">@Html.ActionLink(@ResourceMain.ChampionsLeague, "UpdateLM", "Match")</li>
+        <li class="list-group-item">@Html.ActionLink(@ResourceMain.EuropaLeague, "UpdateLE", "Match")</li>
+        <li class="list-group-item">@Html.ActionLink(@ResourceMain.PolishSupercup, "UpdateSP", "Match")</li>
     </ul>
 </section>

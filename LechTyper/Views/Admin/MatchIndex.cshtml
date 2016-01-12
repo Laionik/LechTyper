@@ -1,40 +1,36 @@
-﻿@model IPagedList<LechTyper.Models.Game>
-@{
-    ViewBag.Title = "Zarządzaj meczami";
-}
+﻿@using LechTyper.Resources
+@model IPagedList<LechTyper.Models.Game>
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>@ResourceMain.MatchManage</h1>
 </hgroup>
 <section class="panel">
     <p>
-        @Html.ActionLink("Panel admina", "Admin")
+        @Html.ActionLink(@ResourceMain.AdminPanel, "Admin")
     </p>
     <table class="table table-striped table-hover ">
         <thead>
             <tr>
-                <th>Data</th>
-                <th>Rozgrywki</th>
-                <th>Gospodarz</th>
-                <th>Gość</th>
-                <th>Bramki gosp</th>
-                <th>Bramki gość</th>
-                <th>Rozegrany?</th>
+                <th>@ResourceMain.Data</th>
+                <th>@ResourceMain.MatchCompetition</th>
+                <th>@ResourceMain.MatchHome</th>
+                <th>@ResourceMain.MatchGuest</th>
+                <th>@ResourceMain.MatchResult</th>
+                <th>@ResourceMain.MatchPlayed</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var game in Model)
             {
-                string iscompleted = game.isCompleted? "tak" : "nie";
+                string iscompleted = game.isCompleted? @ResourceMain.Yes : @ResourceMain.No;
                 <tr>
                     <td>@game.date</td>
                     <td>@game.Competition</td>
                     <td>@game.Host</td>
                     <td>@game.Guest</td>
-                    <td>@game.FTHostGoal</td>
-                    <td>@game.FTGuestGoal</td>
+                    <td>@game.FTHostGoal:@game.FTGuestGoal</td>
                     <td>@iscompleted</td>
-                    <td>@Html.ActionLink("Edytuj", "MatchEdit", new { x = game.MatchID, page = Model.PageNumber })</td>
-                    <td>@Html.ActionLink("Usuń", "MatchDelete", new { x = game.MatchID, page = Model.PageNumber })</td>
+                    <td>@Html.ActionLink(@ResourceMain.Edit, "MatchEdit", new { x = game.MatchID, page = Model.PageNumber })</td>
+                    <td>@Html.ActionLink(@ResourceMain.Delete, "MatchDelete", new { x = game.MatchID, page = Model.PageNumber })</td>
                 </tr>
             }
         </tbody>

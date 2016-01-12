@@ -1,21 +1,19 @@
-﻿@model LechTyper.Models.UserProfile
-@{
-    ViewBag.Title = "Edycja";
-}
+﻿@using LechTyper.Resources
+@model LechTyper.Models.UserProfile
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h3>Edytujesz @Model.UserName</h3>
+    <h1>@</h1>
+    <h3>@ResourceMain.UserEditing @Model.UserName</h3>
 </hgroup>
 <section class="panel">
     <p>
-        @Html.ActionLink("Powrót", "UserIndex")
+        @Html.ActionLink(@ResourceMain.Return, "UserIndex")
     </p>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
         <fieldset>
-            <legend>Zaloguj się</legend>
+            <legend>@ResourceMain.LogIn</legend>
             <table class="table table-striped table-hover" style="width:60%">
                 @Html.HiddenFor(m => m.UserId)
                 <tr>
@@ -28,7 +26,7 @@
                 </tr>
             </table>
             <br />
-            <input class="btn btn-default" type="submit" value="Zapisz" />
+            <input class="btn btn-default" type="submit" value=@ResourceMain.Save />
         </fieldset>
     }
 

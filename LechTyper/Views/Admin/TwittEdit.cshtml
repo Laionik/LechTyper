@@ -1,14 +1,12 @@
-﻿@model LechTyper.Models.Twitt
-@{
-    ViewBag.Title = "Edycja typów";
-}
+﻿@using LechTyper.Resources
+@model LechTyper.Models.Twitt
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h3>Edytujesz wpis @Model.user_nick</h3>
+    <h1>@ResourceMain.PostEdit</h1>
+    <h3>@ResourceMain.PostEditing @Model.user_nick</h3>
 </hgroup>
 <section class="panel">
     <p>
-        @Html.ActionLink("Panel admina", "Admin")
+        @Html.ActionLink(@ResourceMain.AdminPanel, "Admin")
     </p>
     @using (Html.BeginForm())
     {
@@ -16,9 +14,8 @@
         @Html.ValidationSummary(true)
 
         <fieldset>
-            <legend>Zaloguj się</legend>
             <table class="table table-striped table-hover" style="width:60%">
-                @Html.HiddenFor(m => m.tweetid)
+                @Html.HiddenFor(m => m.Twittid)
                 @Html.HiddenFor(m => m.post_id)
                 @Html.HiddenFor(m => m.user_id)
                 @Html.HiddenFor(m => m.user_name)
@@ -30,7 +27,7 @@
                 </tr>
             </table>
             <br />
-            <input class="btn btn-default" type="submit" value="Zapisz" />
+            <input class="btn btn-default" type="submit" value=@ResourceMain.Save />
         </fieldset>
     }
 </section>

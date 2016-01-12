@@ -1,13 +1,11 @@
-﻿@{
-    ViewBag.Title = "Role";
-}
+﻿@using LechTyper.Resources
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>@ResourceMain.Roles</h1>
 </hgroup>
 
 <section class="panel">
     <p>
-        @Html.ActionLink("Utwórz nowe role", "RoleCreate") | @Html.ActionLink("Zarządzanie rolami użytkownika", "RoleAddToUser") | @Html.ActionLink("Panel admina", "Admin")
+        @Html.ActionLink(@ResourceMain.RoleCreate, "RoleCreate") | @Html.ActionLink(@ResourceMain.RoleAddToUser, "RoleAddToUser") | @Html.ActionLink(@ResourceMain.AdminPanel, "Admin")
     </p>
     <table class="table table-striped table-hover ">
         @foreach (string s in Model)
@@ -18,7 +16,7 @@
 
                 </td>
                 <td>
-                    <span onclick="return confirm('Jeseś pewny by usunąć?')">
+                    <span onclick="return confirm(@ResourceMain.SureDelete)">
                         <a href="/Admin/RoleDelete?RoleName=@s" class="delLink"><img src="/images/deleteicon.png" alt="Usuń" class="imgBorder0" />  Usuń</a>
                     </span>
                 </td>

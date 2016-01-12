@@ -1,13 +1,11 @@
-﻿@{
-    ViewBag.Title = "Tworzenie roli";
-}
+﻿@using LechTyper.Resources
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>@ResourceMain.RoleCreating</h1>
 </hgroup>
 
 <section class="panel">
     <p>
-        @Html.ActionLink("Powrót", "Admin")
+        @Html.ActionLink(@ResourceMain.Return, "Admin")
     </p>
     <table class="table table-striped table-hover ">
 
@@ -17,7 +15,7 @@
             @Html.ValidationSummary(true)
     <tr>
         <td>
-            Nazwa roli:
+            <span>@ResourceMain.RoleName:</span>
         </td>
         <td>
             @Html.TextBox("RoleName")
@@ -26,7 +24,7 @@
 
         }
     </table>
-    <input type="submit" class="btn btn-default" value="Zapisz" />
+    <input type="submit" class="btn btn-default" value=@ResourceMain.Save />
 </section>>
 
 

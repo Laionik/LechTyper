@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using LechTyper.Resources
+<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="utf-8" />
@@ -13,7 +14,7 @@
         <div class="navbar navbar-inverse">
             <div class="container">
                 <div class="navbar-header">
-                    <a href='@Url.Action("Index", "Home")' class="navbar-brand">
+                    <a href='@Url.Action("Index", "Home")' class="navbar-brand" title="@ResourceMain.MainPage">
                         #LechTyper
                     </a>
                     <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -25,26 +26,26 @@
 
                 <div class="navbar-collapse collapse" id="navbar-main">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Twitter", "Twitter", "Twitter")</li>
-                        <li>@Html.ActionLink("Typy", "Odd", "Odd")</li>
-                        <li>@Html.ActionLink("Wyniki", "BetResult", "Odd")</li>
-                        <li>@Html.ActionLink("Ranking", "RankingTable", "Ranking")</li>
+                        <li>@Html.ActionLink(@ResourceMain.Twitter, "Twitter", "Twitter")</li>
+                        <li>@Html.ActionLink(@ResourceMain.Predicts, "Odd", "Odd")</li>
+                        <li>@Html.ActionLink(@ResourceMain.Results, "BetResult", "Odd")</li>
+                        <li>@Html.ActionLink(@ResourceMain.Ranking, "RankingTable", "Ranking")</li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Terminarz<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@ResourceMain.Fixture<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li>@Html.ActionLink("T-Mobile Ekstraklasa", "FixtureTME", "Match")</li>
-                                <li>@Html.ActionLink("Puchar Polski", "FixturePP", "Match")</li>
-                                <li>@Html.ActionLink("Superpuchar Polski", "FixtureSP", "Match")</li>
+                                <li>@Html.ActionLink(@ResourceMain.Ekstraklasa, "FixtureTME", "Match")</li>
+                                <li>@Html.ActionLink(@ResourceMain.PolishCup, "FixturePP", "Match")</li>
+                                <li>@Html.ActionLink(@ResourceMain.PolishSupercup, "FixtureSP", "Match")</li>
                                 <li class="divider"></li>
-                                <li>@Html.ActionLink("Liga Mistrzów", "FixtureLM", "Match")</li>
-                                <li>@Html.ActionLink("Liga Europy", "FixtureLE", "Match")</li>
+                                <li>@Html.ActionLink(@ResourceMain.ChampionsLeague, "FixtureLM", "Match")</li>
+                                <li>@Html.ActionLink(@ResourceMain.EuropaLeague, "FixtureLE", "Match")</li>
                             </ul>
                         </li>
                         @if (User.IsInRole("admin"))
                         {
-                            <li>@Html.ActionLink("Panel administracyjny", "Admin", "Admin")</li>
+                            <li>@Html.ActionLink(@ResourceMain.AdminPanel, "Admin", "Admin")</li>
                         }
-                    </ul>
+                    </ul>   
                     @Html.Partial("_LoginPartial")
                 </div>
             </div>
@@ -84,9 +85,9 @@
                     <p>
                         <ul class="list-inline">
                             <li>@DateTime.Now.Year - LechTyper</li>
-                            <li class="pull-right">@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                            <li class="pull-right">@Html.ActionLink("O mnie", "About", "Home")</li>
-                            <li class="pull-right">@Html.ActionLink("Strona główna", "Index", "Home")</li>
+                            <li class="pull-right">@Html.ActionLink(@ResourceMain.Contact, "Contact", "Home")</li>
+                            <li class="pull-right">@Html.ActionLink(@ResourceMain.AboutMe, "About", "Home")</li>
+                            <li class="pull-right">@Html.ActionLink(@ResourceMain.MainPage, "Index", "Home")</li>
                         </ul>
                     </p>
                 </div>

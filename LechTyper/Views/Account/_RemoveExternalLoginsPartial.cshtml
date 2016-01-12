@@ -1,8 +1,9 @@
-﻿@model ICollection<LechTyper.Models.ExternalLogin>
+﻿@using LechTyper.Resources
+@model ICollection<LechTyper.Models.ExternalLogin>
 
 @if (Model.Count > 0)
 {
-    <h3>Powiązane konta</h3>
+    <h3>@ResourceMain.AccountAssociate</h3>
     <table class="table table-striped table-hover" style="width:20%">
         <tbody>
             @foreach (LechTyper.Models.ExternalLogin externalLogin in Model)
@@ -18,7 +19,7 @@
                                 <div>
                                     @Html.Hidden("provider", externalLogin.Provider)
                                     @Html.Hidden("providerUserId", externalLogin.ProviderUserId)
-                                    <input type="submit" class="btn btn-default" value="Usuń" title="Usuń powiązanie z kontem @externalLogin.ProviderDisplayName" />
+                                    <input type="submit" class="btn btn-default" value="Usuń" title="@ResourceMain.AccountAssociateDeleteWith @externalLogin.ProviderDisplayName" />
                                 </div>
                             }
                         }

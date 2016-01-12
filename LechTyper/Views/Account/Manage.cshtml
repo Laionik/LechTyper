@@ -1,17 +1,11 @@
-﻿@model LechTyper.Models.LocalPasswordModel
-@{
-    ViewBag.Title = "Zarządzanie kontem";
-    ViewBag.Nick = User.Identity.Name;
-}
-
+﻿@using LechTyper.Resources
+@model LechTyper.Models.LocalPasswordModel
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>@ResourceMain.UserAccountManage</h1>
 </hgroup>
-
 <p class="message-success">@ViewBag.StatusMessage</p>
-
-<p>
-    Jesetś zalogowany jako <strong>@ViewBag.Nick</strong>.
+<div>
+    @ResourceMain.UserCurrentlyLoged <strong>@User.Identity.Name</strong>.
 
     @if (ViewBag.HasLocalPassword)
     {
@@ -31,3 +25,4 @@
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }
+</div>
