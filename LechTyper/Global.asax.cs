@@ -26,7 +26,6 @@ namespace LechTyper
             AuthConfig.RegisterAuth();
             Database.SetInitializer<GameContext>(null);
             Database.SetInitializer<TwitterContext>(null);
-            Database.SetInitializer<OddContext>(null);
             Database.SetInitializer<TagContext>(null);
         }
     }

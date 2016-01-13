@@ -10,27 +10,18 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using LechTyper.Models;
 using System.Text.RegularExpressions;
+using Tweetinvi;
 
 namespace LechTyper.Controllers
 {
     public class TwitterController : Controller
     {
         TwitterContext db = new TwitterContext();
-        RankingContext dbRank = new RankingContext();
-
-        public void UserAddtoRank(string uid)
-        {
-            var user_rank = dbRank.Ranks.ToList().Find(u => u.UserID == uid);
-            if (user_rank == null)
-            {
-                dbRank.Ranks.Add(new Rank(uid, 100, 0, 0, 0, 0, 0));
-                dbRank.SaveChanges();
-            }
-        }
         //
         // GET: /Twitter/
         public async Task<ActionResult> Twitter()
         {
+            Tweet.PublishTweet("Hello World!");
             var twitts = await RunClient();
             if (twitts != null)
             {
@@ -41,7 +32,6 @@ namespace LechTyper.Controllers
                     {
                         if (twittsData == null)
                         {
-                            UserAddtoRank(x.user_id);
                             db.Twitts.Add(x);
                             db.SaveChanges();
                         }
