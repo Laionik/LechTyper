@@ -1,4 +1,4 @@
-﻿@model List<LechTyper.Models.Tweet>
+﻿@model List<Tweetinvi.Core.Interfaces.ITweet>
 @{
     ViewBag.Title = "Twitter";
 }
@@ -17,20 +17,13 @@
                 @{
                     foreach (var x in Model)
                     {
-                        string link = "https://twitter.com/" + x.user_nick + "/status/" + x.post_id;
-                        <span style="white-space: pre-line"><a href="@link">@x.user_nick</a></span>
+                        //string link = "https://twitter.com/" + x.CreatedBy + "/status/" + x.post_id;
+                        @*<span style="white-space: pre-line"><a href="@link">@x.Text</a></span>*@
+                        <span style="white-space: pre-line">@x.Text</span>
                         <br />
                     }
                 }
             </p>
         </div>
-        @*<div class="col-lg-2">
-                        <h3>Inne tagi</h3>
-                        <ul>
-                            @{
-            <li><a href="instascore.somee.com">InstaScore</a></li>
-                            }
-                        </ul>
-                    </div>*@
     </div>
 </div>

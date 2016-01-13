@@ -20,15 +20,25 @@ namespace LechTyper
             //    clientSecret: "");
             
             OAuthWebSecurity.RegisterTwitterClient(
-                consumerKey: "EpfmvWrsmtncANw5Rfsn4xMQ3",
-                consumerSecret: "0gdIryMSHwVYMvyx8Jj1K0ncx71Apjep0JHOpSuBVfRw1owSMQ");
+                consumerKey: "pKx5DJEliHoCCCIUt1j9JEyMX",
+                consumerSecret: "NqQqYfQQ7e3ZhSRQxccaz66LUqXL5u5WvaYEJ4eg1a5U4i0vHC");
 
+
+            //Laionik
             //Consumer Key (API Key)	YU2hNYSeRoTP1MTLssEYvWOQ7
             //Consumer Secret (API Secret)	LAqWMb2FZiG8lNuLbSKBlfWiTYNcBGiYSNh5OPildizuZpkaC6
             //Access Token	860293476-g6vu3t9709eQfiHTjZ2sBTAjicpvwTkcV3d2wzzP
             //Access Token Secret	9zhTFHuZuclkVzVJ8gZdrqenWWLLIiQKx0pcjCQX69nWP
 
-            Auth.SetUserCredentials("YU2hNYSeRoTP1MTLssEYvWOQ7", "LAqWMb2FZiG8lNuLbSKBlfWiTYNcBGiYSNh5OPildizuZpkaC6", "860293476-g6vu3t9709eQfiHTjZ2sBTAjicpvwTkcV3d2wzzP", "9zhTFHuZuclkVzVJ8gZdrqenWWLLIiQKx0pcjCQX69nWP");
+
+
+            //LechTyperDevTest
+            //Consumer Key (API Key)	"pKx5DJEliHoCCCIUt1j9JEyMX"
+            //Consumer Secret (API Secret)	"NqQqYfQQ7e3ZhSRQxccaz66LUqXL5u5WvaYEJ4eg1a5U4i0vHC"
+            //Access Token	"3208367135-4TmOMDlJA1RswLiYMZyckgL3tPZfMbBbQhf2Kot"
+            //Access Token Secret	"vmlp7rpNhtcPtusTaRR9ko02vqFGLzmkOUrVdrwHdo8Rh"
+
+            Auth.SetUserCredentials("pKx5DJEliHoCCCIUt1j9JEyMX", "NqQqYfQQ7e3ZhSRQxccaz66LUqXL5u5WvaYEJ4eg1a5U4i0vHC", "3208367135-4TmOMDlJA1RswLiYMZyckgL3tPZfMbBbQhf2Kot", "vmlp7rpNhtcPtusTaRR9ko02vqFGLzmkOUrVdrwHdo8Rh");
 
             //OAuthWebSecurity.RegisterFacebookClient(
             //    appId: "346506492212997",
