@@ -297,7 +297,7 @@ namespace LechTyper.Controllers
         public ActionResult TwittIndex(int? page)
         {
             ViewBag.UserManage = "Zarządzanie typami";
-            var TwittList = dbTwitt.Twitts.ToList().OrderBy(c => c.Twittid);
+            var TwittList = dbTwitt.Tweets.ToList().OrderBy(c => c.Id);
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
             return View(TwittList.ToPagedList(currentPageIndex, 20));
         }
@@ -307,9 +307,9 @@ namespace LechTyper.Controllers
         {
             int id = int.Parse(Request.QueryString["x"]);
             var page = Request.QueryString["page"];
-            var TwittList = dbTwitt.Twitts.ToList();
+            var TwittList = dbTwitt.Tweets.ToList();
             ViewBag.Page = page;
-            var Twitt = TwittList.Find(r => r.Twittid == id);
+            var Twitt = TwittList.Find(r => r.Id == id);
             return View(Twitt);
         }
 
@@ -317,27 +317,27 @@ namespace LechTyper.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult TwittEdit(string Twittid, string created_at, string post_id, string text, string user_id, string user_name, string user_nick)
         {
-            var x = dbTwitt.Twitts.ToList();
-            var up = x.Find(a => a.Twittid == int.Parse(Twittid));
-            up.Twittid = int.Parse(Twittid);
-            up.created_at = created_at;
-            up.post_id = post_id;
-            up.user_id = user_id;
-            up.user_name = user_name;
-            up.user_nick = user_nick;
-            up.text = text;
-            if (TryUpdateModel(up))
-            {
-                try
-                {
-                    dbTwitt.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    ViewBag.ErrorMessage = e;
-                    return RedirectToAction("DatabaseError", "Error");
-                }
-            }
+            //var x = dbTwitt.Tweets.ToList();
+            //var up = x.Find(a => a.Twittid == int.Parse(Twittid));
+            //up.Twittid = int.Parse(Twittid);
+            //up.created_at = created_at;
+            //up.post_id = post_id;
+            //up.user_id = user_id;
+            //up.user_name = user_name;
+            //up.user_nick = user_nick;
+            //up.text = text;
+            //if (TryUpdateModel(up))
+            //{
+            //    try
+            //    {
+            //        dbTwitt.SaveChanges();
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        ViewBag.ErrorMessage = e;
+            //        return RedirectToAction("DatabaseError", "Error");
+            //    }
+            //}
             return RedirectToAction("TwittIndex");
         }
 
@@ -347,11 +347,11 @@ namespace LechTyper.Controllers
         {
             var id = Request.QueryString["x"];
             var page = Request.QueryString["page"];
-            var TwittList = dbTwitt.Twitts.ToList();
-            var up = TwittList.Find(a => a.Twittid == int.Parse(id));
+            var TwittList = dbTwitt.Tweets.ToList();
+            var up = TwittList.Find(a => a.Id == int.Parse(id));
             try
             {
-                dbTwitt.Twitts.Remove(up);
+                dbTwitt.Tweets.Remove(up);
                 dbTwitt.SaveChanges();
             }
             catch (Exception e)

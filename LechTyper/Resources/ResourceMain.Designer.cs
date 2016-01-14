@@ -198,9 +198,9 @@ namespace LechTyper.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Data.
         /// </summary>
-        public static string Data {
+        public static string Date {
             get {
-                return ResourceManager.GetString("Data", resourceCulture);
+                return ResourceManager.GetString("Date", resourceCulture);
             }
         }
         
@@ -772,11 +772,38 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to #LechTyper.
+        /// </summary>
+        public static string Tittle {
+            get {
+                return ResourceManager.GetString("Tittle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Twitter.
         /// </summary>
         public static string Twitter {
             get {
                 return ResourceManager.GetString("Twitter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chronione?.
+        /// </summary>
+        public static string TwitterAccountStatus {
+            get {
+                return ResourceManager.GetString("TwitterAccountStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wpis.
+        /// </summary>
+        public static string TwitterPost {
+            get {
+                return ResourceManager.GetString("TwitterPost", resourceCulture);
             }
         }
         

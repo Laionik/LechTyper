@@ -24,7 +24,7 @@ namespace LechTyper.Controllers
         public ActionResult RankingTable()
         {
             ViewBag.Title = "Tabela bukmacherska";
-            ViewBag.Twitter = dbTwitt.Twitts.ToList();
+            ViewBag.Twitter = dbTwitt.Tweets.ToList();
             return View(dbRank.Ranks.ToList().OrderByDescending(C=> C.Balance).ThenByDescending(C=> C.Played_number).ThenByDescending(C=> C.UserID));
         }
 

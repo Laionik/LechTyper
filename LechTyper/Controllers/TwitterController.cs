@@ -11,15 +11,51 @@ using System.Threading.Tasks;
 using LechTyper.Models;
 using System.Text.RegularExpressions;
 using Tweetinvi;
-
+using Tweetinvi.Core.Interfaces;
 namespace LechTyper.Controllers
 {
     public class TwitterController : Controller
     {
-        TwitterContext db = new TwitterContext();
-        //
-        // GET: /Twitter/
+        private UsersContext dbUser;
+        private TwitterContext dbTwitter;
+        public TwitterController()
+        {
+            dbUser = new UsersContext();
+            dbTwitter = new TwitterContext();
+        }        
 
+        // GET: /Twitter/
+        public ActionResult Twitter()
+        {
+            //Tweet.PublishTweet("Aktualizuję wpisy!");
+            var tweetList = Search.SearchTweets("lechtyperdev").GroupBy(t => t.CreatedBy.ScreenName).Select(g => g.First()).ToList();
+
+            var userList = GetUsersNames().Where(u => !(tweetList.Select(t => t.CreatedBy.ScreenName).Contains(u)));
+            foreach (var user in userList)
+            {
+                var tweetTemp = Timeline.GetUserTimeline(user).FirstOrDefault(t => t.Text.Contains("lechtyperdev"));
+                if (tweetTemp != null)
+                    tweetList.Add(tweetTemp);
+            }
+
+            foreach (var tweet in tweetList)
+            {
+                tweet.Text = TextCorrecting(tweet.Text);
+            }
+
+            var result = TwitterUpdate(tweetList);
+
+            return View(tweetList);
+        }
+
+
+        public List<string> GetUsersNames()
+        {
+            return dbUser.UserProfiles.Select(u => u.UserName).ToList();
+        }
+
+
+        // Sprawdź poprawnosć typu
         public bool TextValidate(string text)
         {
             Regex form1 = new Regex(@"^\s*[0-9]+-[0-9]+");
@@ -31,123 +67,47 @@ namespace LechTyper.Controllers
                 return false;
         }
 
+        //usuwanie zbędnych wiadomości z typu
         public string TextCorrecting(string text)
         {
             text = new Regex(@"@[a-zA-Z0-9_]*\s*").Replace(text, "");
             text = new Regex(@"(\s*[:]\s*)|(\s*[-]\s*)").Replace(text, ":");
+            text = new Regex(@"[#][a-zA-Z]*").Replace(text, "");
+            text = new Regex(@"[.,\-\/#!$%\^&\*;{}=\-_`~()]").Replace(text, " ");
+            text = new Regex(@"\s+").Replace(text, " ");
             return text;
         }
-        public ActionResult Twitter()
+
+        public bool TwitterUpdate(List<ITweet> tweetsList)
         {
-            Tweet.PublishTweet("Aktualizuję wpisy!");
-            //var Tweets = Search.SearchTweets("RutekWypierdalaj").ToList();
-            var Tweets = Search.SearchTweets("lechtyperdev").ToList();
-
-            foreach (var tweet in Tweets)
+            try
             {
-                tweet.Text = TextCorrecting(tweet.Text);
+                foreach (var tweet in tweetsList)
+                {
+                    var tweetTemp = tweet.Text.Split(' ');
+                    var tweetNew = dbTwitter.Tweets.FirstOrDefault(t => t.userName.ToLower() == tweet.CreatedBy.ScreenName.ToLower());
+                    if (tweetNew != null)
+                    {
+                        //update
+                        tweetNew.result = tweetTemp[0];
+                        tweetNew.resultHalf = tweetTemp[1];
+                        tweetNew.scorer = tweetTemp[2];
+                        TryUpdateModel(tweetNew);
+                    }
+                    else
+                    {
+                        //add
+                        tweetNew = new LechTyper.Models.Tweet(tweet.CreatedBy.ScreenName, tweetTemp[0], tweetTemp[1], tweetTemp[2], DateTime.Parse(tweet.CreatedAt.ToShortDateString()));
+                        dbTwitter.Tweets.Add(tweetNew);
+                    }
+                }
+                dbTwitter.SaveChanges();
+                return true;
             }
-
-
-            return View(Tweets);
+            catch
+            {
+                return false;
+            }
         }
-
-
-
-        //    public async Task<ActionResult> Twitter()
-        //    {
-        //        var twitts = await RunClient();
-        //        if (twitts != null)
-        //        {
-        //            foreach (var x in twitts)
-        //            {
-        //                Twitt twittsData = db.Twitts.FirstOrDefault(u => u.post_id.ToLower() == x.post_id.ToLower());
-        //                try
-        //                {
-        //                    if (twittsData == null)
-        //                    {
-        //                        db.Twitts.Add(x);
-        //                        db.SaveChanges();
-        //                    }
-        //                    else if (TryUpdateModel(x))
-        //                    {
-
-        //                        db.SaveChanges();
-        //                    }
-        //                }
-        //                catch (Exception e)
-        //                {
-        //                    return RedirectToAction("DatabaseError", "Error");
-        //                }
-        //            }
-        //            return View(twitts);
-        //        }
-        //        else
-        //        {
-        //            return RedirectToAction("Index", "Home");
-        //        }
-        //    }
-
-        //    public bool TextValidate(string text)
-        //    {
-        //        Regex form1 = new Regex(@"^\s*[0-9]+-[0-9]+");
-        //        Regex form2 = new Regex(@"^\s*[0-9]+:[0-9]+");
-        //        text = Regex.Replace(text, @"@lechtyperdev\s*", "");
-        //        if (form1.IsMatch(text) || form2.IsMatch(text))
-        //            return true;
-        //        else
-        //            return false;
-        //    }
-
-        //    async Task<List<Twitt>> RunClient()
-        //    {
-        //        string _address = "https://api.twitter.com/1.1/search/tweets.json?q=ltlecpog&count=100";
-        //        HttpClient client = new HttpClient(new OAuthMessageHandler(new HttpClientHandler()));
-        //        HttpResponseMessage response = await client.GetAsync(_address);
-        //        List<Twitt> twitts = new List<Twitt>();
-        //        long last = 0;
-        //        string text = "";
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            JToken statuses = await response.Content.ReadAsAsync<JToken>();
-        //            foreach (var x in statuses["statuses"])
-        //            {
-        //                if (TextValidate(x["text"].ToString()))
-        //                {
-        //                    text = Regex.Replace(text, @"@lechtyperdev\s*", "");
-        //                    text = x["text"].ToString().Replace("-", ":");
-        //                    twitts.Add(new Twitt(x["created_at"].ToString(), x["id_str"].ToString(), text.ToLower(), x["user"]["id_str"].ToString(), x["user"]["name"].ToString(), x["user"]["screen_name"].ToString()));
-        //                }
-        //                last = long.Parse(x["id_str"].ToString()) - 1;
-        //            }
-
-        //            do
-        //            {
-        //                _address = "https://api.twitter.com/1.1/search/tweets.json?q=ltlecpog&count=100&max_id=" + last.ToString();
-        //                response = await client.GetAsync(_address);
-        //                if (response.IsSuccessStatusCode)
-        //                {
-        //                    statuses = await response.Content.ReadAsAsync<JToken>();
-        //                    if (statuses["statuses"].Count() == 0)
-        //                        break;
-        //                    else
-        //                    {
-        //                        foreach (var x in statuses["statuses"])
-        //                        {
-        //                            if (TextValidate(x["text"].ToString()))
-        //                            {
-        //                                text = x["text"].ToString().Replace("@lechtyperdev", "");
-        //                                twitts.Add(new Twitt(x["created_at"].ToString(), x["id_str"].ToString(), text.ToLower(), x["user"]["id_str"].ToString(), x["user"]["name"].ToString(), x["user"]["screen_name"].ToString()));
-        //                            }
-        //                            last = long.Parse(x["id_str"].ToString()) - 1;
-        //                        }
-        //                    }
-        //                }
-        //            } while (true);
-        //            return twitts;
-        //        }
-        //        return null;
-        //    }
-        //}
     }
 }

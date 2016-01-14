@@ -162,7 +162,7 @@
   <data name="Created" xml:space="preserve">
     <value>Utworzony</value>
   </data>
-  <data name="Data" xml:space="preserve">
+  <data name="Date" xml:space="preserve">
     <value>Data</value>
   </data>
   <data name="Delete" xml:space="preserve">
@@ -383,5 +383,14 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Tak</value>
+  </data>
+  <data name="Tittle" xml:space="preserve">
+    <value>#LechTyper</value>
+  </data>
+  <data name="TwitterAccountStatus" xml:space="preserve">
+    <value>Chronione?</value>
+  </data>
+  <data name="TwitterPost" xml:space="preserve">
+    <value>Wpis</value>
   </data>
 </root>
