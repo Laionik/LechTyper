@@ -1,5 +1,5 @@
 ﻿@using LechTyper.Resources
-@model IPagedList<LechTyper.Models.Twitt>
+@model IPagedList<LechTyper.Models.Tweet>
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
 </hgroup>
@@ -10,26 +10,24 @@
     <table class="table table-striped table-hover ">
         <thead>
             <tr>
-                <th>@ResourceMain.Created</th>
-                <th>@ResourceMain.PostId</th>
-                <th>@ResourceMain.Prediction</th>
-                <th>@ResourceMain.UserId</th>
+                <th>@ResourceMain.Date</th>
                 <th>@ResourceMain.Name</th>
-                <th>@ResourceMain.Nickname</th>
+                <th>@ResourceMain.MatchResult</th>
+                <th>@ResourceMain.MatchHalf</th>
+                <th>@ResourceMain.MatchScorer</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var twitt in Model)
+            @foreach (var tweet in Model)
             {
                 <tr>
-                    <td>@twitt.created_at</td>
-                    <td>@twitt.post_id</td>
-                    <td>@twitt.text</td>
-                    <td>@twitt.user_id</td>
-                    <td>@twitt.user_name</td>
-                    <td>@twitt.user_nick</td>
-                    <td>@Html.ActionLink(@ResourceMain.Edit, "TweetEdit", new { x = twitt.Twittid, page = Model.PageNumber })</td>
-                    <td>@Html.ActionLink(@ResourceMain.Delete, "TweetDelete", new { x = twitt.Twittid, page = Model.PageNumber })</td>
+                    <td>@tweet.postDate</td>
+                    <td>@tweet.userName</td>
+                    <td>@tweet.result</td>
+                    <td>@tweet.resultHalf</td>
+                    <td>@tweet.scorer</td>
+                    <td>@Html.ActionLink(@ResourceMain.Edit, "TweetEdit", new { x = tweet.Id, page = Model.PageNumber })</td>
+                    <td>@Html.ActionLink(@ResourceMain.Delete, "TweetDelete", new { x = tweet.Id, page = Model.PageNumber })</td>
                 </tr>
             }
         </tbody>

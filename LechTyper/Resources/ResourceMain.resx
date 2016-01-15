@@ -387,10 +387,13 @@
   <data name="Tittle" xml:space="preserve">
     <value>#LechTyper</value>
   </data>
-  <data name="TwitterAccountStatus" xml:space="preserve">
-    <value>Chronione?</value>
-  </data>
   <data name="TwitterPost" xml:space="preserve">
     <value>Wpis</value>
+  </data>
+  <data name="MatchHalf" xml:space="preserve">
+    <value>Wynik do przerwy</value>
+  </data>
+  <data name="MatchScorer" xml:space="preserve">
+    <value>Zdobywca bramki</value>
   </data>
 </root>

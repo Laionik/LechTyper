@@ -367,6 +367,15 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wynik do przerwy.
+        /// </summary>
+        public static string MatchHalf {
+            get {
+                return ResourceManager.GetString("MatchHalf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gospodarz.
         /// </summary>
         public static string MatchHome {
@@ -399,6 +408,15 @@ namespace LechTyper.Resources {
         public static string MatchResult {
             get {
                 return ResourceManager.GetString("MatchResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zdobywca bramki.
+        /// </summary>
+        public static string MatchScorer {
+            get {
+                return ResourceManager.GetString("MatchScorer", resourceCulture);
             }
         }
         
@@ -786,15 +804,6 @@ namespace LechTyper.Resources {
         public static string Twitter {
             get {
                 return ResourceManager.GetString("Twitter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Chronione?.
-        /// </summary>
-        public static string TwitterAccountStatus {
-            get {
-                return ResourceManager.GetString("TwitterAccountStatus", resourceCulture);
             }
         }
         

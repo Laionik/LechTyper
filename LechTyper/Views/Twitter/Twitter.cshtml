@@ -1,5 +1,5 @@
 ﻿@using LechTyper.Resources
-@model List<Tweetinvi.Core.Interfaces.ITweet>
+@model List<LechTyper.Models.Tweet>
 <div class="page-header">
     <div class="row">
         <div class="col-lg-12">
@@ -18,31 +18,23 @@
                         <thead>
                             <tr>
                                 <th>@ResourceMain.Date</th>
+                                <th>@ResourceMain.PostId</th>
                                 <th>@ResourceMain.Name</th>
-                                <th>@ResourceMain.TwitterPost</th>
-                                <th>@ResourceMain.TwitterAccountStatus</th>
-                                <th></th>
-                                <th></th>
+                                <th>@ResourceMain.MatchResult</th>
+                                <th>@ResourceMain.MatchHalf</th>
+                                <th>@ResourceMain.MatchScorer</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var tweet in Model)
                             {
                                 <tr>
-                                    <td>@tweet.CreatedAt</td>
-                                    <td>@tweet.CreatedBy.ScreenName</td>
-                                    <td>@tweet.Text</td>
-                                    @if (tweet.CreatedBy.Protected)
-                                    {
-                                        <td class="yes">Tak</td>
-                                    }
-                                    else
-                                    {
-                                        <td class="no">Nie</td>
-                                    }
-
-                                    @*<td>@Html.ActionLink(@ResourceMain.Edit, "UserEdit", new { x = userprofile.UserId, page = Model.PageNumber })</td>
-                                        <td>@Html.ActionLink(@ResourceMain.Delete, "UserDelete", new { x = userprofile.UserId, page = Model.PageNumber })</td>*@
+                                    <td>@tweet.postDate.ToShortDateString()</td>
+                                    <td>@tweet.tweetId</td>
+                                    <td>@tweet.userName</td>
+                                    <td>@tweet.result</td>
+                                    <td>@tweet.resultHalf</td>
+                                    <td>@tweet.scorer</td>
                                 </tr>
                             }
                         </tbody>

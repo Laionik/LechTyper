@@ -24,6 +24,8 @@ namespace LechTyper.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         [Column("Id")]
         public int Id { get; set; }
+        [Column("TweetId")]
+        public string tweetId { get; set; }
         [Column("UserName")]
         public string userName { get; set; }
         [Column("Result")]
@@ -36,13 +38,14 @@ namespace LechTyper.Models
         public DateTime postDate { get; set; }
 
         public Tweet() { }
-        public Tweet(string userName, string result, string resultHalf, string scorer, DateTime postDate)
+        public Tweet(string tweetId, string userName, string result, string resultHalf, string scorer, DateTime postDate)
         {
+            this.tweetId = tweetId;
             this.userName = userName;
             this.result = result;
             this.resultHalf = resultHalf;
             this.scorer = scorer;
-            this.postDate = postDate;
+            this.postDate = DateTime.Parse(postDate.ToShortDateString());
         }
     }
 }
