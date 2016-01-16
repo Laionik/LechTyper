@@ -1,0 +1,54 @@
+﻿@model LechTyper.Models.Fixture
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Fixture</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.matchDay)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.matchDay)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.homeId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.homeId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.guestId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.guestId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.homeGoal)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.homeGoal)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.guestGoal)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.guestGoal)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

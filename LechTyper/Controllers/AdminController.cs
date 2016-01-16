@@ -188,7 +188,7 @@ namespace LechTyper.Controllers
                 catch (Exception e)
                 {
                     ViewBag.ErrorMessage = e;
-                    return RedirectToAction("DatabaseError", "Error");
+                    return RedirectToAction("DatabaseError", "Error", e.Message);
                 }
             }
             return RedirectToAction("UserIndex");
@@ -212,7 +212,7 @@ namespace LechTyper.Controllers
             catch (Exception e)
             {
                 ViewBag.ErrorMessage = e;
-                return RedirectToAction("DatabaseError", "Error");
+                return RedirectToAction("DatabaseError", "Error", e.Message);
             }
 
             return RedirectToAction("UserIndex", new { page = page });
@@ -263,7 +263,7 @@ namespace LechTyper.Controllers
                 catch (Exception e)
                 {
                     ViewBag.ErrorMessage = e;
-                    return RedirectToAction("DatabaseError", "Error");
+                    return RedirectToAction("DatabaseError", "Error", e.Message);
                 }
             }
             return RedirectToAction("MatchIndex");
@@ -285,7 +285,7 @@ namespace LechTyper.Controllers
             catch (Exception e)
             {
                 ViewBag.ErrorMessage = e;
-                return RedirectToAction("DatabaseError", "Error");
+                return RedirectToAction("DatabaseError", "Error", e.Message);
             }
 
             return RedirectToAction("MatchIndex", new { page = page });
@@ -335,7 +335,7 @@ namespace LechTyper.Controllers
             //    catch (Exception e)
             //    {
             //        ViewBag.ErrorMessage = e;
-            //        return RedirectToAction("DatabaseError", "Error");
+            //        return RedirectToAction("DatabaseError", "Error", e.Message);
             //    }
             //}
             return RedirectToAction("TwittIndex");
@@ -357,7 +357,7 @@ namespace LechTyper.Controllers
             catch (Exception e)
             {
                 ViewBag.ErrorMessage = e;
-                return RedirectToAction("DatabaseError", "Error");
+                return RedirectToAction("DatabaseError", "Error", e.Message);
             }
 
             return RedirectToAction("TwittIndex", new { page = page });

@@ -39,6 +39,8 @@
                                 <li>@Html.ActionLink(@ResourceMain.EuropaLeague, "FixtureLE", "Match")</li>
                             </ul>
                         </li>
+                        <li>@Html.ActionLink("Test - AwansSpadek", "LeaguePromotions", "League")</li>
+
                         @if (User.IsInRole("admin"))
                         {
                             <li>@Html.ActionLink(@ResourceMain.AdminPanel, "Admin", "Admin")</li>

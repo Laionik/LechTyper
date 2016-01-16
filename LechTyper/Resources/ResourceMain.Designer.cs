@@ -214,6 +214,15 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Liga.
+        /// </summary>
+        public static string Division {
+            get {
+                return ResourceManager.GetString("Division", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edytuj.
         /// </summary>
         public static string Edit {
@@ -228,6 +237,15 @@ namespace LechTyper.Resources {
         public static string Ekstraklasa {
             get {
                 return ResourceManager.GetString("Ekstraklasa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Błąd.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
@@ -282,6 +300,24 @@ namespace LechTyper.Resources {
         public static string Id {
             get {
                 return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Awanse i spadki.
+        /// </summary>
+        public static string LeaguePromotions {
+            get {
+                return ResourceManager.GetString("LeaguePromotions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aktualizacja składów lig.
+        /// </summary>
+        public static string LeagueUserUpdate {
+            get {
+                return ResourceManager.GetString("LeagueUserUpdate", resourceCulture);
             }
         }
         
@@ -813,6 +849,15 @@ namespace LechTyper.Resources {
         public static string TwitterPost {
             get {
                 return ResourceManager.GetString("TwitterPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aktualizacje.
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
             }
         }
         

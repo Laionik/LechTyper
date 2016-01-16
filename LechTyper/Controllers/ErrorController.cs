@@ -16,9 +16,9 @@ namespace LechTyper.Controllers
         }
 
         // GET: /DatabaseError/
-        public ActionResult DatabaseError()
+        public ActionResult DatabaseError(string errorMessage)
         {
-            return View();
+            return View(errorMessage);
         }
 
     }

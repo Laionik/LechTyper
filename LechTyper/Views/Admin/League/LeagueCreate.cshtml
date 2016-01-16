@@ -1,0 +1,100 @@
+﻿@model LechTyper.Models.League
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>League</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.userId)
+            @Html.ValidationMessageFor(model => model.userId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.points)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.points)
+            @Html.ValidationMessageFor(model => model.points)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.matches)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.matches)
+            @Html.ValidationMessageFor(model => model.matches)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.goalScored)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.goalScored)
+            @Html.ValidationMessageFor(model => model.goalScored)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.goalConceded)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.goalConceded)
+            @Html.ValidationMessageFor(model => model.goalConceded)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.win)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.win)
+            @Html.ValidationMessageFor(model => model.win)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.draw)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.draw)
+            @Html.ValidationMessageFor(model => model.draw)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.lose)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.lose)
+            @Html.ValidationMessageFor(model => model.lose)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.division)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.division)
+            @Html.ValidationMessageFor(model => model.division)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

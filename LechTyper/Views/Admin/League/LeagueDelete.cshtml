@@ -1,0 +1,82 @@
+﻿@model LechTyper.Models.League
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>League</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.userId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.userId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.points)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.points)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.matches)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.matches)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.goalScored)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.goalScored)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.goalConceded)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.goalConceded)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.win)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.win)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.draw)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.draw)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.lose)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.lose)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.division)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.division)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<LechTyper.Models.League>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.userId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.points)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.matches)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.goalScored)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.goalConceded)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.win)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.draw)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lose)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.division)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.userId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.points)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.matches)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.goalScored)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.goalConceded)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.win)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.draw)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lose)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.division)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

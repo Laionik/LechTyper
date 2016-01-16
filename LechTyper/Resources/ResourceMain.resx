@@ -396,4 +396,19 @@
   <data name="MatchScorer" xml:space="preserve">
     <value>Zdobywca bramki</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Błąd</value>
+  </data>
+  <data name="Division" xml:space="preserve">
+    <value>Liga</value>
+  </data>
+  <data name="LeagueUserUpdate" xml:space="preserve">
+    <value>Aktualizacja składów lig</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Aktualizacje</value>
+  </data>
+  <data name="LeaguePromotions" xml:space="preserve">
+    <value>Awanse i spadki</value>
+  </data>
 </root>

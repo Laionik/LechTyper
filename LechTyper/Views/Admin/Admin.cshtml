@@ -12,12 +12,12 @@
             <li class="list-group-item">@Html.ActionLink(@ResourceMain.UserManage, "UserIndex", "Admin")</li>
             <li class="list-group-item">@Html.ActionLink(@ResourceMain.RoleCreate, "RoleIndex", "Admin")</li>
             <li class="list-group-item">@Html.ActionLink(@ResourceMain.MatchManage, "MatchIndex", "Admin")</li>
-            <li class="list-group-item">@Html.ActionLink(@ResourceMain.PredictionManage, "TwittIndex", "Admin")</li>
+            <li class="list-group-item">@Html.ActionLink(@ResourceMain.PredictionManage, "TwittIndex", "Admin")</li>       
         }
     </ul>
 
     <p>
-        Aktualizuj listę meczów
+        @ResourceMain.Update
     </p>
     <ul id="list-group">
         <li class="list-group-item">@Html.ActionLink(@ResourceMain.Ekstraklasa, "UpdateTME", "Match")</li>
@@ -25,5 +25,6 @@
         <li class="list-group-item">@Html.ActionLink(@ResourceMain.ChampionsLeague, "UpdateLM", "Match")</li>
         <li class="list-group-item">@Html.ActionLink(@ResourceMain.EuropaLeague, "UpdateLE", "Match")</li>
         <li class="list-group-item">@Html.ActionLink(@ResourceMain.PolishSupercup, "UpdateSP", "Match")</li>
+        <li class="list-group-item">@Html.ActionLink(@ResourceMain.LeagueUserUpdate, "LeagueAddUsers", "League")</li>
     </ul>
 </section>

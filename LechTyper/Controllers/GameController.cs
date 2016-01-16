@@ -18,7 +18,7 @@ using System.Text.RegularExpressions;
 
 namespace LechTyper.Controllers
 {
-    public class MatchController : Controller
+    public class GameController : Controller
     {
         GameContext db = new GameContext();
 
@@ -93,8 +93,8 @@ namespace LechTyper.Controllers
             var trTags = from x in temp.SelectNodes("//tr[@align='left']/td[@valign='top']")
                          where x != null
                          select x.InnerText;
-            List<Game> fixture = gamesParse(trTags.ToList(), "Ekstraklasa");
-            foreach (var x in fixture)
+            List<Game> Game = gamesParse(trTags.ToList(), "Ekstraklasa");
+            foreach (var x in Game)
             {
                 Game matchdata = db.GameData.FirstOrDefault(u => u.date.ToLower() == x.date.ToLower());
                 try
@@ -115,10 +115,10 @@ namespace LechTyper.Controllers
                 }
                 catch (Exception e)
                 {
-                    return RedirectToAction("DatabaseError", "Error");
+                    return RedirectToAction("DatabaseError", "Error", e.Message);
                 }
             }
-            return View(fixture);
+            return View(Game);
         }
 
         // GET: /UpdatePP/
@@ -139,8 +139,8 @@ namespace LechTyper.Controllers
             var trTags = from x in temp.SelectNodes("//tr[@align='left']/td[@valign='top']")
                          where x != null
                          select x.InnerText;
-            List<Game> fixture = gamesParse(trTags.ToList(), "Puchar Polski");
-            foreach (var x in fixture)
+            List<Game> Game = gamesParse(trTags.ToList(), "Puchar Polski");
+            foreach (var x in Game)
             {
                 Game matchdata = db.GameData.FirstOrDefault(u => u.date.ToLower() == x.date.ToLower());
                 try
@@ -161,10 +161,10 @@ namespace LechTyper.Controllers
                 }
                 catch (Exception e)
                 {
-                    return RedirectToAction("DatabaseError", "Error");
+                    return RedirectToAction("DatabaseError", "Error", e.Message);
                 }
             }
-            return View(fixture);
+            return View(Game);
         }
 
         // GET: /UpdateSP/
@@ -183,8 +183,8 @@ namespace LechTyper.Controllers
             var trTags = from x in temp.SelectNodes("//tr[@align='left']/td[@valign='top']")
                          where x != null
                          select x.InnerText;
-            List<Game> fixture = gamesParse(trTags.ToList(), "Superpuchar");
-            foreach (var x in fixture)
+            List<Game> Game = gamesParse(trTags.ToList(), "Superpuchar");
+            foreach (var x in Game)
             {
                 Game matchdata = db.GameData.FirstOrDefault(u => u.date.ToLower() == x.date.ToLower());
                 try
@@ -205,10 +205,10 @@ namespace LechTyper.Controllers
                 }
                 catch (Exception e)
                 {
-                    return RedirectToAction("DatabaseError", "Error");
+                    return RedirectToAction("DatabaseError", "Error", e.Message);
                 }
             }
-            return View(fixture);
+            return View(Game);
         }
 
         // GET: /UpdateLM/
@@ -227,8 +227,8 @@ namespace LechTyper.Controllers
             var trTags = from x in temp.SelectNodes("//tr[@align='left']/td[@valign='top']")
                          where x != null
                          select x.InnerText;
-            List<Game> fixture = gamesParseINT(trTags.ToList(), "Liga Mistrzów");
-            foreach (var x in fixture)
+            List<Game> Game = gamesParseINT(trTags.ToList(), "Liga Mistrzów");
+            foreach (var x in Game)
             {
                 Game matchdata = db.GameData.FirstOrDefault(u => u.date.ToLower() == x.date.ToLower());
                 try
@@ -249,10 +249,10 @@ namespace LechTyper.Controllers
                 }
                 catch (Exception e)
                 {
-                    return RedirectToAction("DatabaseError", "Error");
+                    return RedirectToAction("DatabaseError", "Error", e.Message);
                 }
             }
-            return View(fixture);
+            return View(Game);
         }
 
         // GET: /UpdateLE/
@@ -271,8 +271,8 @@ namespace LechTyper.Controllers
             var trTags = from x in temp.SelectNodes("//tr[@align='left']/td[@valign='top']")
                          where x != null
                          select x.InnerText;
-            List<Game> fixture = gamesParseINT(trTags.ToList(), "Liga Europy");
-            foreach (var x in fixture)
+            List<Game> Game = gamesParseINT(trTags.ToList(), "Liga Europy");
+            foreach (var x in Game)
             {
                 Game matchdata = db.GameData.FirstOrDefault(u => u.date.ToLower() == x.date.ToLower());
                 try
@@ -293,17 +293,17 @@ namespace LechTyper.Controllers
                 }
                 catch (Exception e)
                 {
-                    return RedirectToAction("DatabaseError", "Error");
+                    return RedirectToAction("DatabaseError", "Error", e.Message);
                 }
             }
-            return View(fixture);
+            return View(Game);
         }
         #endregion
 
-        #region DisplayFixture
-        // GET: /FixtureTME/
+        #region DisplayGame
+        // GET: /GameTME/
         [AllowAnonymous]
-        public ActionResult FixtureTME()
+        public ActionResult GameTME()
         {
             ViewBag.Title = "Mecze Ekstraklasy";
             var GamesList = db.GameData.ToList();
@@ -316,9 +316,9 @@ namespace LechTyper.Controllers
             return View(Matches);
         }
 
-        // GET: /FixturePP/
+        // GET: /GamePP/
         [AllowAnonymous]
-        public ActionResult FixturePP()
+        public ActionResult GamePP()
         {
             ViewBag.Title = "Mecze Pucharu Polski";
             var GamesList = db.GameData.ToList();
@@ -331,9 +331,9 @@ namespace LechTyper.Controllers
             return View(Matches);
         }
 
-        // GET: /FixtureSP/
+        // GET: /GameSP/
         [AllowAnonymous]
-        public ActionResult FixtureSP()
+        public ActionResult GameSP()
         {
             ViewBag.Title = "Mecze Superpucharu Polski";
             var GamesList = db.GameData.ToList();
@@ -346,9 +346,9 @@ namespace LechTyper.Controllers
             return View(Matches);
         }
 
-        // GET: /FixtureLM/
+        // GET: /GameLM/
         [AllowAnonymous]
-        public ActionResult FixtureLM()
+        public ActionResult GameLM()
         {
             ViewBag.Title = "Mecze Ligi Mistrzów";
             var GamesList = db.GameData.ToList();
@@ -361,9 +361,9 @@ namespace LechTyper.Controllers
             return View(Matches);
         }
 
-        // GET: /FixtureLE/
+        // GET: /GameLE/
         [AllowAnonymous]
-        public ActionResult FixtureLE()
+        public ActionResult GameLE()
         {
             ViewBag.Title = "Mecze Ligi Europy";
             var GamesList = db.GameData.ToList();
