@@ -196,6 +196,15 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Utworzony terminarz.
+        /// </summary>
+        public static string CreateFixture {
+            get {
+                return ResourceManager.GetString("CreateFixture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data.
         /// </summary>
         public static string Date {
@@ -372,6 +381,15 @@ namespace LechTyper.Resources {
         public static string MatchCompetition {
             get {
                 return ResourceManager.GetString("MatchCompetition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kolejka.
+        /// </summary>
+        public static string MatchDay {
+            get {
+                return ResourceManager.GetString("MatchDay", resourceCulture);
             }
         }
         
@@ -696,6 +714,15 @@ namespace LechTyper.Resources {
         public static string Reset {
             get {
                 return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wynik.
+        /// </summary>
+        public static string Result {
+            get {
+                return ResourceManager.GetString("Result", resourceCulture);
             }
         }
         

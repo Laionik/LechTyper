@@ -411,4 +411,13 @@
   <data name="LeaguePromotions" xml:space="preserve">
     <value>Awanse i spadki</value>
   </data>
+  <data name="CreateFixture" xml:space="preserve">
+    <value>Utworzony terminarz</value>
+  </data>
+  <data name="MatchDay" xml:space="preserve">
+    <value>Kolejka</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Wynik</value>
+  </data>
 </root>

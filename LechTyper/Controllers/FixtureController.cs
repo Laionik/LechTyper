@@ -11,14 +11,15 @@ namespace LechTyper.Controllers
 {
     public class FixtureController : Controller
     {
-        private FixtureContext db = new FixtureContext();
+        private FixtureContext dbFixture = new FixtureContext();
+        private LeagueContext dbLeague = new LeagueContext();
 
         //
         // GET: /Fixture/
 
         public ActionResult Index()
         {
-            return View(db.Fixtures.ToList());
+            return View(dbFixture.Fixtures.ToList());
         }
 
         //
@@ -26,7 +27,7 @@ namespace LechTyper.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Fixture fixture = db.Fixtures.Find(id);
+            Fixture fixture = dbFixture.Fixtures.Find(id);
             if (fixture == null)
             {
                 return HttpNotFound();
@@ -51,8 +52,8 @@ namespace LechTyper.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Fixtures.Add(fixture);
-                db.SaveChanges();
+                dbFixture.Fixtures.Add(fixture);
+                dbFixture.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -64,7 +65,7 @@ namespace LechTyper.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Fixture fixture = db.Fixtures.Find(id);
+            Fixture fixture = dbFixture.Fixtures.Find(id);
             if (fixture == null)
             {
                 return HttpNotFound();
@@ -81,8 +82,8 @@ namespace LechTyper.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(fixture).State = EntityState.Modified;
-                db.SaveChanges();
+                dbFixture.Entry(fixture).State = EntityState.Modified;
+                dbFixture.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(fixture);
@@ -93,7 +94,7 @@ namespace LechTyper.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Fixture fixture = db.Fixtures.Find(id);
+            Fixture fixture = dbFixture.Fixtures.Find(id);
             if (fixture == null)
             {
                 return HttpNotFound();
@@ -108,31 +109,65 @@ namespace LechTyper.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Fixture fixture = db.Fixtures.Find(id);
-            db.Fixtures.Remove(fixture);
-            db.SaveChanges();
+            Fixture fixture = dbFixture.Fixtures.Find(id);
+            dbFixture.Fixtures.Remove(fixture);
+            dbFixture.SaveChanges();
             return RedirectToAction("Index");
         }
 
         /// <summary>
+        /// Tworzy terminarz dla danego poziomu rozgrywek
+        /// </summary>
+        /// <param name="fixtureDivision">Terminarz - uzupełnianie listy</param>
+        /// <param name="players">Lista graczy w lidze</param>
+        public void CreateFixtureForDivision(ref List<Fixture> fixtureDivision, List<int> players)
+        {
+            int numDays = players.Count - 1;
+            int halfSize = players.Count / 2;
+
+            List<int> teams = new List<int>();
+
+            teams.AddRange(players);
+            teams.RemoveAt(0);
+
+            int teamsSize = teams.Count;
+
+            for (int day = 0; day < numDays; day++)
+            {
+                int teamIdx = day % teamsSize;
+                fixtureDivision.Add(new Fixture(day + 1, teams[teamIdx], players[0]));
+
+                for (int idx = 1; idx < halfSize; idx++)
+                {
+                    int firstTeam = (day + idx) % teamsSize;
+                    int secondTeam = (day + teamsSize - idx) % teamsSize;
+                    fixtureDivision.Add(new Fixture(day + 1, teams[firstTeam], teams[secondTeam]));
+                }
+            }
+        }
+        
+        /// <summary>
         /// Tworzy terminarz rozgrywek
         /// </summary>
-        /// <returns>Widok</returns>
-        
-        [Authorize(Roles = "admin")]
+        /// <returns>Widok</returns>   
+        // [Authorize(Roles = "admin")]
         public ActionResult CreateFixtures()
         {
-
-
-
-            return View("../Admin/Fixture/CreateFixtures", new Fixture());
+            var divisionsList = dbLeague.Leagues.Select(d => d.division).Distinct().ToList();
+            var playerList = dbLeague.Leagues.OrderBy(d => d.division).ToList();
+            List<Fixture> fixtureDivision = new List<Fixture>();
+            foreach(var division in divisionsList)
+            {
+                CreateFixtureForDivision(ref fixtureDivision, playerList.Where(d => d.division == division).OrderBy(u => u.userId).Select(u => u.userId).ToList());
+            }
+            return View("../Admin/Fixture/CreateFixtures", fixtureDivision.OrderBy(x => x.matchDay).ToList());
         }
 
 
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            dbFixture.Dispose();
             base.Dispose(disposing);
         }
     }

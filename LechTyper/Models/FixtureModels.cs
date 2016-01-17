@@ -38,6 +38,15 @@ namespace LechTyper.Models
 
         public Fixture() { }
 
+        public Fixture(int matchDay, int homeId, int guestId)
+        {
+            this.matchDay = matchDay;
+            this.homeId = homeId;
+            this.guestId = guestId;
+            this.homeGoal = 0;
+            this.guestGoal = 0;
+        }
+
         public Fixture(int matchDay, int homeId, int guestId, int homeGoal, int guestGoal)
         {
             this.matchDay = matchDay;
