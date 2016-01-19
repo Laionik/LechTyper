@@ -295,7 +295,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FixtureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Controllers\MatchController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
     <Compile Include="Controllers\TwitterController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -304,7 +304,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\FixtureModels.cs" />
-    <Compile Include="Models\GameModels.cs" />
+    <Compile Include="Models\MatchModels.cs" />
     <Compile Include="Models\LeagueModels.cs" />
     <Compile Include="Models\TwitterModels.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -346,10 +346,10 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\npm.js" />
-    <Content Include="Views\Game\FixturePP.cshtml">
+    <Content Include="Views\Match\FixturePP.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\Game\FixtureTME.cshtml">
+    <Content Include="Views\Match\FixtureTME.cshtml">
       <SubType>Code</SubType>
     </Content>
     <Content Include="Web.config" />
@@ -410,9 +410,9 @@
     <Content Include="Views\Emails\ResetPass.cshtml" />
     <Content Include="Views\Emails\Web.config" />
     <Content Include="Views\Emails\_ViewStart.cshtml" />
-    <Content Include="Views\Game\FixtureLM.cshtml" />
-    <Content Include="Views\Game\FixtureLE.cshtml" />
-    <Content Include="Views\Game\FixtureSP.cshtml" />
+    <Content Include="Views\Match\FixtureLM.cshtml" />
+    <Content Include="Views\Match\FixtureLE.cshtml" />
+    <Content Include="Views\Match\FixtureSP.cshtml" />
     <Content Include="Views\Error\DatabaseError.cshtml" />
     <Content Include="Views\Error\AdminError.cshtml" />
     <Content Include="Views\Admin\MatchIndex.cshtml" />
@@ -420,11 +420,11 @@
     <Content Include="Views\Admin\TwittIndex.cshtml" />
     <Content Include="Views\Admin\TwittEdit.cshtml" />
     <Content Include="Views\Admin\UserIndex.cshtml" />
-    <Content Include="Views\Game\UpdateTME.cshtml" />
-    <Content Include="Views\Game\UpdatePP.cshtml" />
-    <Content Include="Views\Game\UpdateSP.cshtml" />
-    <Content Include="Views\Game\UpdateLM.cshtml" />
-    <Content Include="Views\Game\UpdateLE.cshtml" />
+    <Content Include="Views\Match\UpdateTME.cshtml" />
+    <Content Include="Views\Match\UpdatePP.cshtml" />
+    <Content Include="Views\Match\UpdateSP.cshtml" />
+    <Content Include="Views\Match\UpdateLM.cshtml" />
+    <Content Include="Views\Match\UpdateLE.cshtml" />
     <Content Include="Views\League\Index.cshtml" />
     <Content Include="Views\League\Details.cshtml" />
     <Content Include="Views\Admin\League\LeagueCreate.cshtml" />
@@ -438,6 +438,7 @@
     <Content Include="Views\Admin\Fixture\CreateFixtures.cshtml" />
     <Content Include="Views\Admin\League\LeagueAddUsers.cshtml" />
     <Content Include="Views\Admin\League\LeaguePromotions.cshtml" />
+    <Content Include="Views\Match\UpdateCompetition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

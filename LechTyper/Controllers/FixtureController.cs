@@ -160,7 +160,14 @@ namespace LechTyper.Controllers
             {
                 CreateFixtureForDivision(ref fixtureDivision, playerList.Where(d => d.division == division).OrderBy(u => u.userId).Select(u => u.userId).ToList());
             }
-            return View("../Admin/Fixture/CreateFixtures", fixtureDivision.OrderBy(x => x.matchDay).ToList());
+
+            foreach(var match in fixtureDivision)
+            {
+                if (!dbFixture.Fixtures.Any(x => x.homeId == match.homeId && x.guestId == match.guestId && x.matchDay == match.matchDay))
+                    dbFixture.Fixtures.Add(match);
+            }
+            dbFixture.SaveChanges();
+            return View("../Admin/Fixture/CreateFixtures", dbFixture.Fixtures.Local.OrderBy(x => x.id).ThenBy(x => x.matchDay).ToList());
         }
 
 

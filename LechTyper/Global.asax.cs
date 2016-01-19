@@ -24,7 +24,7 @@ namespace LechTyper
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
-            Database.SetInitializer<GameContext>(null);
+            Database.SetInitializer<MatchContext>(null);
             Database.SetInitializer<TwitterContext>(null);
         }
     }

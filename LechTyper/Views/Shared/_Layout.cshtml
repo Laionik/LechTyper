@@ -39,7 +39,11 @@
                                 <li>@Html.ActionLink(@ResourceMain.EuropaLeague, "FixtureLE", "Match")</li>
                             </ul>
                         </li>
-                        <li>@Html.ActionLink("Test - tworzenie teminarza", "CreateFixtures", "Fixture")</li>
+                        <li>@Html.ActionLink("Test - update Ekstraklasa", "UpdateCompetition", "Match", new { competition = "Ekstraklasa" }, null)</li>
+                        <li>@Html.ActionLink("Test - update PP", "UpdateCompetition", "Match", new { competition = "PolishCup" }, null)</li>
+                        <li>@Html.ActionLink("Test - update SP", "UpdateCompetition", "Match", new { competition = "Supercup" }, null)</li>
+                        <li>@Html.ActionLink("Test - update LM", "UpdateCompetition", "Match", new { competition = "ChampionsLeague" }, null)</li>
+                        <li>@Html.ActionLink("Test - update LE", "UpdateCompetition", "Match", new { competition = "EuropaLeague" }, null)</li>
 
                         @if (User.IsInRole("admin"))
                         {

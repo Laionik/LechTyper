@@ -15,7 +15,7 @@ namespace LechTyper.Controllers
     public class AdminController : Controller
     {
         UsersContext dbUser = new UsersContext();
-        GameContext dbGame = new GameContext();
+        MatchContext dbMatch = new MatchContext();
         TwitterContext dbTwitt = new TwitterContext();
 
         //
@@ -224,7 +224,7 @@ namespace LechTyper.Controllers
         public ActionResult MatchIndex(int? page)
         {
             ViewBag.UserManage = "Zarządzanie meczami";
-            var MatchesList = dbGame.GameData.ToList();
+            var MatchesList = dbMatch.MatchData.ToList();
             int currentPageIndex = page.HasValue ? page.Value - 1 : 0;
             return View(MatchesList.ToPagedList(currentPageIndex, 20));
         }
@@ -234,31 +234,31 @@ namespace LechTyper.Controllers
         {
             int id = int.Parse(Request.QueryString["x"]);
             var page = Request.QueryString["page"];
-            var MatchesList = dbGame.GameData.ToList();
+            var MatchesList = dbMatch.MatchData.ToList();
             ViewBag.Page = page;
-            var game = MatchesList.Find(r => r.MatchID == id);
-            return View(game);
+            var match = MatchesList.Find(r => r.id == id);
+            return View(match);
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         public ActionResult MatchEdit(string matchid, string date, string Competition, string host, string guest, string FTHostGoal, string FTGuestGoal, string isCompleted)
         {
-            var game = dbGame.GameData.ToList();
-            var up = game.Find(a => a.MatchID == int.Parse(matchid));
-            up.MatchID = int.Parse(matchid);
-            up.date = date;
-            up.Competition = Competition;
-            up.Host = host;
-            up.Guest = guest;
-            up.FTHostGoal = int.Parse(FTHostGoal);
-            up.FTGuestGoal = int.Parse(FTGuestGoal);
+            var match = dbMatch.MatchData.ToList();
+            var up = match.Find(a => a.id == int.Parse(matchid));
+            up.id = int.Parse(matchid);
+            up.matchDate = DateTime.Parse(date);
+            up.competition = Competition;
+            up.host = host;
+            up.guest = guest;
+            up.finalHostGoal = int.Parse(FTHostGoal);
+            up.finalGuestGoal = int.Parse(FTGuestGoal);
             up.isCompleted = bool.Parse(isCompleted);
             if (TryUpdateModel(up))
             {
                 try
                 {
-                    dbGame.SaveChanges();
+                    dbMatch.SaveChanges();
                 }
                 catch (Exception e)
                 {
@@ -275,12 +275,12 @@ namespace LechTyper.Controllers
         {
             var id = Request.QueryString["x"];
             var page = Request.QueryString["page"];
-            var x = dbGame.GameData.ToList();
-            var up = x.Find(a => a.MatchID == int.Parse(id));
+            var x = dbMatch.MatchData.ToList();
+            var up = x.Find(a => a.id == int.Parse(id));
             try
             {
-                dbGame.GameData.Remove(up);
-                dbGame.SaveChanges();
+                dbMatch.MatchData.Remove(up);
+                dbMatch.SaveChanges();
             }
             catch (Exception e)
             {
