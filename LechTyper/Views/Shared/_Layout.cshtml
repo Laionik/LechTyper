@@ -31,19 +31,15 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@ResourceMain.Fixture<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li>@Html.ActionLink(@ResourceMain.Ekstraklasa, "FixtureTME", "Match")</li>
-                                <li>@Html.ActionLink(@ResourceMain.PolishCup, "FixturePP", "Match")</li>
-                                <li>@Html.ActionLink(@ResourceMain.PolishSupercup, "FixtureSP", "Match")</li>
+                                <li>@Html.ActionLink(@ResourceMain.Ekstraklasa, "MatchDisplay", "Match", new { competition = "Ekstraklasa" }, null)</li>
+                                <li>@Html.ActionLink(@ResourceMain.PolishCup, "MatchDisplay", "Match", new { competition = "PolishCup" }, null)</li>
+                                <li>@Html.ActionLink(@ResourceMain.PolishSupercup, "MatchDisplay", "Match", new { competition = "Supercup" }, null)</li>
                                 <li class="divider"></li>
-                                <li>@Html.ActionLink(@ResourceMain.ChampionsLeague, "FixtureLM", "Match")</li>
-                                <li>@Html.ActionLink(@ResourceMain.EuropaLeague, "FixtureLE", "Match")</li>
+                                <li>@Html.ActionLink(@ResourceMain.ChampionsLeague, "MatchDisplay", "Match", new { competition = "ChampionsLeague" }, null)</li>
+                                <li>@Html.ActionLink(@ResourceMain.EuropaLeague, "MatchDisplay", "Match", new { competition = "EuropaLeague" }, null)</li>
                             </ul>
                         </li>
                         <li>@Html.ActionLink("Test - update Ekstraklasa", "UpdateCompetition", "Match", new { competition = "Ekstraklasa" }, null)</li>
-                        <li>@Html.ActionLink("Test - update PP", "UpdateCompetition", "Match", new { competition = "PolishCup" }, null)</li>
-                        <li>@Html.ActionLink("Test - update SP", "UpdateCompetition", "Match", new { competition = "Supercup" }, null)</li>
-                        <li>@Html.ActionLink("Test - update LM", "UpdateCompetition", "Match", new { competition = "ChampionsLeague" }, null)</li>
-                        <li>@Html.ActionLink("Test - update LE", "UpdateCompetition", "Match", new { competition = "EuropaLeague" }, null)</li>
 
                         @if (User.IsInRole("admin"))
                         {

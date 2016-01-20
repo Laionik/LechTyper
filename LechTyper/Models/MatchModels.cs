@@ -24,8 +24,8 @@ namespace LechTyper.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         [Column("Id")]
         public int id { get; set; }
-        [Column("MatchDate")]
-        public DateTime matchDate { get; set; }
+        [Column("Date")]
+        public DateTime date { get; set; }
         [Column("Competition")]
         public string competition { get; set; }
         [Column("Host")]
@@ -46,9 +46,9 @@ namespace LechTyper.Models
         public bool isCompleted { get; set; }
 
         public Match() { }
-        public Match(DateTime matchDate, string competition, string host, string guest, int finalHostGoal, int finalGuestGoal, int halfHostGoal, int halfGuestGoal, string scorers, bool isCompleted)
+        public Match(DateTime date, string competition, string host, string guest, int finalHostGoal, int finalGuestGoal, int halfHostGoal, int halfGuestGoal, string scorers, bool isCompleted)
         {
-            this.matchDate = matchDate;
+            this.date = date;
             this.competition = competition;
             this.host = host;
             this.guest = guest;
@@ -60,9 +60,9 @@ namespace LechTyper.Models
             this.isCompleted = isCompleted;
         }
 
-        public Match(DateTime matchDate, string competition, string host, string guest, int finalHostGoal, int finalGuestGoal, bool isCompleted)
+        public Match(DateTime date, string competition, string host, string guest, int finalHostGoal, int finalGuestGoal, bool isCompleted)
         {
-            this.matchDate = matchDate;
+            this.date = date;
             this.competition = competition;
             this.host = host;
             this.guest = guest;
@@ -71,9 +71,9 @@ namespace LechTyper.Models
             this.isCompleted = isCompleted;
         }
 
-        public Match(DateTime matchDate, string competition, string host, string guest, bool isCompleted)
+        public Match(DateTime date, string competition, string host, string guest, bool isCompleted)
         {
-            this.matchDate = matchDate;
+            this.date = date;
             this.competition = competition;
             this.host = host;
             this.guest = guest;

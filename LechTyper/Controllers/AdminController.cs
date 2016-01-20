@@ -247,7 +247,7 @@ namespace LechTyper.Controllers
             var match = dbMatch.MatchData.ToList();
             var up = match.Find(a => a.id == int.Parse(matchid));
             up.id = int.Parse(matchid);
-            up.matchDate = DateTime.Parse(date);
+            up.date = DateTime.Parse(date);
             up.competition = Competition;
             up.host = host;
             up.guest = guest;

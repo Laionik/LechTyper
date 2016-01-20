@@ -15,16 +15,15 @@
             <li class="list-group-item">@Html.ActionLink(@ResourceMain.PredictionManage, "TwittIndex", "Admin")</li>       
         }
     </ul>
-
     <p>
         @ResourceMain.Update
     </p>
     <ul id="list-group">
-        <li class="list-group-item">@Html.ActionLink(@ResourceMain.Ekstraklasa, "UpdateEkstraklasa", "Match")</li>
-        <li class ="list-group-item">@Html.ActionLink(@ResourceMain.PolishCup, "UpdatePP", "Match")</li>
-        <li class="list-group-item">@Html.ActionLink(@ResourceMain.ChampionsLeague, "UpdateLM", "Match")</li>
-        <li class="list-group-item">@Html.ActionLink(@ResourceMain.EuropaLeague, "UpdateLE", "Match")</li>
-        <li class="list-group-item">@Html.ActionLink(@ResourceMain.PolishSupercup, "UpdateSP", "Match")</li>
+        <li class="list-group-item">@Html.ActionLink(@ResourceMain.Ekstraklasa, "UpdateCompetition", "Match", new { competition = "Ekstraklasa" }, null)</li>
+        <li class ="list-group-item">@Html.ActionLink(@ResourceMain.PolishCup, "UpdateCompetition", "Match", new { competition = "PolishCup" }, null)</li>
+        <li class="list-group-item">@Html.ActionLink(@ResourceMain.ChampionsLeague, "UpdateCompetition", "Match", new { competition = "Supercup" }, null)</li>
+        <li class="list-group-item">@Html.ActionLink(@ResourceMain.EuropaLeague, "UpdateCompetition", "Match", new { competition = "ChampionsLeague" }, null)</li>
+        <li class="list-group-item">@Html.ActionLink(@ResourceMain.PolishSupercup, "UpdateCompetition", "Match", new { competition = "EuropaLeague" }, null)</li>
         <li class="list-group-item">@Html.ActionLink(@ResourceMain.LeagueUserUpdate, "LeagueAddUsers", "League")</li>
     </ul>
 </section>

@@ -25,15 +25,12 @@
                     <tbody>
                         @foreach (var match in Model)
                         {
-                            if (match.isCompleted)
-                            {
-                                <tr>
-                                    <td>@match.matchDate</td>
-                                    <td>@match.host</td>
-                                    <td>@match.guest</td>
-                                    <td>@match.finalHostGoal:@match.finalGuestGoal</td>
-                                </tr>
-                            }
+                        <tr>
+                            <td>@match.date.ToShortDateString()</td>
+                            <td>@match.host</td>
+                            <td>@match.guest</td>
+                            <td>@match.finalHostGoal:@match.finalGuestGoal</td>
+                        </tr>
                         }
                     </tbody>
                 </table>
