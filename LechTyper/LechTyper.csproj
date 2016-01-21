@@ -429,6 +429,7 @@
     <Content Include="Views\Admin\League\LeaguePromotions.cshtml" />
     <Content Include="Views\Match\UpdateCompetition.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\League\LeagueResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

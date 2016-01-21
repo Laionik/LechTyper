@@ -39,7 +39,7 @@
                                 <li>@Html.ActionLink(@ResourceMain.EuropaLeague, "MatchDisplay", "Match", new { competition = "EuropaLeague" }, null)</li>
                             </ul>
                         </li>
-                        <li>@Html.ActionLink("Test - update Ekstraklasa", "UpdateCompetition", "Match", new { competition = "Ekstraklasa" }, null)</li>
+                        <li>@Html.ActionLink("Test - generwoanie wyników", "LeagueResults", "League")</li>
 
                         @if (User.IsInRole("admin"))
                         {

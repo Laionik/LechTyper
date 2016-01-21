@@ -31,9 +31,9 @@ namespace LechTyper.Models
         [Column("GuestId")]
         public int guestId { get; set; }
         [Column("HomeGoal")]
-        public int homeGoal { get; set; }
+        public int? homeGoal { get; set; }
         [Column("GuestGoal")]
-        public int guestGoal { get; set; }
+        public int? guestGoal { get; set; }
 
 
         public Fixture() { }
@@ -43,8 +43,8 @@ namespace LechTyper.Models
             this.matchDay = matchDay;
             this.homeId = homeId;
             this.guestId = guestId;
-            this.homeGoal = 0;
-            this.guestGoal = 0;
+            this.homeGoal = null;
+            this.guestGoal = null;
         }
 
         public Fixture(int matchDay, int homeId, int guestId, int homeGoal, int guestGoal)
