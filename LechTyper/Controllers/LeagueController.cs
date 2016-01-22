@@ -22,12 +22,14 @@ namespace LechTyper.Controllers
         private FixtureRepository _fixtureRepository;
         private LeagueRepository _leagueRepository;
         private MainRepository _mainRepository;
+        private MatchRepository _matchRepository;
 
          public LeagueController()
         {
             _fixtureRepository = new FixtureRepository(dbFixture);
             _leagueRepository = new LeagueRepository(dbLeague);
             _mainRepository = new MainRepository(dbUser);
+            _matchRepository = new MatchRepository(dbMatch);
         }
 
         //
@@ -324,7 +326,7 @@ namespace LechTyper.Controllers
         /// <returns>Widok</returns>
         public ActionResult LeagueResults()
         {
-            var match = dbMatch.MatchData.Where(m => m.isCompleted).OrderBy(m => m.date).ToList().Last();
+            var match = _matchRepository.GetLastMatch();
             var tweetList = dbTwitter.Tweets.ToList();
             var matchDay = _fixtureRepository.CurrentMatchDay();
             var fixtureList = dbFixture.Fixtures.Where(f => f.matchDay == matchDay).ToList();

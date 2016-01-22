@@ -21,7 +21,18 @@ namespace LechTyper.Repository
         /// <returns>Mecz</returns>
         public Match GetNextMatch()
          {
-             return dbMatch.MatchData.OrderByDescending(m => m.isCompleted).FirstOrDefault();
+            DateTime defaultDate = DateTime.Parse("2000.01.01");
+            return dbMatch.MatchData.Where(m => !m.isCompleted && m.date != defaultDate).OrderBy(m => m.date).ToList().First();
          }
+
+
+        /// <summary>
+        /// Pobieranie ostatniego meczu
+        /// </summary>
+        /// <returns>Mecz</returns>
+        public Match GetLastMatch()
+        {
+            return dbMatch.MatchData.Where(m => m.isCompleted).OrderBy(m => m.date).ToList().Last();
+        }
     }
 }

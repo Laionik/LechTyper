@@ -19,10 +19,10 @@ namespace LechTyper.Controllers
     public class TwitterController : Controller
     {
         private UsersContext dbUser = new UsersContext();
-        private TwitterContext dbTwitter  = new TwitterContext();
+        private TwitterContext dbTwitter = new TwitterContext();
         private MatchContext dbMatch = new MatchContext();
 
-                private MatchRepository _matchRepository;
+        private MatchRepository _matchRepository;
 
         public TwitterController()
         {
@@ -68,8 +68,11 @@ namespace LechTyper.Controllers
         public ActionResult PostStartTweet()
         {
             var nextMatch = _matchRepository.GetNextMatch();
+            var request = HttpContext.Request;
+            var address = string.Format("{0}://{1}", request.Url.Scheme, request.Url.Authority);
+            var tag = "#lechtypertest";
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("{0}:{1} już za 3 dni! Lista spotkań {2}. Zapraszam do typowania #lechtypertest", nextMatch.host, nextMatch.guest, Url.Action("CurrentMatchDayDisplay", "Fixture"));
+            sb.AppendFormat("{0} : {1} już za {2} dni! Lista spotkań {3}. Zapraszam do typowania {4}", nextMatch.host, nextMatch.guest, nextMatch.date.Subtract(DateTime.Now).Days, address + Url.Action("CurrentMatchDayDisplay", "Fixture"), tag);
             Tweetinvi.Tweet.PublishTweet(sb.ToString());
             return View();
         }
