@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LechTyper.Models;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace LechTyper.Controllers
@@ -10,19 +8,16 @@ namespace LechTyper.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "LechTyper";
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Title = "Kontakt";
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Title = "O mnie";
             return View();
         }
     }

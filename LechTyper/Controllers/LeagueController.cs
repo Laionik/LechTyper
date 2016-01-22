@@ -1,12 +1,17 @@
-﻿using LechTyper.Models;
+﻿using LechTyper.Filters;
+using LechTyper.Models;
+using LechTyper.Repository;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Security;
+using WebMatrix.WebData;
 
 namespace LechTyper.Controllers
 {
+    [InitializeSimpleMembership]
     public class LeagueController : Controller
     {
         private LeagueContext dbLeague = new LeagueContext();
@@ -14,7 +19,16 @@ namespace LechTyper.Controllers
         private MatchContext dbMatch = new MatchContext();
         private TwitterContext dbTwitter = new TwitterContext();
         private FixtureContext dbFixture = new FixtureContext();
+        private FixtureRepository _fixtureRepository;
+        private LeagueRepository _leagueRepository;
+        private MainRepository _mainRepository;
 
+         public LeagueController()
+        {
+            _fixtureRepository = new FixtureRepository(dbFixture);
+            _leagueRepository = new LeagueRepository(dbLeague);
+            _mainRepository = new MainRepository(dbUser);
+        }
 
         //
         // GET: /League/
@@ -118,6 +132,46 @@ namespace LechTyper.Controllers
         }
 
         /// <summary>
+        /// Wyświetlanie tabeli ligowej
+        /// </summary>
+        /// <param name="division">Poziom rozgrywek</param>
+        /// <returns>Widok</returns>
+        public ActionResult LeagueDisplay(int? division)
+        {
+            try
+            {
+                if (!division.HasValue)
+                {
+                    if (User.Identity.Name != String.Empty)
+                    {
+                        int userId = WebSecurity.GetUserId(User.Identity.Name);
+                        division = dbLeague.Leagues.Where(u => u.userId == userId).Select(d => d.division).FirstOrDefault();
+                    }
+                    else
+                        division = 1;
+                }
+
+                ViewBag.Leagues = dbLeague.Leagues.Select(d => d.division).Distinct().ToList();
+                var leagueList = dbLeague.Leagues.Where(d => d.division == division).OrderByDescending(x => x.points).ThenByDescending(g => g.goalScored - g.goalConceded).ThenByDescending(g => g.goalScored).ToList();
+                Dictionary<int, string> userNameDictionary = new Dictionary<int, string>();
+                foreach (var user in leagueList.Select(x => x.userId))
+                {
+                    userNameDictionary.Add(user, dbUser.UserProfiles.Where(u => u.UserId == user).Select(u => u.UserName).FirstOrDefault());
+                }
+                ViewBag.division = division;
+                ViewBag.userNameDictionary = userNameDictionary;
+                return View(leagueList);
+            }
+            catch (Exception e)
+            {
+
+                return RedirectToAction("Error", "Error", e.Message);
+            }
+        }
+
+
+
+        /// <summary>
         /// System awansów i spadków
         /// </summary>
         /// <returns>Widok</returns>
@@ -198,14 +252,13 @@ namespace LechTyper.Controllers
             }
         }
 
-
         /// <summary>
         /// Ekstrakcja wyniku ze strina
         /// </summary>
         /// <param name="result">String z wynikiem</param>
         /// <param name="hostGoal">Bramki gospodarzy</param>
         /// <param name="guestGoal">Bramki gości</param>
-        private void resultTweet(string result, out int hostGoal, out int guestGoal)
+        private void ResultTweet(string result, out int hostGoal, out int guestGoal)
         {
             var temp = result.Split(':');
             hostGoal = int.Parse(temp[0]);
@@ -220,7 +273,7 @@ namespace LechTyper.Controllers
         /// <param name="hostGoal">Liczba bramek gospodarzy</param>
         /// <param name="guestGoal">Liczba bramek gości</param>
         /// <returns>Liczba punktów zdobytych przez gracza</returns>
-        private int calculateGoals(int hostPrediction, int guestPrediction, int hostGoal, int guestGoal)
+        private int CalculateGoals(int hostPrediction, int guestPrediction, int hostGoal, int guestGoal)
         {
             int playerGoal = 0;
             if (hostPrediction == hostGoal && guestPrediction == guestGoal)
@@ -239,14 +292,14 @@ namespace LechTyper.Controllers
         /// <param name="match">Mecz Lecha</param>
         /// <param name="playerFixture">Mecz typerów</param>
         /// <param name="userId">Id użytkownika</param>
-        public void checkTweetResult(Tweet tweet, Match match, Fixture playerFixture, int userId)
+        public void CheckTweetResult(Tweet tweet, Match match, Fixture playerFixture, int userId)
         {
             if (tweet != null)
             {
                 //    var userId = dbUser.UserProfiles.Where(u => u.UserName == tweet.userName).Select(u => u.UserId).FirstOrDefault();
                 int hostGoal, guestGoal, playerGoal = 0;
-                resultTweet(tweet.result, out hostGoal, out guestGoal);
-                playerGoal = calculateGoals(hostGoal, guestGoal, match.finalHostGoal, match.finalGuestGoal);
+                ResultTweet(tweet.result, out hostGoal, out guestGoal);
+                playerGoal = CalculateGoals(hostGoal, guestGoal, match.finalHostGoal, match.finalGuestGoal);
                 //var playerFixture = fixtureList.Where(f => f.homeId == userId || f.guestId == userId).FirstOrDefault();
                 if (playerFixture.homeId == userId)
                     playerFixture.homeGoal = playerGoal;
@@ -263,6 +316,8 @@ namespace LechTyper.Controllers
             TryUpdateModel(playerFixture);
         }
 
+
+
         /// <summary>
         /// Generowanie wyników spotkań
         /// </summary>
@@ -271,7 +326,7 @@ namespace LechTyper.Controllers
         {
             var match = dbMatch.MatchData.Where(m => m.isCompleted).OrderBy(m => m.date).ToList().Last();
             var tweetList = dbTwitter.Tweets.ToList();
-            var matchDay = dbFixture.Fixtures.Where(f => f.homeGoal == null).Select(f => f.matchDay).FirstOrDefault();
+            var matchDay = _fixtureRepository.CurrentMatchDay();
             var fixtureList = dbFixture.Fixtures.Where(f => f.matchDay == matchDay).ToList();
 
             var isSeasonCompleted = false;
@@ -281,10 +336,10 @@ namespace LechTyper.Controllers
                 foreach (var fixture in fixtureList)
                 {
                     userName = dbUser.UserProfiles.Where(u => u.UserId == fixture.homeId).Select(u => u.UserName).FirstOrDefault();
-                    checkTweetResult(dbTwitter.Tweets.Where(t => t.userName == userName).FirstOrDefault(), match, fixture, fixture.homeId);
+                    CheckTweetResult(dbTwitter.Tweets.Where(t => t.userName == userName).FirstOrDefault(), match, fixture, fixture.homeId);
 
                     userName = dbUser.UserProfiles.Where(u => u.UserId == fixture.guestId).Select(u => u.UserName).FirstOrDefault();
-                    checkTweetResult(dbTwitter.Tweets.Where(t => t.userName == userName).FirstOrDefault(), match, fixture, fixture.guestId);
+                    CheckTweetResult(dbTwitter.Tweets.Where(t => t.userName == userName).FirstOrDefault(), match, fixture, fixture.guestId);
 
                     var host = dbLeague.Leagues.Where(u => u.userId == fixture.homeId).FirstOrDefault();
                     var guest = dbLeague.Leagues.Where(u => u.userId == fixture.guestId).FirstOrDefault();

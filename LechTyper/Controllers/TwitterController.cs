@@ -1,5 +1,6 @@
 ﻿using LechTyper.Models;
 using LechTyper.OAuth;
+using LechTyper.Repository;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -17,13 +18,17 @@ namespace LechTyper.Controllers
 {
     public class TwitterController : Controller
     {
-        private UsersContext dbUser;
-        private TwitterContext dbTwitter;
+        private UsersContext dbUser = new UsersContext();
+        private TwitterContext dbTwitter  = new TwitterContext();
+        private MatchContext dbMatch = new MatchContext();
+
+                private MatchRepository _matchRepository;
+
         public TwitterController()
         {
-            dbUser = new UsersContext();
-            dbTwitter = new TwitterContext();
+            _matchRepository = new MatchRepository(dbMatch);
         }
+
         ///<summary>
         ///GET: /Twitter/
         ///</summary>
@@ -57,6 +62,16 @@ namespace LechTyper.Controllers
 
             List<LechTyper.Models.Tweet> tweetAllList = GetAllTweets();
             return View(tweetAllList);
+        }
+
+
+        public ActionResult PostStartTweet()
+        {
+            var nextMatch = _matchRepository.GetNextMatch();
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("{0}:{1} już za 3 dni! Lista spotkań {2}. Zapraszam do typowania #lechtypertest", nextMatch.host, nextMatch.guest, Url.Action("CurrentMatchDayDisplay", "Fixture"));
+            Tweetinvi.Tweet.PublishTweet(sb.ToString());
+            return View();
         }
 
         ///<summary>

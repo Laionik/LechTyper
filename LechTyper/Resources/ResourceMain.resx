@@ -348,9 +348,6 @@
   <data name="Save" xml:space="preserve">
     <value>Zapisz</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="SureDelete" xml:space="preserve">
     <value>Jesteś pewny by usunąć?</value>
   </data>
@@ -419,5 +416,35 @@
   </data>
   <data name="Result" xml:space="preserve">
     <value>Wynik</value>
+  </data>
+  <data name="Draw" xml:space="preserve">
+    <value>R</value>
+  </data>
+  <data name="GoalConceded" xml:space="preserve">
+    <value>Stracone</value>
+  </data>
+  <data name="GoalScored" xml:space="preserve">
+    <value>Strzelone</value>
+  </data>
+  <data name="League" xml:space="preserve">
+    <value>Liga</value>
+  </data>
+  <data name="Lose" xml:space="preserve">
+    <value>P</value>
+  </data>
+  <data name="Matches" xml:space="preserve">
+    <value>Mecze</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+    <value>Typer</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>Punkty</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Pozycja</value>
+  </data>
+  <data name="Win" xml:space="preserve">
+    <value>Z</value>
   </data>
 </root>

@@ -312,6 +312,10 @@
     <Compile Include="Oauth\OAuthBase.cs" />
     <Compile Include="Oauth\OAuthMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\FixtureRepository.cs" />
+    <Compile Include="Repository\LeagueRepository.cs" />
+    <Compile Include="Repository\MainRepository.cs" />
+    <Compile Include="Repository\MatchRepository.cs" />
     <Compile Include="Resources\ResourceMain.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -430,6 +434,9 @@
     <Content Include="Views\Match\UpdateCompetition.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\League\LeagueResults.cshtml" />
+    <Content Include="Views\League\LeagueDisplay.cshtml" />
+    <Content Include="Views\Fixture\CurrentMatchDayDisplay.cshtml" />
+    <Content Include="Views\Twitter\PostStartTweet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

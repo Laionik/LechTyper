@@ -1,0 +1,36 @@
+﻿@using LechTyper.Resources
+@model List<LechTyper.Models.Fixture>
+<div class="page-header">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>@ViewBag.MatchDay. @ResourceMain.MatchDay</h1>
+        </div>
+    </div>
+</div>
+<div class="bs-docs-section">
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="bs-component">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>@ResourceMain.MatchHome</th>
+                            <th>@ResourceMain.MatchGuest</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var fixture in Model)
+                        {
+                            <tr>
+                                <td>@(Model.IndexOf(fixture) + 1)</td>
+                                <td>@ViewBag.userNameDictionary[fixture.homeId]</td>
+                                <td>@ViewBag.userNameDictionary[fixture.guestId]</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -232,6 +232,15 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to R.
+        /// </summary>
+        public static string Draw {
+            get {
+                return ResourceManager.GetString("Draw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edytuj.
         /// </summary>
         public static string Edit {
@@ -286,6 +295,24 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stracone.
+        /// </summary>
+        public static string GoalConceded {
+            get {
+                return ResourceManager.GetString("GoalConceded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Strzelone.
+        /// </summary>
+        public static string GoalScored {
+            get {
+                return ResourceManager.GetString("GoalScored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do góry.
         /// </summary>
         public static string GoTop {
@@ -309,6 +336,15 @@ namespace LechTyper.Resources {
         public static string Id {
             get {
                 return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liga.
+        /// </summary>
+        public static string League {
+            get {
+                return ResourceManager.GetString("League", resourceCulture);
             }
         }
         
@@ -354,6 +390,15 @@ namespace LechTyper.Resources {
         public static string LogOff {
             get {
                 return ResourceManager.GetString("LogOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to P.
+        /// </summary>
+        public static string Lose {
+            get {
+                return ResourceManager.GetString("Lose", resourceCulture);
             }
         }
         
@@ -408,6 +453,15 @@ namespace LechTyper.Resources {
         public static string MatchEditing {
             get {
                 return ResourceManager.GetString("MatchEditing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mecze.
+        /// </summary>
+        public static string Matches {
+            get {
+                return ResourceManager.GetString("Matches", resourceCulture);
             }
         }
         
@@ -556,6 +610,24 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Typer.
+        /// </summary>
+        public static string Player {
+            get {
+                return ResourceManager.GetString("Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punkty.
+        /// </summary>
+        public static string Points {
+            get {
+                return ResourceManager.GetString("Points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Puchar Polski.
         /// </summary>
         public static string PolishCup {
@@ -570,6 +642,15 @@ namespace LechTyper.Resources {
         public static string PolishSupercup {
             get {
                 return ResourceManager.GetString("PolishSupercup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pozycja.
+        /// </summary>
+        public static string Position {
+            get {
+                return ResourceManager.GetString("Position", resourceCulture);
             }
         }
         
@@ -835,15 +916,6 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Jesteś pewny by usunąć?.
         /// </summary>
         public static string SureDelete {
@@ -957,6 +1029,15 @@ namespace LechTyper.Resources {
         public static string VerificationSuccess {
             get {
                 return ResourceManager.GetString("VerificationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z.
+        /// </summary>
+        public static string Win {
+            get {
+                return ResourceManager.GetString("Win", resourceCulture);
             }
         }
         

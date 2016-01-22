@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LechTyper.Models;
+using LechTyper.Repository;
 
 namespace LechTyper.Controllers
 {
@@ -13,6 +14,18 @@ namespace LechTyper.Controllers
     {
         private FixtureContext dbFixture = new FixtureContext();
         private LeagueContext dbLeague = new LeagueContext();
+        private UsersContext dbUser = new UsersContext();
+        private FixtureRepository _fixtureRepository;
+        private LeagueRepository _leagueRepository;
+        private MainRepository _mainRepository;
+
+        public FixtureController()
+        {
+            _leagueRepository = new LeagueRepository(dbLeague);
+            _fixtureRepository = new FixtureRepository(dbFixture);
+            _mainRepository = new MainRepository(dbUser);
+        }
+
 
         //
         // GET: /Fixture/
@@ -116,6 +129,25 @@ namespace LechTyper.Controllers
         }
 
         /// <summary>
+        /// Wyświetlanie najlbiższej kolejki spotkań
+        /// </summary>
+        /// <returns>Widok</returns>
+        public ActionResult CurrentMatchDayDisplay()
+        {
+            var matchDay = _fixtureRepository.CurrentMatchDay();
+            var fixtureList = _fixtureRepository.GetFixturesByMatchDay(matchDay);
+            var userIdList = _fixtureRepository.GetUserIdByFixture(fixtureList);
+            Dictionary<int, string> userNameDictionary = new Dictionary<int, string>();
+            foreach (var user in userIdList)
+            {
+                userNameDictionary.Add(user, dbUser.UserProfiles.Where(u => u.UserId == user).Select(u => u.UserName).FirstOrDefault());
+            }
+            ViewBag.MatchDay = matchDay;
+            ViewBag.userNameDictionary = userNameDictionary;
+            return View(fixtureList);
+        }
+
+        /// <summary>
         /// Tworzy terminarz dla danego poziomu rozgrywek
         /// </summary>
         /// <param name="fixtureDivision">Terminarz - uzupełnianie listy</param>
@@ -153,8 +185,8 @@ namespace LechTyper.Controllers
         // [Authorize(Roles = "admin")]
         public ActionResult CreateFixtures()
         {
-            var divisionsList = dbLeague.Leagues.Select(d => d.division).Distinct().ToList();
-            var playerList = dbLeague.Leagues.OrderBy(d => d.division).ToList();
+            var divisionsList = _leagueRepository.GetDivisions();
+            var playerList = _leagueRepository.GetLeagues();
             List<Fixture> fixtureDivision = new List<Fixture>();
             foreach(var division in divisionsList)
             {
@@ -169,8 +201,6 @@ namespace LechTyper.Controllers
             dbFixture.SaveChanges();
             return View("../Admin/Fixture/CreateFixtures", dbFixture.Fixtures.Local.OrderBy(x => x.id).ThenBy(x => x.matchDay).ToList());
         }
-
-
 
         protected override void Dispose(bool disposing)
         {
