@@ -7,7 +7,7 @@
             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
             {
                 @Html.AntiForgeryToken()
-                  <a href="javascript:document.getElementById('logoutForm').submit()">@ResourceMain.LogOff</a>
+                <a href="javascript:document.getElementById('logoutForm').submit()">@ResourceMain.LogOff</a>
             }
         </li>
     </ul>
@@ -15,7 +15,6 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Zarejestruj", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink(ResourceMain.LogIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

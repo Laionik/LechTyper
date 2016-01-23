@@ -1,0 +1,48 @@
+﻿@using LechTyper.Resources
+@model IPagedList<LechTyper.Models.Tweet>
+
+<!--PAGE TITLE-->
+<div class="row">
+    <div class="span12">
+        <div class="page-header">
+            <h1>@ResourceMain.PredictionManage</h1><br>
+        </div>
+    </div>
+</div>
+<!-- /. PAGE TITLE-->
+<div class="row">
+    <div class="span12 table_container">
+        <table class="matches_tab">
+            <thead>
+                <tr class="default">
+                    <th>@ResourceMain.Date</th>
+                    <th>@ResourceMain.Name</th>
+                    <th>@ResourceMain.MatchResult</th>
+                    <th>@ResourceMain.MatchHalf</th>
+                    <th>@ResourceMain.MatchScorer</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var tweet in Model)
+                {
+                    <tr class="notfirst">
+                        <td>@tweet.postDate.ToShortDateString()</td>
+                        <td>@tweet.userName</td>
+                        <td>@tweet.result</td>
+                        <td>@tweet.resultHalf</td>
+                        <td>@tweet.scorer</td>
+                        <td>@Html.ActionLink(@ResourceMain.Edit, "TweetEdit", new { tweetId = tweet.Id, page = Model.PageNumber })</td>
+                        <td>@Html.ActionLink(@ResourceMain.Delete, "TweetDelete", new { tweetId = tweet.Id, page = Model.PageNumber })</td>                    
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="pager">
+            @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o => o
+            .DisplayTemplate("BootstrapPagination"))
+        </div>
+    </div>
+</div>
+<div class="hr-divider"></div>

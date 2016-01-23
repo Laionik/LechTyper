@@ -1,25 +1,124 @@
 ﻿@using LechTyper.Resources
-<div class="page-header">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1>@ResourceMain.Tittle</h1>
-        </div>
+<!--Carousel
+==================================================-->
+<div id="myCarousel" class="carousel slide">
+    <div class="carousel-inner">
+        @if (!Request.IsAuthenticated)
+        {
+            <div class="active item">
+                <div class="container">
+                    <div class="row">
+                        <div class="span6">
+                            <div class="carousel-caption">
+                                <h1>@ResourceMain.Tittle</h1>
+                                <p class="lead">@ResourceMain.CarouselDesc1Lead</p>
+                                @Html.ActionLink(ResourceMain.CarouselRegister, "Login", "Account", routeValues: null, htmlAttributes: new { @class="btn btn-large btn-primary"})
+                            </div>
+                        </div>
+                        <div class="span6"> <img src="~/Content/img/slide/slide1.jpg"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="container">
+                    <div class="row">
+                        <div class="span6">
+                            <div class="carousel-caption">
+                                <h1>@ResourceMain.CarouselTitle2</h1>
+                                <p class="lead">@ResourceMain.CarouselDesc2Lead</p>
+                                @Html.ActionLink(ResourceMain.CarouselLogin, "Login", "Account", routeValues: null, htmlAttributes: new { @class="btn btn-large btn-primary"})
+                            </div>
+                        </div>
+                        <div class="span6"> <img src="~/Content/img/slide/slide2.jpg"></div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="active item">
+                <div class="container">
+                    <div class="row">
+                        <div class="span6">
+                            <div class="carousel-caption">
+                                <h1>Twoje statystyki</h1>
+                                <p class="lead">Sprawdź swoje statystyki - POPRAW RESOURCE</p>
+                               @*@Url.Action()*@
+                            </div>
+                        </div>
+                        <div class="span6"> <img src="~/Content/img/slide/slide1.jpg"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="container">
+                    <div class="row">
+                        <div class="span6">
+                            <div class="carousel-caption">
+                                <h1>Terminarz typerów</h1>
+                                <p class="lead">Sprawdź z kim stoczysz następny pojedynek!</p>
+                               @Html.ActionLink("Sprawdź", "CurrentMatchDayDisplay", "Fixture", null, new { @class = "btn btn-large btn-primary" })
+                            </div>
+                        </div>
+                        <div class="span6"> <img src="~/Content/img/slide/slide2.jpg"></div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <!-- Carousel nav -->
+    <a class="carousel-control left " href="#myCarousel" data-slide="prev"><i class="icon-chevron-left"></i></a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next"><i class="icon-chevron-right"></i></a>
+    <!-- /.Carousel nav -->
+</div>
+<!-- /Carousel -->
+<!-- Feature
+  ==============================================-->
+
+<div class="row feature-box">
+    <div class="span12 cnt-title">
+        <h1>@ResourceMain.LTContact</h1>
+        <span>@ResourceMain.LTContactAsk.</span>
+    </div>
+    <div class="span4">
+        <img src="~/Content/img/icon1.png">
+        <h2>@ResourceMain.Tittle</h2>
+        <p>
+            @ResourceMain.LTAdministration.
+        </p>
+        <a href="https://twitter.com/LechTYPER">@ResourceMain.Tittle &rarr;</a>
+    </div>
+    <div class="span4">
+        <img src="~/Content/img/icon2.png">
+        <h2>@ResourceMain.Developer</h2>
+        <p>
+            @ResourceMain.DeveloperDesc
+        </p>
+        <a href="https://twitter.com/Laionik">@ResourceMain.Laionik &rarr;</a>
+    </div>
+    <div class="span4">
+        <img src="~/Content/img/icon3.png">
+        <h2>@ResourceMain.Author</h2>
+        <p>
+            @ResourceMain.AuthorDesc
+        </p>
+        <a href="https://twitter.com/MOL4K">@ResourceMain.AuthorNick &rarr;</a>
     </div>
 </div>
-<div class="bs-docs-section">
-    <div class="row">
-        <div class="col-lg-10">
-            <p class="bs-component">
-                Witaj na stronie LechTypera. Przejrzyj wybrane statystyki a w razie jakichkolwiek wątpliwości @Html.ActionLink("skontaktuj się ze mną.", "Contact")
-            </p>
-        </div>
-        <div class="col-lg-2">
-            <h4>Twitter</h4>
-            <ul>
-                <li><a href="https://twitter.com/LechTYPER">LechTyper</a></li>
-                <li><a href="https://twitter.com/Laionik">Autor strony</a></li>
-                <li><a href="https://twitter.com/MOL4K">Autor zabawy</a></li>
-            </ul>
-        </div>
+
+<!-- /.Feature -->
+<div class="hr-divider"></div>
+<!-- Row View -->
+
+<div class="row">
+    <div class="span6"><img src="~/Content/img/responsive.png"></div>
+    <div class="span6">
+        <img class="hidden-phone" src="~/Content/img/icon4.png" alt="">
+        <h1>@ResourceMain.Responsive</h1>
+        <p>@ResourceMain.ResponsiveDesc</p>
     </div>
 </div>
+
+<!-- /.Row View -->
+<div class="hr-divider"></div>

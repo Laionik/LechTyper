@@ -171,22 +171,26 @@ namespace LechTyper.Controllers
             switch (competition)
             {
                 case "Ekstraklasa":
+                    ViewBag.title = Resources.ResourceMain.Ekstraklasa;
                     url = ekstraklasaUrl;
                     break;
                 case "PolishCup":
+                    ViewBag.title = Resources.ResourceMain.PolishCup;
                     url = polishCupUrl;
                     break;
                 case "Supercup":
+                    ViewBag.title = Resources.ResourceMain.PolishSupercup;
                     url = supercupUrl;
                     break;
                 case "ChampionsLeague":
+                    ViewBag.title = Resources.ResourceMain.ChampionsLeague;
                     url = championsLeagueUrl;
                     break;
                 case "EuropaLeague":
+                    ViewBag.title = Resources.ResourceMain.EuropaLeague;
                     url = europaLeagueUrl;
                     break;
             }
-
             var document = htmlWeb.Load(url);
             var wwwToParse = document.DocumentNode.SelectNodes("//table[@class='main']").FirstOrDefault().SelectNodes("//tr[@align='left']/td[@valign='top']").Where(x => x != null).Select(x => x.InnerText).ToList();
             List<HtmlNode> test = new List<HtmlNode>();
@@ -224,7 +228,7 @@ namespace LechTyper.Controllers
             {
                 return RedirectToAction("DatabaseError", "Error", e.Message);
             }
-            return View(matchList);
+            return View("MatchDisplay", matchList);
         }
 
         /// <summary>

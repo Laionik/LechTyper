@@ -1,33 +1,29 @@
 ﻿@using LechTyper.Resources
 @model LechTyper.Models.UserProfile
-<hgroup class="title">
-    <h1>@</h1>
-    <h3>@ResourceMain.UserEditing @Model.UserName</h3>
-</hgroup>
-<section class="panel">
-    <p>
-        @Html.ActionLink(@ResourceMain.Return, "UserIndex")
-    </p>
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-        <fieldset>
-            <legend>@ResourceMain.LogIn</legend>
-            <table class="table table-striped table-hover" style="width:60%">
-                @Html.HiddenFor(m => m.UserId)
-                <tr>
-                    <td>@Html.LabelFor(m => m.UserName)</td>
-                    <td>@Html.TextBoxFor(m => m.UserName)</td>
-                </tr>
-                <tr>
-                    <td>@Html.LabelFor(m => m.UserMail)</td>
-                    <td>@Html.TextBoxFor(m => m.UserMail)</td>
-                </tr>
-            </table>
-            <br />
-            <input class="btn btn-default" type="submit" value=@ResourceMain.Save />
-        </fieldset>
-    }
-
-</section>
+<!--PAGE TITLE-->
+<div class="row">
+    <div class="span12">
+        <div class="page-header">
+            <h1>@ResourceMain.Editing @Model.UserName</h1><br>
+        </div>
+    </div>
+</div>
+<!-- /. PAGE TITLE-->
+<div class="row">
+    <div class="span6">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <form>
+                <fieldset>
+                    @Html.HiddenFor(m => m.UserId)
+                    @Html.TextBoxFor(m => m.UserName, new { @type = "text", @class = "input-xxlarge", @placeholder = ResourceMain.Nickname })<br>
+                    @Html.TextBoxFor(m => m.UserMail, new { @type = "text", @class = "input-xxlarge", @placeholder = ResourceMain.UserMail })<br>
+                    <button type="submit" class="btn btn-primary">@ResourceMain.Save</button>
+                </fieldset>
+            </form>
+        }
+    </div>
+</div>
+<div class="hr-divider"></div>

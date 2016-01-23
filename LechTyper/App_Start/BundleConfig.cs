@@ -16,8 +16,11 @@ namespace LechTyper
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
                         "~/Scripts/bootstrap.min.js"));
 
-            bundles.Add(new StyleBundle("~/Content/bootstrapcss").Include(
-                        "~/Content/bootstrap.min.css"));
+            bundles.Add(new StyleBundle("~/Content/css/bootstrapcss").Include(
+                        "~/Content/css/bootstrap.min.css"));
+
+            bundles.Add(new StyleBundle("~/Content/css/bootstrap-responsivecss").Include(
+                        "~/Content/css/bootstrap-responsive.min.css"));
         }
     }
 }

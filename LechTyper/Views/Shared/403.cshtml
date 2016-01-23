@@ -1,8 +1,15 @@
-﻿@model System.Web.Mvc.HandleErrorInfo
+﻿@using LechTyper.Resources
+@model System.Web.Mvc.HandleErrorInfo
 
-@{
-    ViewBag.Title = "403";
-}
+<!--PAGE TITLE-->
+<div class="row">
+    <div class="span12">
+        <div class="page-header">
+            <h1>@ResourceMain.Error 403</h1><br>
+        </div>
+    </div>
+</div>
+<!-- /. PAGE TITLE-->
 
 <div class="alert alert-dismissible alert-danger">
     <img src='@Url.Content("~/Images/Error/403.jpg")' style="width:100%; height:auto;">

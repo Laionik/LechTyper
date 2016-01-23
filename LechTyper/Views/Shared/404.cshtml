@@ -1,10 +1,17 @@
-﻿@model System.Web.Mvc.HandleErrorInfo
+﻿@using LechTyper.Resources
+@model System.Web.Mvc.HandleErrorInfo
 
-@{
-    ViewBag.Title = "404";
-}
+<!--PAGE TITLE-->
+<div class="row">
+    <div class="span12">
+        <div class="page-header">
+            <h1>@ResourceMain.Error 404</h1><br>
+        </div>
+    </div>
+</div>
+<!-- /. PAGE TITLE-->
 
 <div class="alert alert-dismissible alert-danger">
-    <h1 class="error">Błąd 404.</h1>
     <h2 class="error">Strona była i ni ma. Skontaktuj się z administratorem.</h2>
+    @Model.Exception.Message
 </div>

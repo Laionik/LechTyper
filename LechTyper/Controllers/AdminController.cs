@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using MvcPaging;
+using LechTyper.Repository;
 
 namespace LechTyper.Controllers
 {
@@ -17,7 +18,16 @@ namespace LechTyper.Controllers
         UsersContext dbUser = new UsersContext();
         MatchContext dbMatch = new MatchContext();
         TwitterContext dbTwitt = new TwitterContext();
+        private MainRepository _mainRepository;
+        private MatchRepository _matchRepository;
+        private TwitterRepository _twitterRepository;
 
+        public AdminController()
+        {
+            _twitterRepository = new TwitterRepository(dbTwitt);
+            _mainRepository = new MainRepository(dbUser);
+            _matchRepository = new MatchRepository(dbMatch);
+        }
         //
         // GET: /Admin/
         [Authorize(Roles = "admin")]
@@ -26,13 +36,16 @@ namespace LechTyper.Controllers
             return View();
         }
 
-        #region RoleEdit
+        #region Role
         [Authorize(Roles = "admin")]
         public ActionResult RoleCreate()
         {
             return View();
         }
-
+        /// <summary>
+        /// Tworzenie roli
+        /// </summary>
+        /// <returns></returns>
         [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -50,6 +63,10 @@ namespace LechTyper.Controllers
             return View(roles);
         }
 
+        /// <summary>
+        /// Usuwanie roli
+        /// </summary>
+        /// <returns></returns>
         [Authorize(Roles = "admin")]
         public ActionResult RoleDelete(string RoleName)
         {
@@ -74,14 +91,13 @@ namespace LechTyper.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult RoleAddToUser()
         {
-            SelectList list = new SelectList(Roles.GetAllRoles());
-            ViewBag.Roles = list;
-
+            ViewBag.Roles = new SelectList(Roles.GetAllRoles());
+            ViewBag.Users = new SelectList(_mainRepository.GetUsersNames());
             return View();
         }
 
         /// <summary>
-        /// Add role to the user
+        /// Dodaj użytkownikowi rolę
         /// </summary>
         /// <param name="RoleName"></param>
         /// <param name="UserName"></param>
@@ -101,16 +117,15 @@ namespace LechTyper.Controllers
                 Roles.AddUserToRole(UserName, RoleName);
                 ViewBag.ResultMessage = "Użytkownik został przypisany do roli";
             }
-
-            SelectList list = new SelectList(Roles.GetAllRoles());
-            ViewBag.Roles = list;
+            ViewBag.Roles = new SelectList(Roles.GetAllRoles());
+            ViewBag.Users = new SelectList(_mainRepository.GetUsersNames());
             return View();
         }
 
         /// <summary>
-        /// Get all the roles for a particular user
+        /// Role dla danego użytkownika
         /// </summary>
-        /// <param name="UserName"></param>
+        /// <param name="UserName">Nazwa użytkownika</param>
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpPost]
@@ -120,8 +135,9 @@ namespace LechTyper.Controllers
             if (!string.IsNullOrWhiteSpace(UserName))
             {
                 ViewBag.RolesForThisUser = Roles.GetRolesForUser(UserName);
-                SelectList list = new SelectList(Roles.GetAllRoles());
-                ViewBag.Roles = list;
+
+            ViewBag.Roles = new SelectList(Roles.GetAllRoles());
+            ViewBag.Users = new SelectList(_mainRepository.GetUsersNames());
             }
             return View("RoleAddToUser");
         }
@@ -141,10 +157,8 @@ namespace LechTyper.Controllers
             {
                 ViewBag.ResultMessage = "Użytkownik nie miał przypisanej tej roli.";
             }
-            ViewBag.RolesForThisUser = Roles.GetRolesForUser(UserName);
-            SelectList list = new SelectList(Roles.GetAllRoles());
-            ViewBag.Roles = list;
-
+            ViewBag.Roles = new SelectList(Roles.GetAllRoles());
+            ViewBag.Users = new SelectList(_mainRepository.GetUsersNames());
 
             return View("RoleAddToUser");
         }
@@ -163,23 +177,19 @@ namespace LechTyper.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult UserEdit()
         {
-            int id = int.Parse(Request.QueryString["x"]);
+            int id = int.Parse(Request.QueryString["userId"]);
             var page = Request.QueryString["page"];
-            var Userslist = dbUser.UserProfiles.ToList();
             ViewBag.Page = page;
-            var x = Userslist.Find(r => r.UserId == id);
-            return View(x);
+            return View(_mainRepository.GetUserById(id));
         }
         [HttpPost]
         [Authorize(Roles = "admin")]
         public ActionResult UserEdit(string userid, string username, string usermail)
         {
-            var x = dbUser.UserProfiles.ToList();
-            var up = x.Find(a => a.UserId == int.Parse(userid));
-            up.UserId = int.Parse(userid);
-            up.UserName = username;
-            up.UserMail = usermail;
-            if (TryUpdateModel(up))
+            var user = _mainRepository.GetUserById(int.Parse(userid));
+            user.UserName = username;
+            user.UserMail = usermail;
+            if (TryUpdateModel(user))
             {
                 try
                 {
@@ -198,15 +208,14 @@ namespace LechTyper.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult UserDelete()
         {
-            var id = Request.QueryString["x"];
+            var id = Request.QueryString["userId"];
             var page = Request.QueryString["page"];
-            var x = dbUser.UserProfiles.ToList();
-            var up = x.Find(a => a.UserId == int.Parse(id));
-            foreach (var role in Roles.GetRolesForUser(up.UserName))
-                Roles.RemoveUserFromRole(up.UserName, role);
+            var user = _mainRepository.GetUserById(int.Parse(id));
+            foreach (var role in Roles.GetRolesForUser(user.UserName))
+                Roles.RemoveUserFromRole(user.UserName, role);
             try
             {
-                dbUser.UserProfiles.Remove(up);
+                dbUser.UserProfiles.Remove(user);
                 dbUser.SaveChanges();
             }
             catch (Exception e)
@@ -232,29 +241,27 @@ namespace LechTyper.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult MatchEdit()
         {
-            int id = int.Parse(Request.QueryString["x"]);
+            int id = int.Parse(Request.QueryString["matchId"]);
             var page = Request.QueryString["page"];
-            var MatchesList = dbMatch.MatchData.ToList();
-            ViewBag.Page = page;
-            var match = MatchesList.Find(r => r.id == id);
-            return View(match);
+            ViewBag.page = page;
+            return View(_matchRepository.GetMatchById(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public ActionResult MatchEdit(string matchid, string date, string Competition, string host, string guest, string FTHostGoal, string FTGuestGoal, string isCompleted)
+        public ActionResult MatchEdit(string matchid, string date, string Competition, string host, string guest, string finalHostGoal, string finalGuestGoal, string halfHostGoal, string halfGuestGoal, string isCompleted)
         {
-            var match = dbMatch.MatchData.ToList();
-            var up = match.Find(a => a.id == int.Parse(matchid));
-            up.id = int.Parse(matchid);
-            up.date = DateTime.Parse(date);
-            up.competition = Competition;
-            up.host = host;
-            up.guest = guest;
-            up.finalHostGoal = int.Parse(FTHostGoal);
-            up.finalGuestGoal = int.Parse(FTGuestGoal);
-            up.isCompleted = bool.Parse(isCompleted);
-            if (TryUpdateModel(up))
+            var match = _matchRepository.GetMatchById(int.Parse(matchid));
+            match.date = DateTime.Parse(date);
+            match.competition = Competition;
+            match.host = host;
+            match.guest = guest;
+            match.finalHostGoal = int.Parse(finalHostGoal);
+            match.finalGuestGoal = int.Parse(finalGuestGoal);
+            match.halfHostGoal = int.Parse(halfHostGoal);
+            match.halfGuestGoal = int.Parse(halfGuestGoal);
+            match.isCompleted = bool.Parse(isCompleted);
+            if (TryUpdateModel(match))
             {
                 try
                 {
@@ -273,13 +280,12 @@ namespace LechTyper.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult MatchDelete()
         {
-            var id = Request.QueryString["x"];
+            var id = Request.QueryString["matchId"];
             var page = Request.QueryString["page"];
-            var x = dbMatch.MatchData.ToList();
-            var up = x.Find(a => a.id == int.Parse(id));
+            var match = _matchRepository.GetMatchById(int.Parse(id));
             try
             {
-                dbMatch.MatchData.Remove(up);
+                dbMatch.MatchData.Remove(match);
                 dbMatch.SaveChanges();
             }
             catch (Exception e)
@@ -292,9 +298,9 @@ namespace LechTyper.Controllers
         }
         #endregion
 
-        #region TwittEdit
+        #region TweetEdit
         [Authorize(Roles = "admin")]
-        public ActionResult TwittIndex(int? page)
+        public ActionResult TweetIndex(int? page)
         {
             ViewBag.UserManage = "Zarządzanie typami";
             var TwittList = dbTwitt.Tweets.ToList().OrderBy(c => c.Id);
@@ -303,55 +309,48 @@ namespace LechTyper.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public ActionResult TwittEdit()
+        public ActionResult TweetEdit()
         {
-            int id = int.Parse(Request.QueryString["x"]);
+            int id = int.Parse(Request.QueryString["tweetId"]);
             var page = Request.QueryString["page"];
-            var TwittList = dbTwitt.Tweets.ToList();
             ViewBag.Page = page;
-            var Twitt = TwittList.Find(r => r.Id == id);
-            return View(Twitt);
+            var tweet = _twitterRepository.GetTweetById(id);
+            return View(tweet);
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public ActionResult TwittEdit(string Twittid, string created_at, string post_id, string text, string user_id, string user_name, string user_nick)
+        public ActionResult TweetEdit(string id, string result, string resultHalf, string scorer)
         {
-            //var x = dbTwitt.Tweets.ToList();
-            //var up = x.Find(a => a.Twittid == int.Parse(Twittid));
-            //up.Twittid = int.Parse(Twittid);
-            //up.created_at = created_at;
-            //up.post_id = post_id;
-            //up.user_id = user_id;
-            //up.user_name = user_name;
-            //up.user_nick = user_nick;
-            //up.text = text;
-            //if (TryUpdateModel(up))
-            //{
-            //    try
-            //    {
-            //        dbTwitt.SaveChanges();
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        ViewBag.ErrorMessage = e;
-            //        return RedirectToAction("DatabaseError", "Error", e.Message);
-            //    }
-            //}
-            return RedirectToAction("TwittIndex");
+            var tweet = _twitterRepository.GetTweetById(int.Parse(id));
+            tweet.result = result;
+            tweet.resultHalf = resultHalf;
+            tweet.scorer = scorer;
+            if (TryUpdateModel(tweet))
+            {
+                try
+                {
+                    dbTwitt.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    ViewBag.ErrorMessage = e;
+                    return RedirectToAction("DatabaseError", "Error", e.Message);
+                }
+            }
+            return RedirectToAction("TweetIndex");
         }
 
 
         [Authorize(Roles = "admin")]
         public ActionResult TwittDelete()
         {
-            var id = Request.QueryString["x"];
+            var id = Request.QueryString["tweetId"];
             var page = Request.QueryString["page"];
-            var TwittList = dbTwitt.Tweets.ToList();
-            var up = TwittList.Find(a => a.Id == int.Parse(id));
+            var tweet = _twitterRepository.GetTweetById(int.Parse(id));
             try
             {
-                dbTwitt.Tweets.Remove(up);
+                dbTwitt.Tweets.Remove(tweet);
                 dbTwitt.SaveChanges();
             }
             catch (Exception e)
@@ -360,7 +359,7 @@ namespace LechTyper.Controllers
                 return RedirectToAction("DatabaseError", "Error", e.Message);
             }
 
-            return RedirectToAction("TwittIndex", new { page = page });
+            return RedirectToAction("TweetIndex", new { page = page });
         }
         #endregion
     }

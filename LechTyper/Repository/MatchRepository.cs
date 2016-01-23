@@ -34,5 +34,14 @@ namespace LechTyper.Repository
         {
             return dbMatch.MatchData.Where(m => m.isCompleted).OrderBy(m => m.date).ToList().Last();
         }
+
+        /// <summary>
+        /// Wyszukiwanie meczu po ID
+        /// </summary>
+        /// <returns>Mecz</returns>
+        public Match GetMatchById(int id)
+        {
+            return dbMatch.MatchData.Where(m => m.id == id).FirstOrDefault();
+        }
     }
 }

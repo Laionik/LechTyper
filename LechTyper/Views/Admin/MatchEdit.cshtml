@@ -1,52 +1,36 @@
 ﻿@using LechTyper.Resources
-@model LechTyper.Models.Game
-<hgroup class="title">
-    <h1>@ResourceMain.MatchEdit</h1>
-    <h3>@ResourceMain.MatchEditing @Model.Host @ResourceMain.MatchVs @Model.Guest</h3>
-</hgroup>
-<section class="panel">
-    <p>
-        @Html.ActionLink(@ResourceMain.Return, "MatchIndex")
-    </p>
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-
-    <fieldset>
-        <table class="table table-striped table-hover" style="width:60%">
-            <tr>
-                @Html.HiddenFor(m => m.MatchID)
-                <td> @Html.LabelFor(m => m.date)</td>
-                <td> @Html.TextBoxFor(m => m.date)</td>
-            </tr>
-            <tr>
-                <td> @Html.LabelFor(m => m.Competition)</td>
-                <td> @Html.TextBoxFor(m => m.Competition)</td>
-            </tr>
-            <tr>
-                <td> @Html.LabelFor(m => m.Host)</td>
-                <td> @Html.TextBoxFor(m => m.Host)</td>
-            </tr>
-            <tr>
-                <td> @Html.LabelFor(m => m.Guest)</td>
-                <td> @Html.TextBoxFor(m => m.Guest)</td>
-            </tr>
-            <tr>
-                <td> @Html.LabelFor(m => m.FTHostGoal)</td>
-                <td> @Html.TextBoxFor(m => m.FTHostGoal)</td>
-            </tr>
-            <tr>
-                <td> @Html.LabelFor(m => m.FTGuestGoal)</td>
-                <td> @Html.TextBoxFor(m => m.FTGuestGoal)</td>
-            </tr>
-            <tr>
-                <td> @Html.LabelFor(m => m.isCompleted)</td>
-                <td> @Html.TextBoxFor(m => m.isCompleted)</td>
-            </tr>
-        </table>
-        <br />
-        <input class="btn btn-default" type="submit" value="Zapisz" />
-    </fieldset>
-    }
-    </section>
+@model LechTyper.Models.Match
+<!--PAGE TITLE-->
+<div class="row">
+    <div class="span12">
+        <div class="page-header">
+            <h1>@ResourceMain.Editing @Model.host @ResourceMain.MatchVs @Model.guest</h1><br>
+        </div>
+    </div>
+</div>
+<!-- /. PAGE TITLE-->
+<div class="row">
+    <div class="span6">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <form>
+                <fieldset>
+                    @Html.HiddenFor(m => m.id)
+                    @Html.TextBoxFor(m => m.date, new { @type = "text", @class = "input-xxlarge", @placeholder = ResourceMain.Date })<br>
+                    @Html.TextBoxFor(m => m.competition, new { @type = "text", @class = "input-xxlarge", @placeholder = ResourceMain.MatchCompetition})<br>
+                    @Html.TextBoxFor(m => m.host, new { @type = "text", @class = "input-xxlarge", @placeholder = ResourceMain.MatchHome })<br>
+                    @Html.TextBoxFor(m => m.guest, new { @type = "text", @class = "input-xxlarge", @placeholder = ResourceMain.MatchGuest })<br>
+                    @Html.TextBoxFor(m => m.finalHostGoal, new { @type = "text", @class = "input-xxlarge", @placeholder = ResourceMain.MatchHomeGoal})<br>
+                    @Html.TextBoxFor(m => m.finalGuestGoal, new { @type = "text", @class = "input-xxlarge", @placeholder = ResourceMain.MatchGuestGoal })<br>
+                    @Html.TextBoxFor(m => m.halfHostGoal, new { @type = "text", @class = "input-xxlarge", @placeholder = ResourceMain.MatchHomeHalfGoal })<br>
+                    @Html.TextBoxFor(m => m.halfGuestGoal, new { @type = "text", @class = "input-xxlarge", @placeholder = ResourceMain.MatchGuestHalfGoal})<br>
+                    @Html.TextBoxFor(m => m.isCompleted, new { @type = "text", @class = "input-xxlarge", @placeholder = ResourceMain.MatchPlayed })<br>
+                    <button type="submit" class="btn btn-primary">@ResourceMain.Save</button>
+                </fieldset>
+            </form>
+        }
+    </div>
+</div>
+<div class="hr-divider"></div>

@@ -1,61 +1,76 @@
 ﻿@using LechTyper.Resources
-<hgroup class="title">
-    <h1>@ResourceMain.RoleAddToUser</h1>
-</hgroup>
-
-<section class="panel">
-    <p>
-        @Html.ActionLink(@ResourceMain.Return, "Admin")
-    </p>
-
+<!--PAGE TITLE-->
+<div class="row">
+    <div class="span12">
+        <div class="page-header">
+            <h1>@ResourceMain.RoleAddToUser</h1>
+        </div>
+    </div>
+</div>
+<!-- /. PAGE TITLE-->
+<div class="row">
     <div class="message-success">@ViewBag.ResultMessage</div>
-    <h3>@ResourceMain.RoleAddUser</h3>
-    <table class="table table-striped table-hover ">
+    <div class="span6">
+        <h3>@ResourceMain.RoleAddUser</h3>
+
         @using (Html.BeginForm("RoleAddToUser", "Admin"))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
-            <tr>
-                <td>@Html.TextBox("UserName")</td>
-                <td>@Html.DropDownList("RoleName", ViewBag.Roles as SelectList)</td>
-            </tr>
+            <form>
+                <fieldset>
+                    @Html.DropDownList("UserName", ViewBag.Users as SelectList, new { @class = "input-xxlarge" })<br>
+                    @Html.DropDownList("RoleName", ViewBag.NotUserRoles as SelectList, new { @class = "input-xxlarge" })<br>
+                    <button type="submit" class="btn btn-primary">@ResourceMain.Add</button>
+                </fieldset>
+            </form>
         }
-    </table>
-    <input type="submit" class="btn btn-default" value=@ResourceMain.Save />
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <h3>@ResourceMain.RoleUserDelete</h3>
 
-    <h3>Usuń rolę użytkownikowi</h3>
-    <table class="table table-striped table-hover ">
         @using (Html.BeginForm("DeleteRoleForUser", "Admin"))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
-            <tr>
-                <td>@Html.TextBox("UserName")</td>
-                <td>@Html.DropDownList("RoleName", ViewBag.Roles as SelectList)</td>
-            </tr>
+            <form>
+                <fieldset>
+                    @Html.DropDownList("UserName", ViewBag.Users as SelectList, new { @class = "input-xxlarge" })<br>
+                    @Html.DropDownList("RoleName", ViewBag.UserRoles as SelectList, new { @class = "input-xxlarge" })<br>
+                    <button type="submit" class="btn btn-danger">@ResourceMain.Delete</button>
+                </fieldset>
+            </form>
         }
-    </table>
-    <input type="submit" class="btn btn-default" value=@ResourceMain.Delete />
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <h3>@ResourceMain.RoleUserDisplay</h3>
 
-        <h3>Wyświetl role użytkownika</h3>
         @using (Html.BeginForm("GetRoles", "Admin"))
         {
             @Html.AntiForgeryToken()
-            <p>
-                @ResourceMain.Nickname: @Html.TextBox("UserName")
-            </p>
-    <input type="submit" value=@ResourceMain.RoleGet />
+            <form>
+                <fieldset>
+                    @Html.DropDownList("UserName", ViewBag.Users as SelectList, new { @class = "input-xxlarge" })<br>
+                    <button type="submit" class="btn btn-info">@ResourceMain.RoleGet</button>
+                </fieldset>
+            </form>
         }
         @if (ViewBag.RolesForThisUser != null)
         {
             <text>
                 <h3>@ResourceMain.RoleUser</h3>
                 <ol>
-                    @foreach (string s in ViewBag.RolesForThisUser)
+                    @foreach (string role in ViewBag.RolesForThisUser)
                     {
-                        <li>@s</li>
+                        <li>@role</li>
                     }
                 </ol>
             </text>
         }
-</section>
+    </div>
+</div>
+<div class="hr-divider"></div>

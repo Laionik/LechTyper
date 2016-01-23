@@ -5,96 +5,96 @@
     <meta charset="utf-8" />
     <title>@ResourceMain.Tittle</title>
     @Scripts.Render("~/bundles/jquery")
-    @Styles.Render("~/Content/bootstrapcss")
-    @Styles.Render("~/Content/Site.css")
+
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="~/Content/css/style.css" rel="stylesheet">
     <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+
+    <meta name="viewport" content="width=device-width" />
 </head>
 <body>
-    <div class="navbar navbar-inverse">
+    <!--HEADER ROW-->
+    <div id="header-row">
         <div class="container">
-            <div class="navbar-header">
-                <a href='@Url.Action("Index", "Home")' class="navbar-brand" title="@ResourceMain.MainPage">
-                    #LechTyper
-                </a>
-                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-
-            <div class="navbar-collapse collapse" id="navbar-main">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink(@ResourceMain.Twitter, "Twitter", "Twitter")</li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@ResourceMain.Fixture<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink(@ResourceMain.Ekstraklasa, "MatchDisplay", "Match", new { competition = "Ekstraklasa" }, null)</li>
-                            <li>@Html.ActionLink(@ResourceMain.PolishCup, "MatchDisplay", "Match", new { competition = "PolishCup" }, null)</li>
-                            <li>@Html.ActionLink(@ResourceMain.PolishSupercup, "MatchDisplay", "Match", new { competition = "Supercup" }, null)</li>
-                            <li class="divider"></li>
-                            <li>@Html.ActionLink(@ResourceMain.ChampionsLeague, "MatchDisplay", "Match", new { competition = "ChampionsLeague" }, null)</li>
-                            <li>@Html.ActionLink(@ResourceMain.EuropaLeague, "MatchDisplay", "Match", new { competition = "EuropaLeague" }, null)</li>
-                        </ul>
-                    </li>
-                    <li>@Html.ActionLink("Test - matchday", "PostStartTweet", "Twitter")</li>
-
-                    @if (User.IsInRole("admin"))
-                    {
-                        <li>@Html.ActionLink(@ResourceMain.AdminPanel, "Admin", "Admin")</li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
+            <div class="row">
+                <!--LOGO-->
+                <div class="span3">
+                    <a href='@Url.Action("Index", "Home")' class="navbar-brand" title="@ResourceMain.MainPage">
+                        #LechTyper
+                    </a>
+                </div>
+                <!-- /LOGO -->
+                <!-- MAIN NAVIGATION -->
+                <div class="span9">
+                    <div class="navbar  pull-right">
+                        <div class="navbar-inner">
+                            <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a>
+                            <div class="nav-collapse collapse navbar-responsive-collapse">
+                                <ul class="nav">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@ResourceMain.MainPage<b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li>@Html.ActionLink(@ResourceMain.MainPage, "Index", "Home")</li>
+                                            <li>@Html.ActionLink(@ResourceMain.AboutMe, "About", "Home")</li>
+                                        </ul>
+                                    </li>
+                                    <li>@Html.ActionLink(@ResourceMain.Twitter, "Twitter", "Twitter")</li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@ResourceMain.Fixture<b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li>@Html.ActionLink(@ResourceMain.Ekstraklasa, "MatchDisplay", "Match", new { competition = "Ekstraklasa" }, null)</li>
+                                            <li>@Html.ActionLink(@ResourceMain.PolishCup, "MatchDisplay", "Match", new { competition = "PolishCup" }, null)</li>
+                                            <li>@Html.ActionLink(@ResourceMain.PolishSupercup, "MatchDisplay", "Match", new { competition = "Supercup" }, null)</li>
+                                            <li>@Html.ActionLink(@ResourceMain.ChampionsLeague, "MatchDisplay", "Match", new { competition = "ChampionsLeague" }, null)</li>
+                                            <li>@Html.ActionLink(@ResourceMain.EuropaLeague, "MatchDisplay", "Match", new { competition = "EuropaLeague" }, null)</li>
+                                        </ul>
+                                    </li>
+                                    <li>@Html.ActionLink(@ResourceMain.Ekstraklasa, "UpdateCompetition", "Match", new { competition = "Ekstraklasa" }, null)</li>
+                                    @if (User.IsInRole("admin"))
+                                    {
+                                        <li>@Html.ActionLink(@ResourceMain.AdminPanel, "Admin", "Admin")</li>
+                                    }
+                                    @Html.Partial("_LoginPartial")
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- MAIN NAVIGATION -->
             </div>
         </div>
     </div>
+    <!-- /HEADER ROW -->
 
     <div class="container">
-        <div class="page-header" id="banner">
-            <div class="row">
-                <div class="col-lg-8 col-md-7 col-sm-6">
-                </div>
-            </div>
-        </div>
+        @RenderSection("featured", required: false)
+        <section>
+            @RenderBody()
+        </section>
 
-        <div class="bs-docs-section clearfix">
-            <div class="row">
-                <div class="col-lg-12">
-                    @RenderSection("featured", required: false)
-                    <section>
-                        @RenderBody()
-                    </section>
-                </div>
-            </div>
-        </div>
-
-
-
-        <br /><br /><br /><br />
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-
-                    <ul class="list-inline">
-                        <li class="pull-right"><a href="#top">Do góry</a></li>
-                        <li><a href="https://twitter.com/laionik">Twitter</a></li>
-                        <li><a href="https://github.com/laionik">GitHub</a></li>
-                    </ul>
-                    <p>
-                        <ul class="list-inline">
-                            <li>@DateTime.Now.Year - LechTyper</li>
-                            <li class="pull-right">@Html.ActionLink(@ResourceMain.Contact, "Contact", "Home")</li>
-                            <li class="pull-right">@Html.ActionLink(@ResourceMain.AboutMe, "About", "Home")</li>
-                            <li class="pull-right">@Html.ActionLink(@ResourceMain.MainPage, "Index", "Home")</li>
-                        </ul>
-                    </p>
-                </div>
-            </div>
-
-        </footer>
     </div>
+    <!--Footer
+    ==========================-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="span6">
+                    @DateTime.Now.Year - LechTyper.<br>
+                    <small>Copyright &copy 2013 Shapebootstrap | All Rights Reserved</small>
+                </div>
+                <div class="span6">
+                    <div class="social pull-right">
+                        <a href="#" title="Do góry"><img src="~/Content/img/social/dribbble.png" alt="Do góry"></a>
+                        <a href="https://twitter.com/laionik" title="Twitter"><img src="~/Content/img/social/twitter.png" alt="Twitter"></a>
+                        <a href="https://github.com/laionik" title="GitHub"><img src="~/Content/img/social/dribbble.png" alt="GitHub"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--/.Footer-->
     @RenderSection("scripts", required: false)
 </body>
 </html>

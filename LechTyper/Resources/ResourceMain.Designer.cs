@@ -70,6 +70,42 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jestem studentem Politechniki Poznańskiej i ta aplikacja webowa jest moją pracą inżynierską. Temat automatyzacji zabawy LechTypera wybrałem ponieważ uważam to za interesujący projekt i chciałem też wnieść coś do tej zabawy. Moim wkładem jest odciążenie administracji i zwiększenie efektywności przeprowadzanej gry..
+        /// </summary>
+        public static string AboutMeDesc {
+            get {
+                return ResourceManager.GetString("AboutMeDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DziennikKibola.
+        /// </summary>
+        public static string AboutMeFanatic {
+            get {
+                return ResourceManager.GetString("AboutMeFanatic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jeździsz na wyjazdy i chciałbyś mieć ich spis? Skorzystaj z Dziennika Kibola! Ten serwis pozwoli Tobie na zachowanie wszelkich informacji o Twoich wyjazdach!.
+        /// </summary>
+        public static string AboutMeFanaticDesc {
+            get {
+                return ResourceManager.GetString("AboutMeFanaticDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inne projekty.
+        /// </summary>
+        public static string AboutMeOtherProject {
+            get {
+                return ResourceManager.GetString("AboutMeOtherProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aktywacja konta.
         /// </summary>
         public static string AccountActivation {
@@ -169,6 +205,78 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Autor zabawy.
+        /// </summary>
+        public static string Author {
+            get {
+                return ResourceManager.GetString("Author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pomysłodawca i pierwszy administrator zabawy.
+        /// </summary>
+        public static string AuthorDesc {
+            get {
+                return ResourceManager.GetString("AuthorDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mol4k.
+        /// </summary>
+        public static string AuthorNick {
+            get {
+                return ResourceManager.GetString("AuthorNick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przyłącz się do zabawy ! Spróbuj zdobyć mistrzostwo w typowaniu wyników Kolejorza.
+        /// </summary>
+        public static string CarouselDesc1Lead {
+            get {
+                return ResourceManager.GetString("CarouselDesc1Lead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zaloguj się i sprawdź swoje wyniki w poprzedniej kolejce oraz to z kim się zagrasz w następnej!.
+        /// </summary>
+        public static string CarouselDesc2Lead {
+            get {
+                return ResourceManager.GetString("CarouselDesc2Lead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zaloguj się!.
+        /// </summary>
+        public static string CarouselLogin {
+            get {
+                return ResourceManager.GetString("CarouselLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zarejestruj się!.
+        /// </summary>
+        public static string CarouselRegister {
+            get {
+                return ResourceManager.GetString("CarouselRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sprawdź wyniki!.
+        /// </summary>
+        public static string CarouselTitle2 {
+            get {
+                return ResourceManager.GetString("CarouselTitle2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Liga Mistrzów.
         /// </summary>
         public static string ChampionsLeague {
@@ -178,11 +286,56 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zaktualizuj listę spotkań Ligi Mistrzów.
+        /// </summary>
+        public static string ChampionsLeagueDesc {
+            get {
+                return ResourceManager.GetString("ChampionsLeagueDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Potwierdź hasło.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontakt.
         /// </summary>
         public static string Contact {
             get {
                 return ResourceManager.GetString("Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adres e-mail.
+        /// </summary>
+        public static string ContactEmail {
+            get {
+                return ResourceManager.GetString("ContactEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Portfolio.
+        /// </summary>
+        public static string ContactPortfolio {
+            get {
+                return ResourceManager.GetString("ContactPortfolio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Konta społecznościowe.
+        /// </summary>
+        public static string ContactSocial {
+            get {
+                return ResourceManager.GetString("ContactSocial", resourceCulture);
             }
         }
         
@@ -223,6 +376,24 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Developer.
+        /// </summary>
+        public static string Developer {
+            get {
+                return ResourceManager.GetString("Developer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twórca aplikacji webowej, na której się właśnie znajdujesz.
+        /// </summary>
+        public static string DeveloperDesc {
+            get {
+                return ResourceManager.GetString("DeveloperDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Liga.
         /// </summary>
         public static string Division {
@@ -250,11 +421,47 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edytujesz.
+        /// </summary>
+        public static string Editing {
+            get {
+                return ResourceManager.GetString("Editing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edycja.
+        /// </summary>
+        public static string Edition {
+            get {
+                return ResourceManager.GetString("Edition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ekstraklasa.
         /// </summary>
         public static string Ekstraklasa {
             get {
                 return ResourceManager.GetString("Ekstraklasa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zaktualizuj listę spotkań Ekstraklasy.
+        /// </summary>
+        public static string EkstraklasaDesc {
+            get {
+                return ResourceManager.GetString("EkstraklasaDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to lukasz.sosinski4@gmail.com.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
             }
         }
         
@@ -277,6 +484,15 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zaktualizuj listę spotkań Ligi Europy.
+        /// </summary>
+        public static string EuropaLeagueDesc {
+            get {
+                return ResourceManager.GetString("EuropaLeagueDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nieudane logowanie przy pomocy serwisu społecznościowego..
         /// </summary>
         public static string ExternalLoginFailure {
@@ -286,11 +502,29 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Facebook.
+        /// </summary>
+        public static string Facebook {
+            get {
+                return ResourceManager.GetString("Facebook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Terminarz.
         /// </summary>
         public static string Fixture {
             get {
                 return ResourceManager.GetString("Fixture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GitHub.
+        /// </summary>
+        public static string GitHub {
+            get {
+                return ResourceManager.GetString("GitHub", resourceCulture);
             }
         }
         
@@ -340,6 +574,15 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Laionik.
+        /// </summary>
+        public static string Laionik {
+            get {
+                return ResourceManager.GetString("Laionik", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Liga.
         /// </summary>
         public static string League {
@@ -367,6 +610,15 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zaktualizuj listy użytkowników i grup typerów.
+        /// </summary>
+        public static string LeagueUserUpdateDesc {
+            get {
+                return ResourceManager.GetString("LeagueUserUpdateDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Błąd logowania!.
         /// </summary>
         public static string LogFailure {
@@ -385,6 +637,15 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zaloguj się za pomocą utworzonego hasła.
+        /// </summary>
+        public static string LoginInformation {
+            get {
+                return ResourceManager.GetString("LoginInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wyloguj.
         /// </summary>
         public static string LogOff {
@@ -399,6 +660,33 @@ namespace LechTyper.Resources {
         public static string Lose {
             get {
                 return ResourceManager.GetString("Lose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Administracja zabawy na Twitterze.
+        /// </summary>
+        public static string LTAdministration {
+            get {
+                return ResourceManager.GetString("LTAdministration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontakt z LechTyperem.
+        /// </summary>
+        public static string LTContact {
+            get {
+                return ResourceManager.GetString("LTContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jeśli masz pytania co do LechTypera skorzystaj z poniższej podpowiedzi.
+        /// </summary>
+        public static string LTContactAsk {
+            get {
+                return ResourceManager.GetString("LTContactAsk", resourceCulture);
             }
         }
         
@@ -466,11 +754,56 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edytuj wyniki i status meczów.
+        /// </summary>
+        public static string MatchesDesc {
+            get {
+                return ResourceManager.GetString("MatchesDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mecze rozegrane.
+        /// </summary>
+        public static string MatchesPlayed {
+            get {
+                return ResourceManager.GetString("MatchesPlayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mecze do rozegrania.
+        /// </summary>
+        public static string MatchesToPlay {
+            get {
+                return ResourceManager.GetString("MatchesToPlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gość.
         /// </summary>
         public static string MatchGuest {
             get {
                 return ResourceManager.GetString("MatchGuest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bramki gości.
+        /// </summary>
+        public static string MatchGuestGoal {
+            get {
+                return ResourceManager.GetString("MatchGuestGoal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bramki gości do przerwy.
+        /// </summary>
+        public static string MatchGuestHalfGoal {
+            get {
+                return ResourceManager.GetString("MatchGuestHalfGoal", resourceCulture);
             }
         }
         
@@ -489,6 +822,24 @@ namespace LechTyper.Resources {
         public static string MatchHome {
             get {
                 return ResourceManager.GetString("MatchHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bramki gospodarzy.
+        /// </summary>
+        public static string MatchHomeGoal {
+            get {
+                return ResourceManager.GetString("MatchHomeGoal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Barmki gospodarzy do przerwy.
+        /// </summary>
+        public static string MatchHomeHalfGoal {
+            get {
+                return ResourceManager.GetString("MatchHomeHalfGoal", resourceCulture);
             }
         }
         
@@ -565,6 +916,24 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brak wpisów.
+        /// </summary>
+        public static string NoInsert {
+            get {
+                return ResourceManager.GetString("NoInsert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hasło.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zmień hasło.
         /// </summary>
         public static string PasswordChange {
@@ -579,6 +948,24 @@ namespace LechTyper.Resources {
         public static string PasswordForgot {
             get {
                 return ResourceManager.GetString("PasswordForgot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nowe hasło.
+        /// </summary>
+        public static string PasswordNew {
+            get {
+                return ResourceManager.GetString("PasswordNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aktualne hasło.
+        /// </summary>
+        public static string PasswordOld {
+            get {
+                return ResourceManager.GetString("PasswordOld", resourceCulture);
             }
         }
         
@@ -633,6 +1020,15 @@ namespace LechTyper.Resources {
         public static string PolishCup {
             get {
                 return ResourceManager.GetString("PolishCup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zaktualizuj listę spotkań Pucharu Polski.
+        /// </summary>
+        public static string PolishCupDesc {
+            get {
+                return ResourceManager.GetString("PolishCupDesc", resourceCulture);
             }
         }
         
@@ -745,15 +1141,6 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zarejestruj się przy pomocy Twojego konta społecznościowego.
-        /// </summary>
-        public static string RegisterSocial {
-            get {
-                return ResourceManager.GetString("RegisterSocial", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Rejestracja.
         /// </summary>
         public static string Registration {
@@ -795,6 +1182,24 @@ namespace LechTyper.Resources {
         public static string Reset {
             get {
                 return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to W pełni responsywna.
+        /// </summary>
+        public static string Responsive {
+            get {
+                return ResourceManager.GetString("Responsive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stronę możesz wygodnie przeglądać również na urządzeniach mobilnych.
+        /// </summary>
+        public static string ResponsiveDesc {
+            get {
+                return ResourceManager.GetString("ResponsiveDesc", resourceCulture);
             }
         }
         
@@ -889,6 +1294,15 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edytuj role i przypisanych użytkowników.
+        /// </summary>
+        public static string RolesDesc {
+            get {
+                return ResourceManager.GetString("RolesDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zarządzanie rolami.
         /// </summary>
         public static string RolesManage {
@@ -907,11 +1321,47 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Usuń rolę użytkownikowi.
+        /// </summary>
+        public static string RoleUserDelete {
+            get {
+                return ResourceManager.GetString("RoleUserDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wyświetl role użytkownika.
+        /// </summary>
+        public static string RoleUserDisplay {
+            get {
+                return ResourceManager.GetString("RoleUserDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zapisz.
         /// </summary>
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zaloguj się za pomocą konta społecznościowego.
+        /// </summary>
+        public static string SocialInformation {
+            get {
+                return ResourceManager.GetString("SocialInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zaktualizuj listę spotkań Superpucharu.
+        /// </summary>
+        public static string SupercupDesc {
+            get {
+                return ResourceManager.GetString("SupercupDesc", resourceCulture);
             }
         }
         
@@ -930,6 +1380,24 @@ namespace LechTyper.Resources {
         public static string Tittle {
             get {
                 return ResourceManager.GetString("Tittle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Posty.
+        /// </summary>
+        public static string Tweets {
+            get {
+                return ResourceManager.GetString("Tweets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edytuj zawartość postów z Twittera.
+        /// </summary>
+        public static string TweetsDesc {
+            get {
+                return ResourceManager.GetString("TweetsDesc", resourceCulture);
             }
         }
         
@@ -988,15 +1456,6 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edytujesz.
-        /// </summary>
-        public static string UserEditing {
-            get {
-                return ResourceManager.GetString("UserEditing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Id użytkownika.
         /// </summary>
         public static string UserId {
@@ -1006,11 +1465,38 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adres e-mail.
+        /// </summary>
+        public static string UserMail {
+            get {
+                return ResourceManager.GetString("UserMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zarządzaj użytkownikami.
         /// </summary>
         public static string UserManage {
             get {
                 return ResourceManager.GetString("UserManage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Użytkownicy.
+        /// </summary>
+        public static string Users {
+            get {
+                return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edytuj dane użytkowników.
+        /// </summary>
+        public static string UsersDesc {
+            get {
+                return ResourceManager.GetString("UsersDesc", resourceCulture);
             }
         }
         

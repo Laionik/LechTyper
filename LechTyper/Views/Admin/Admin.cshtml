@@ -1,29 +1,152 @@
 ﻿@using LechTyper.Resources
-<hgroup class="title">
-    <h1>@ResourceMain.AdminPanel</h1>
-</hgroup>
+<!--PAGE TITLE-->
+<div class="row">
+    <div class="span12">
+        <div class="page-header">
+            <h1>@ResourceMain.AdminPanel</h1>
+            <h2>@ResourceMain.Hello <b>@User.Identity.Name</b>. @ResourceMain.AdminWelcome</h2>
+        </div>
+    </div>
+</div>
+<!-- /. PAGE TITLE-->
+<div class="row">
+    <div class="span12">
+        <div class="page-header">
+            <h3>@ResourceMain.Edition</h3>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="media">
+            <a href="#" class="pull-left"><img src="~/Content/img/icon-service1.png" class="media-object" alt='' /></a>
+            <div class="media-body">
+                <h4 class="media-heading">@ResourceMain.Users</h4>
+                <p>
+                    @ResourceMain.UsersDesc
+                </p>
+                <a href="@Url.Action("UserIndex", "Admin")" class="btn" type="button">@ResourceMain.Edit</a>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="media">
+            <a href="#" class="pull-left"><img src="~/Content/img/icon-service1.png" class="media-object" alt='' /></a>
+            <div class="media-body">
+                <h4 class="media-heading">@ResourceMain.Roles</h4>
+                <p>
+                    @ResourceMain.RolesDesc
+                </p>
+                <a href="@Url.Action("RoleIndex", "Admin")" class="btn" type="button">@ResourceMain.Edit</a>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="media">
+            <a href="#" class="pull-left"><img src="~/Content/img/icon-service1.png" class="media-object" alt='' /></a>
+            <div class="media-body">
+                <h4 class="media-heading">@ResourceMain.Matches</h4>
+                <p>
+                    @ResourceMain.MatchesDesc
+                </p>
+                <a href="@Url.Action("MatchIndex", "Admin")" class="btn" type="button">@ResourceMain.Edit</a>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="media">
+            <a href="#" class="pull-left"><img src="~/Content/img/icon-service1.png" class="media-object" alt='' /></a>
+            <div class="media-body">
+                <h4 class="media-heading">@ResourceMain.Tweets</h4>
+                <p>
+                    @ResourceMain.TweetsDesc
+                </p>  
+                <a href="@Url.Action("TweetIndex", "Admin")" class="btn" type="button">@ResourceMain.Edit</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="hr-divider"></div>
 
-<section class="panel">
-    <p>
-        @ResourceMain.Hello <b>@User.Identity.Name</b>. @ResourceMain.AdminWelcome
-    </p>
-    <ul id="list-group">
-        @{
-            <li class="list-group-item">@Html.ActionLink(@ResourceMain.UserManage, "UserIndex", "Admin")</li>
-            <li class="list-group-item">@Html.ActionLink(@ResourceMain.RoleCreate, "RoleIndex", "Admin")</li>
-            <li class="list-group-item">@Html.ActionLink(@ResourceMain.MatchManage, "MatchIndex", "Admin")</li>
-            <li class="list-group-item">@Html.ActionLink(@ResourceMain.PredictionManage, "TwittIndex", "Admin")</li>       
-        }
-    </ul>
-    <p>
-        @ResourceMain.Update
-    </p>
-    <ul id="list-group">
-        <li class="list-group-item">@Html.ActionLink(@ResourceMain.Ekstraklasa, "UpdateCompetition", "Match", new { competition = "Ekstraklasa" }, null)</li>
-        <li class ="list-group-item">@Html.ActionLink(@ResourceMain.PolishCup, "UpdateCompetition", "Match", new { competition = "PolishCup" }, null)</li>
-        <li class="list-group-item">@Html.ActionLink(@ResourceMain.ChampionsLeague, "UpdateCompetition", "Match", new { competition = "Supercup" }, null)</li>
-        <li class="list-group-item">@Html.ActionLink(@ResourceMain.EuropaLeague, "UpdateCompetition", "Match", new { competition = "ChampionsLeague" }, null)</li>
-        <li class="list-group-item">@Html.ActionLink(@ResourceMain.PolishSupercup, "UpdateCompetition", "Match", new { competition = "EuropaLeague" }, null)</li>
-        <li class="list-group-item">@Html.ActionLink(@ResourceMain.LeagueUserUpdate, "LeagueAddUsers", "League")</li>
-    </ul>
-</section>
+<div class="row">
+    <div class="span12">
+        <div class="page-header">
+            <h3>@ResourceMain.Update</h3>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="media">
+            <a href="#" class="pull-left"><img src="~/Content/img/icon-service1.png" class="media-object" alt='' /></a>
+            <div class="media-body">
+                <h4 class="media-heading">@ResourceMain.Ekstraklasa</h4>
+                <p>
+                    @ResourceMain.RolesDesc
+                </p>
+                <a href="@Url.Action("UpdateCompetition", "Match", new { competition = "Ekstraklasa" })" class="btn" type="button">@ResourceMain.Update</a>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="media">
+            <a href="#" class="pull-left"><img src="~/Content/img/icon-service1.png" class="media-object" alt='' /></a>
+            <div class="media-body">
+                <h4 class="media-heading">@ResourceMain.PolishCup</h4>
+                <p>
+                    @ResourceMain.MatchesDesc
+                </p>
+                <a href="@Url.Action("UpdateCompetition", "Match", new { competition = "PolishCup" })" class="btn" type="button">@ResourceMain.Update</a>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="media">
+            <a href="#" class="pull-left"><img src="~/Content/img/icon-service1.png" class="media-object" alt='' /></a>
+            <div class="media-body">
+                <h4 class="media-heading">@ResourceMain.PolishSupercup</h4>
+                <p>
+                    @ResourceMain.TweetsDesc
+                </p>
+                <a href="@Url.Action("UpdateCompetition", "Match", new { competition = "Supercup" })" class="btn" type="button">@ResourceMain.Update</a>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="media">
+            <a href="#" class="pull-left"><img src="~/Content/img/icon-service1.png" class="media-object" alt='' /></a>
+            <div class="media-body">
+                <h4 class="media-heading">@ResourceMain.ChampionsLeague</h4>
+                <p>
+                    @ResourceMain.TweetsDesc
+                </p>
+                <a href="@Url.Action("UpdateCompetition", "Match", new { competition = "ChampionsLeague" })" class="btn" type="button">@ResourceMain.Update</a>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="media">
+            <a href="#" class="pull-left"><img src="~/Content/img/icon-service1.png" class="media-object" alt='' /></a>
+            <div class="media-body">
+                <h4 class="media-heading">@ResourceMain.EuropaLeague</h4>
+                <p>
+                    @ResourceMain.TweetsDesc
+                </p>
+                <a href="@Url.Action("UpdateCompetition", "Match", new { competition = "EuropaLeague" })" class="btn" type="button">@ResourceMain.Update</a>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="media">
+            <a href="#" class="pull-left"><img src="~/Content/img/icon-service1.png" class="media-object" alt='' /></a>
+            <div class="media-body">
+                <h4 class="media-heading">@ResourceMain.LeagueUserUpdate</h4>
+                <p>
+                    @ResourceMain.UsersDesc
+                </p>
+                <a href="@Url.Action("LeagueAddUsers", "League")" class="btn" type="button">@ResourceMain.Update</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="hr-divider"></div>

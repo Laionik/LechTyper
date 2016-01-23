@@ -294,8 +294,8 @@
   <data name="RegisterMessage" xml:space="preserve">
     <value>Zarejestruj się jeśli jeszcze nie masz konta.</value>
   </data>
-  <data name="RegisterSocial" xml:space="preserve">
-    <value>Zarejestruj się przy pomocy Twojego konta społecznościowego</value>
+  <data name="SocialInformation" xml:space="preserve">
+    <value>Zaloguj się za pomocą konta społecznościowego</value>
   </data>
   <data name="Registration" xml:space="preserve">
     <value>Rejestracja</value>
@@ -363,7 +363,7 @@
   <data name="UserEdit" xml:space="preserve">
     <value>Edycja użytkownika</value>
   </data>
-  <data name="UserEditing" xml:space="preserve">
+  <data name="Editing" xml:space="preserve">
     <value>Edytujesz</value>
   </data>
   <data name="UserId" xml:space="preserve">
@@ -446,5 +446,167 @@
   </data>
   <data name="Win" xml:space="preserve">
     <value>Z</value>
+  </data>
+  <data name="AboutMeDesc" xml:space="preserve">
+    <value>Jestem studentem Politechniki Poznańskiej i ta aplikacja webowa jest moją pracą inżynierską. Temat automatyzacji zabawy LechTypera wybrałem ponieważ uważam to za interesujący projekt i chciałem też wnieść coś do tej zabawy. Moim wkładem jest odciążenie administracji i zwiększenie efektywności przeprowadzanej gry.</value>
+  </data>
+  <data name="AboutMeFanatic" xml:space="preserve">
+    <value>DziennikKibola</value>
+  </data>
+  <data name="AboutMeFanaticDesc" xml:space="preserve">
+    <value>Jeździsz na wyjazdy i chciałbyś mieć ich spis? Skorzystaj z Dziennika Kibola! Ten serwis pozwoli Tobie na zachowanie wszelkich informacji o Twoich wyjazdach!</value>
+  </data>
+  <data name="AboutMeOtherProject" xml:space="preserve">
+    <value>Inne projekty</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autor zabawy</value>
+  </data>
+  <data name="AuthorDesc" xml:space="preserve">
+    <value>Pomysłodawca i pierwszy administrator zabawy</value>
+  </data>
+  <data name="AuthorNick" xml:space="preserve">
+    <value>Mol4k</value>
+  </data>
+  <data name="CarouselDesc1Lead" xml:space="preserve">
+    <value>Przyłącz się do zabawy ! Spróbuj zdobyć mistrzostwo w typowaniu wyników Kolejorza</value>
+  </data>
+  <data name="CarouselDesc2Lead" xml:space="preserve">
+    <value>Zaloguj się i sprawdź swoje wyniki w poprzedniej kolejce oraz to z kim się zagrasz w następnej!</value>
+  </data>
+  <data name="CarouselLogin" xml:space="preserve">
+    <value>Zaloguj się!</value>
+  </data>
+  <data name="CarouselRegister" xml:space="preserve">
+    <value>Zarejestruj się!</value>
+  </data>
+  <data name="CarouselTitle2" xml:space="preserve">
+    <value>Sprawdź wyniki!</value>
+  </data>
+  <data name="ContactEmail" xml:space="preserve">
+    <value>Adres e-mail</value>
+  </data>
+  <data name="ContactPortfolio" xml:space="preserve">
+    <value>Portfolio</value>
+  </data>
+  <data name="ContactSocial" xml:space="preserve">
+    <value>Konta społecznościowe</value>
+  </data>
+  <data name="Developer" xml:space="preserve">
+    <value>Developer</value>
+  </data>
+  <data name="DeveloperDesc" xml:space="preserve">
+    <value>Twórca aplikacji webowej, na której się właśnie znajdujesz</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>lukasz.sosinski4@gmail.com</value>
+  </data>
+  <data name="Facebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="GitHub" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="Laionik" xml:space="preserve">
+    <value>Laionik</value>
+  </data>
+  <data name="LTAdministration" xml:space="preserve">
+    <value>Administracja zabawy na Twitterze</value>
+  </data>
+  <data name="LTContact" xml:space="preserve">
+    <value>Kontakt z LechTyperem</value>
+  </data>
+  <data name="LTContactAsk" xml:space="preserve">
+    <value>Jeśli masz pytania co do LechTypera skorzystaj z poniższej podpowiedzi</value>
+  </data>
+  <data name="MatchesPlayed" xml:space="preserve">
+    <value>Mecze rozegrane</value>
+  </data>
+  <data name="MatchesToPlay" xml:space="preserve">
+    <value>Mecze do rozegrania</value>
+  </data>
+  <data name="Responsive" xml:space="preserve">
+    <value>W pełni responsywna</value>
+  </data>
+  <data name="ResponsiveDesc" xml:space="preserve">
+    <value>Stronę możesz wygodnie przeglądać również na urządzeniach mobilnych</value>
+  </data>
+  <data name="Edition" xml:space="preserve">
+    <value>Edycja</value>
+  </data>
+  <data name="ChampionsLeagueDesc" xml:space="preserve">
+    <value>Zaktualizuj listę spotkań Ligi Mistrzów</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Potwierdź hasło</value>
+  </data>
+  <data name="EkstraklasaDesc" xml:space="preserve">
+    <value>Zaktualizuj listę spotkań Ekstraklasy</value>
+  </data>
+  <data name="EuropaLeagueDesc" xml:space="preserve">
+    <value>Zaktualizuj listę spotkań Ligi Europy</value>
+  </data>
+  <data name="LeagueUserUpdateDesc" xml:space="preserve">
+    <value>Zaktualizuj listy użytkowników i grup typerów</value>
+  </data>
+  <data name="MatchesDesc" xml:space="preserve">
+    <value>Edytuj wyniki i status meczów</value>
+  </data>
+  <data name="MatchGuestGoal" xml:space="preserve">
+    <value>Bramki gości</value>
+  </data>
+  <data name="MatchGuestHalfGoal" xml:space="preserve">
+    <value>Bramki gości do przerwy</value>
+  </data>
+  <data name="MatchHomeGoal" xml:space="preserve">
+    <value>Bramki gospodarzy</value>
+  </data>
+  <data name="MatchHomeHalfGoal" xml:space="preserve">
+    <value>Barmki gospodarzy do przerwy</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Hasło</value>
+  </data>
+  <data name="PolishCupDesc" xml:space="preserve">
+    <value>Zaktualizuj listę spotkań Pucharu Polski</value>
+  </data>
+  <data name="RolesDesc" xml:space="preserve">
+    <value>Edytuj role i przypisanych użytkowników</value>
+  </data>
+  <data name="RoleUserDelete" xml:space="preserve">
+    <value>Usuń rolę użytkownikowi</value>
+  </data>
+  <data name="RoleUserDisplay" xml:space="preserve">
+    <value>Wyświetl role użytkownika</value>
+  </data>
+  <data name="SupercupDesc" xml:space="preserve">
+    <value>Zaktualizuj listę spotkań Superpucharu</value>
+  </data>
+  <data name="Tweets" xml:space="preserve">
+    <value>Posty</value>
+  </data>
+  <data name="TweetsDesc" xml:space="preserve">
+    <value>Edytuj zawartość postów z Twittera</value>
+  </data>
+  <data name="UserMail" xml:space="preserve">
+    <value>Adres e-mail</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Użytkownicy</value>
+  </data>
+  <data name="UsersDesc" xml:space="preserve">
+    <value>Edytuj dane użytkowników</value>
+  </data>
+  <data name="LoginInformation" xml:space="preserve">
+    <value>Zaloguj się za pomocą utworzonego hasła</value>
+  </data>
+  <data name="NoInsert" xml:space="preserve">
+    <value>Brak wpisów</value>
+  </data>
+  <data name="PasswordNew" xml:space="preserve">
+    <value>Nowe hasło</value>
+  </data>
+  <data name="PasswordOld" xml:space="preserve">
+    <value>Aktualne hasło</value>
   </data>
 </root>

@@ -1,0 +1,31 @@
+﻿@using LechTyper.Resources
+@model LechTyper.Models.Tweet
+
+<!--PAGE TITLE-->
+<div class="row">
+    <div class="span12">
+        <div class="page-header">
+            <h1>@ResourceMain.Editing @Model.userName</h1><br>
+        </div>
+    </div>
+</div>
+<!-- /. PAGE TITLE-->
+<div class="row">
+    <div class="span6">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <form>
+                <fieldset>
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.TextBoxFor(m => m.result, new { @type = "text", @class = "input-xxlarge", @placeholder = ResourceMain.Result })<br>
+                    @Html.TextBoxFor(m => m.resultHalf, new { @type = "text", @class = "input-xxlarge", @placeholder = ResourceMain.MatchHalf })<br>
+                    @Html.TextBoxFor(m => m.scorer, new { @type = "text", @class = "input-xxlarge", @placeholder = ResourceMain.MatchScorer })<br>
+                    <button type="submit" class="btn btn-primary">@ResourceMain.Save</button>
+                </fieldset>
+            </form>
+        }
+    </div>
+</div>
+<div class="hr-divider"></div>

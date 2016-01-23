@@ -312,6 +312,7 @@
     <Compile Include="Oauth\OAuthBase.cs" />
     <Compile Include="Oauth\OAuthMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\TwitterRepository.cs" />
     <Compile Include="Repository\FixtureRepository.cs" />
     <Compile Include="Repository\LeagueRepository.cs" />
     <Compile Include="Repository\MainRepository.cs" />
@@ -324,12 +325,56 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\bootstrap-responsive.css" />
+    <Content Include="Content\css\bootstrap-responsive.min.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\font\fontawesome-webfont.svg" />
+    <Content Include="Content\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\img\icon-service1.png" />
+    <Content Include="Content\img\icon-service2.png" />
+    <Content Include="Content\img\icon-service3.png" />
+    <Content Include="Content\img\icon-service4.png" />
+    <Content Include="Content\img\icon-service5.png" />
+    <Content Include="Content\img\icon-service6.png" />
+    <Content Include="Content\img\icon1.png" />
+    <Content Include="Content\img\icon2.png" />
+    <Content Include="Content\img\icon3.png" />
+    <Content Include="Content\img\icon4.png" />
+    <Content Include="Content\img\img-60x60.jpg" />
+    <Content Include="Content\img\img1-870x400.jpeg" />
+    <Content Include="Content\img\img1.png" />
+    <Content Include="Content\img\img2-870x400.jpeg" />
+    <Content Include="Content\img\img2.png" />
+    <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\responsive.png" />
+    <Content Include="Content\img\slide-bg.png" />
+    <Content Include="Content\img\slide\slide1.jpg" />
+    <Content Include="Content\img\slide\slide2.jpg" />
+    <Content Include="Content\img\slide\slide3.jpg" />
+    <Content Include="Content\img\slide\slide4.jpg" />
+    <Content Include="Content\img\slide\slide5.jpg" />
+    <Content Include="Content\img\social\dribbble.png" />
+    <Content Include="Content\img\social\googleplus.png" />
+    <Content Include="Content\img\social\rss.png" />
+    <Content Include="Content\img\social\twitter.png" />
+    <Content Include="Content\img\team1.jpg" />
+    <Content Include="Content\img\team2.jpg" />
+    <Content Include="Content\img\team3.jpg" />
+    <Content Include="Content\img\virus.png" />
+    <Content Include="Scripts\html5shiv.js" />
+    <Content Include="Scripts\jquery.js" />
     <Content Include="Views\favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Global.asax" />
-    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\font\fontawesome-webfont.eot" />
+    <Content Include="Content\font\fontawesome-webfont.ttf" />
+    <Content Include="Content\font\fontawesome-webfont.woff" />
+    <Content Include="Content\font\FontAwesome.otf" />
+    <Content Include="Content\img\social\.DS_Store" />
     <None Include="Properties\PublishProfiles\LechTyperFTP.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -360,7 +405,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />
@@ -386,7 +430,6 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
@@ -415,23 +458,12 @@
     <Content Include="Views\Error\AdminError.cshtml" />
     <Content Include="Views\Admin\MatchIndex.cshtml" />
     <Content Include="Views\Admin\MatchEdit.cshtml" />
-    <Content Include="Views\Admin\TwittIndex.cshtml" />
-    <Content Include="Views\Admin\TwittEdit.cshtml" />
+    <Content Include="Views\Admin\TweetIndex.cshtml" />
+    <Content Include="Views\Admin\TweetEdit.cshtml" />
     <Content Include="Views\Admin\UserIndex.cshtml" />
-    <Content Include="Views\League\Index.cshtml" />
-    <Content Include="Views\League\Details.cshtml" />
-    <Content Include="Views\Admin\League\LeagueCreate.cshtml" />
-    <Content Include="Views\Admin\League\LeagueEdit.cshtml" />
-    <Content Include="Views\Admin\League\LeagueDelete.cshtml" />
-    <Content Include="Views\Fixture\Index.cshtml" />
-    <Content Include="Views\Fixture\Details.cshtml" />
-    <Content Include="Views\Admin\Fixture\FixtureCreate.cshtml" />
-    <Content Include="Views\Admin\Fixture\FixtureEdit.cshtml" />
-    <Content Include="Views\Admin\Fixture\FixtureDelete.cshtml" />
     <Content Include="Views\Admin\Fixture\CreateFixtures.cshtml" />
     <Content Include="Views\Admin\League\LeagueAddUsers.cshtml" />
     <Content Include="Views\Admin\League\LeaguePromotions.cshtml" />
-    <Content Include="Views\Match\UpdateCompetition.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\League\LeagueResults.cshtml" />
     <Content Include="Views\League\LeagueDisplay.cshtml" />
@@ -449,6 +481,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResourceMain.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
