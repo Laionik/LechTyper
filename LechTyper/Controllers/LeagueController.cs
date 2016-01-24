@@ -14,18 +14,23 @@ namespace LechTyper.Controllers
     [InitializeSimpleMembership]
     public class LeagueController : Controller
     {
-        private LeagueContext dbLeague = new LeagueContext();
-        private UsersContext dbUser = new UsersContext();
-        private MatchContext dbMatch = new MatchContext();
-        private TwitterContext dbTwitter = new TwitterContext();
-        private FixtureContext dbFixture = new FixtureContext();
+        private LeagueContext dbLeague;
+        private UsersContext dbUser;
+        private MatchContext dbMatch;
+        private TwitterContext dbTwitter;
+        private FixtureContext dbFixture;
         private FixtureRepository _fixtureRepository;
         private LeagueRepository _leagueRepository;
         private MainRepository _mainRepository;
         private MatchRepository _matchRepository;
 
-         public LeagueController()
+        public LeagueController()
         {
+            dbLeague = new LeagueContext();
+            dbUser = new UsersContext();
+            dbMatch = new MatchContext();
+            dbTwitter = new TwitterContext();
+            dbFixture = new FixtureContext();
             _fixtureRepository = new FixtureRepository(dbFixture);
             _leagueRepository = new LeagueRepository(dbLeague);
             _mainRepository = new MainRepository(dbUser);
@@ -76,6 +81,7 @@ namespace LechTyper.Controllers
         /// System awansów i spadków
         /// </summary>
         /// <returns>Widok</returns>
+        [Authorize(Roles = "admin")]
         public ActionResult LeaguePromotions()
         {
             if (dbLeague.Leagues.Any(x => x.matches >= 10))
@@ -197,11 +203,9 @@ namespace LechTyper.Controllers
         {
             if (tweet != null)
             {
-                //    var userId = dbUser.UserProfiles.Where(u => u.UserName == tweet.userName).Select(u => u.UserId).FirstOrDefault();
                 int hostGoal, guestGoal, playerGoal = 0;
                 ResultTweet(tweet.result, out hostGoal, out guestGoal);
                 playerGoal = CalculateGoals(hostGoal, guestGoal, match.finalHostGoal, match.finalGuestGoal);
-                //var playerFixture = fixtureList.Where(f => f.homeId == userId || f.guestId == userId).FirstOrDefault();
                 if (playerFixture.homeId == userId)
                     playerFixture.homeGoal = playerGoal;
                 else
@@ -214,16 +218,14 @@ namespace LechTyper.Controllers
                 else
                     playerFixture.guestGoal = 0;
             }
-            TryUpdateModel(playerFixture);
         }
 
 
-
         /// <summary>
-        /// Generowanie wyników spotkań
+        /// Przetwarzanie wyników
         /// </summary>
-        /// <returns>Widok</returns>
-        public ActionResult LeagueResults()
+        /// <returns>Status przetwarzania</returns>
+        public string ProcessResults()
         {
             var match = _matchRepository.GetLastMatch();
             var tweetList = dbTwitter.Tweets.ToList();
@@ -267,8 +269,9 @@ namespace LechTyper.Controllers
                     host.matches += 1;
                     guest.matches += 1;
 
-                    TryUpdateModel(host);
-                    TryUpdateModel(guest);
+                    dbFixture.Fixtures.Attach(fixture);
+                    dbLeague.Leagues.Attach(host);
+                    dbLeague.Leagues.Attach(guest);
                     if (host.matches >= 9 || guest.matches >= 9)
                         isSeasonCompleted = true;
                 }
@@ -277,13 +280,27 @@ namespace LechTyper.Controllers
                 dbLeague.SaveChanges();
                 //if(isSeasonCompleted)
                 //Nowy sezon
-
-                return View(dbLeague.Leagues.Local.ToList());
+                return "OK";
             }
             catch (Exception e)
             {
-                return RedirectToAction("DatabaseError", "Error", e.Message);
+                return "ERROR";
+
             }
+        }
+
+
+
+        /// <summary>
+        /// Generowanie wyników spotkań
+        /// </summary>
+        /// <returns>Widok</returns>
+        public ActionResult LeagueResults()
+        {
+            var response = ProcessResults();
+            var leagueList = _leagueRepository.GetLeagues();
+            return View(leagueList);
+
         }
 
         protected override void Dispose(bool disposing)

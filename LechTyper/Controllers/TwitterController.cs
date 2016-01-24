@@ -4,6 +4,7 @@ using LechTyper.Repository;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -12,7 +13,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Tweetinvi;
+using Tweetinvi.Core.Enum;
 using Tweetinvi.Core.Interfaces;
+using Tweetinvi.Core.Parameters;
 
 namespace LechTyper.Controllers
 {
@@ -23,10 +26,12 @@ namespace LechTyper.Controllers
         private MatchContext dbMatch = new MatchContext();
 
         private MatchRepository _matchRepository;
+        private TwitterRepository _twitterRepository;
 
         public TwitterController()
         {
             _matchRepository = new MatchRepository(dbMatch);
+            _twitterRepository = new TwitterRepository(dbTwitter);
         }
 
         ///<summary>
@@ -35,46 +40,62 @@ namespace LechTyper.Controllers
         ///<returns>Widok</returns>
         public ActionResult Twitter()
         {
-            string hastag = "#lechtyperdev1";
-            var tweetStartList = Search.SearchTweets(hastag).GroupBy(t => t.CreatedBy.ScreenName).Select(g => g.First()).ToList();
-            var userList = GetUsersNames().Where(u => !(tweetStartList.Select(t => t.CreatedBy.ScreenName).Contains(u)));
-            foreach (var user in userList)
-            {
-                if (Tweetinvi.User.GetUserFromScreenName(user) != null)
-                {
-                    var tweetTemp = Timeline.GetUserTimeline(user).FirstOrDefault(t => t.Text.Contains(hastag));
-                    if (tweetTemp != null)
-                    {
-                        tweetStartList.Add(tweetTemp);
-                    }
-                    else
-                        Tweetinvi.Tweet.PublishTweet("@" + user + " nie zapomniałeś o nas? " + hastag);
-                }
-            }
-            //until=2016-01-14 <= Dorzuć do filtrowania postów
-            List<ITweet> tweetList = new List<ITweet>();
-            foreach (var tweet in tweetStartList)
-            {
-                TextValidate(tweet, ref tweetList);
-            }
-
-            var result = TwitterUpdate(tweetList);
-
-            List<LechTyper.Models.Tweet> tweetAllList = GetAllTweets();
-            return View(tweetAllList);
+            var response = TwitterSearchPosts();
+            if (response == "OK")
+                return View(_twitterRepository.GetTweets());
+            else
+                return RedirectToAction("Error", "Error", "Błąd aktualizacji postów");
         }
 
 
-        public ActionResult PostStartTweet()
+        public string TwitterSearchPosts(DateTime? matchDate = null)
         {
-            var nextMatch = _matchRepository.GetNextMatch();
-            var request = HttpContext.Request;
-            var address = string.Format("{0}://{1}", request.Url.Scheme, request.Url.Authority);
-            var tag = "#lechtypertest";
-            StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("{0} : {1} już za {2} dni! Lista spotkań {3}. Zapraszam do typowania {4}", nextMatch.host, nextMatch.guest, nextMatch.date.Subtract(DateTime.Now).Days, address + Url.Action("CurrentMatchDayDisplay", "Fixture"), tag);
-            Tweetinvi.Tweet.PublishTweet(sb.ToString());
-            return View();
+            var hastag = "#lechtypertest";
+            DateTime untilDate = matchDate == null ? DateTime.Parse(DateTime.Now.AddDays(1).ToShortDateString()) : DateTime.Parse(matchDate.ToString());
+            var sinceDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+            var searchParameter = new TweetSearchParameters(hastag)
+            {
+                MaximumNumberOfResults = 100,
+            };
+
+            var tweetStartList = Search.SearchTweets(searchParameter).Where(t => t.CreatedAt >= sinceDate && t.CreatedAt < untilDate).GroupBy(t => t.CreatedBy.ScreenName).Select(g => g.First()).ToList();
+            var userList = GetUsersNames().Where(u => !(tweetStartList.Select(t => t.CreatedBy.ScreenName).Contains(u))).ToList();
+            try
+            {
+                foreach (var user in userList)
+                {
+                    if (Tweetinvi.User.GetUserFromScreenName(user) != null)
+                    {
+                        var userTimeline = Timeline.GetUserTimeline(user, 100);
+                        if (userTimeline != null)
+                        {
+                            var tweetTemp = userTimeline.Where(t => t.CreatedAt >= sinceDate && t.CreatedAt < untilDate).FirstOrDefault(t => t.Text.Contains(hastag));
+                            if (tweetTemp != null)
+                            {
+                                tweetStartList.Add(tweetTemp);
+                            }
+                            else
+                            {
+                                if (_twitterRepository.GetTweetByUserName(user) == null)
+                                    Tweetinvi.Tweet.PublishTweet("@" + user + " nie zapomniałeś o nas? " + hastag);
+                            }
+                        }
+                    }
+                }
+                //until=2016-01-14 <= Dorzuć do filtrowania postów
+                List<ITweet> tweetList = new List<ITweet>();
+                foreach (var tweet in tweetStartList)
+                {
+                    TextValidate(tweet, ref tweetList);
+                }
+
+                var result = TwitterUpdate(tweetList);
+                return "OK";
+            }
+            catch (Exception)
+            {
+                return "ERROR";
+            }
         }
 
         ///<summary>

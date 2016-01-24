@@ -20,8 +20,8 @@ namespace LechTyper.Controllers
 {
     public class MatchController : Controller
     {
-        MatchContext dbMatch = new MatchContext();
-        Dictionary<string, string> dateParser = new Dictionary<string, string>();
+        private MatchContext dbMatch;
+        private Dictionary<string, string> dateParser;
 
         private string ekstraklasaUrl = "http://www.90minut.pl/liga/0/liga8069.html";
         private string polishCupUrl = "http://www.90minut.pl/liga/0/liga8073.html";
@@ -31,6 +31,8 @@ namespace LechTyper.Controllers
 
         public MatchController()
         {
+            dbMatch = new MatchContext();
+            dateParser = new Dictionary<string, string>();
             dateParser.Add("stycznia", "01");
             dateParser.Add("lutego", "02");
             dateParser.Add("marca", "03");
@@ -43,8 +45,6 @@ namespace LechTyper.Controllers
             dateParser.Add("pazdziernika", "10");
             dateParser.Add("listopada", "11");
             dateParser.Add("grudnia", "12");
-
-
         }
         ///<summary>
         ///Usuwanie polskich znaków
@@ -144,22 +144,23 @@ namespace LechTyper.Controllers
                 if (clubrgx.IsMatch(wwwToParse[i + matchDiff]) || clubrgx.IsMatch(wwwToParse[i + 2 + matchDiff]))
                 {
                     ResultParse(wwwToParse[i + 1 + matchDiff], out goal1, out goal2);
-                    if (goalrgx.IsMatch(goal1) && goalrgx.IsMatch(goal2))
-                        returnMatch.Add(new Match(dateParse(wwwToParse[i + 3 + dateDiff]), comp, RemoveWhiteSpaces(wwwToParse[i + matchDiff]), RemoveWhiteSpaces(wwwToParse[i + 2 + matchDiff]), int.Parse(goal1), int.Parse(goal2), true));
+                    var matchDate = dateParse(wwwToParse[i + 3 + dateDiff]);
+                    if (goalrgx.IsMatch(goal1) && goalrgx.IsMatch(goal2) && DateTime.Compare(matchDate, DateTime.Now) < 0 )
+                        returnMatch.Add(new Match(matchDate, comp, RemoveWhiteSpaces(wwwToParse[i + matchDiff]), RemoveWhiteSpaces(wwwToParse[i + 2 + matchDiff]), int.Parse(goal1), int.Parse(goal2), true));
                     else
-                        returnMatch.Add(new Match(dateParse(wwwToParse[i + 3 + dateDiff]), comp, RemoveWhiteSpaces(wwwToParse[i + matchDiff]), RemoveWhiteSpaces(wwwToParse[i + 2 + matchDiff]), false));
+                        returnMatch.Add(new Match(matchDate, comp, RemoveWhiteSpaces(wwwToParse[i + matchDiff]), RemoveWhiteSpaces(wwwToParse[i + 2 + matchDiff]), false));
                 }
             }
             return returnMatch;
         }
 
+
         /// <summary>
         /// Aktualizacja rozgrywek
         /// </summary>
         /// <param name="competition">Nazwa rozgrywek</param>
-        /// <returns>Widok</returns>
-        [Authorize(Roles = "admin")]
-        public ActionResult UpdateCompetition(string competition)
+        /// <returns>Wynik aktualizacji</returns>
+        public string UpdateDatabaseCompetition(string competition)
         {
             Encoding encoding = Encoding.GetEncoding("iso-8859-2");
             var htmlWeb = new HtmlWeb()
@@ -201,34 +202,58 @@ namespace LechTyper.Controllers
                 foreach (var match in matchList)
                 {
                     var defaultDate = DateTime.Parse("2000-01-01");
-                    Match matchModel = dbMatch.MatchData.FirstOrDefault(u => (EntityFunctions.TruncateTime(u.date) == EntityFunctions.TruncateTime(match.date) || EntityFunctions.TruncateTime(u.date) == EntityFunctions.TruncateTime(defaultDate)) && u.host == match.host && u.guest == match.guest);
-                    try
-                    {
+                    var testDate = match.date.Ticks;
+
+                    Match matchModel = dbMatch.MatchData.FirstOrDefault(u => ((EntityFunctions.DiffDays(u.date, match.date) < 3 && EntityFunctions.DiffDays(u.date, match.date) > -3) || EntityFunctions.Equals(u.date, defaultDate)) && u.host == match.host && u.guest == match.guest && u.competition == competition);
                         if (matchModel == null)
                         {
                             dbMatch.MatchData.Add(match);
                         }
-                        else if (matchModel.isCompleted != match.isCompleted)
+                        else if (matchModel.isCompleted != match.isCompleted || !EntityFunctions.Equals(matchModel.date, match.date))
                         {
                             matchModel.date = match.date;
                             matchModel.finalGuestGoal = match.finalGuestGoal;
                             matchModel.finalHostGoal = match.finalHostGoal;
-                            matchModel.isCompleted = true;
+                            matchModel.isCompleted = match.isCompleted;
                             UpdateModel(matchModel);
                         }
-                    }
-                    catch (Exception e)
-                    {
-                        return RedirectToAction("Error", "Error", e.Message);
-                    }
                 }
                 dbMatch.SaveChanges();
             }
+            catch
+            {
+                return "Error";
+            }
+            return "OK";
+        }
+
+        /// <summary>
+        /// Aktualizacja rozgrywek
+        /// </summary>
+        /// <param name="competition">Nazwa rozgrywek</param>
+        /// <returns>Widok</returns>
+        //[Authorize(Roles = "admin")]
+        public ActionResult UpdateCompetition(string competition)
+        {
+            try
+            {
+                var result = UpdateDatabaseCompetition(competition);
+                if (result == "OK")
+                {
+                    var matchList = dbMatch.MatchData.Where(m => m.competition == competition).ToList();
+                    return View("MatchDisplay", matchList);
+                }
+                else
+                {
+                    return RedirectToAction("Error", "Error", "");
+                }
+            }
             catch (Exception e)
             {
-                return RedirectToAction("DatabaseError", "Error", e.Message);
+                
+                return RedirectToAction("Error", "Error", e.Message);
             }
-            return View("MatchDisplay", matchList);
+           
         }
 
         /// <summary>
