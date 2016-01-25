@@ -23,6 +23,7 @@ namespace LechTyper.Controllers
         private LeagueRepository _leagueRepository;
         private MainRepository _mainRepository;
         private MatchRepository _matchRepository;
+        private FixtureController _fixtureController;
 
         public LeagueController()
         {
@@ -35,6 +36,7 @@ namespace LechTyper.Controllers
             _leagueRepository = new LeagueRepository(dbLeague);
             _mainRepository = new MainRepository(dbUser);
             _matchRepository = new MatchRepository(dbMatch);
+            _fixtureController = new FixtureController();
         }
 
         /// <summary>
@@ -75,7 +77,54 @@ namespace LechTyper.Controllers
             }
         }
 
+        /// <summary>
+        /// System awansów i spadków
+        /// </summary>
+        /// <returns>Wynik operacji</returns>
+        public string LeagueNewSeasonPromotion()
+        {
+            try
+            {
+                var lowestDivision = dbLeague.Leagues.OrderByDescending(x => x.division).Select(d => d.division).FirstOrDefault();
+                List<League> promotionList = new List<League>();
+                List<League> relegationList = new List<League>();
 
+                for (int division = 1; division <= lowestDivision; division++)
+                {
+                    if (division != 1)
+                        promotionList = dbLeague.Leagues.Where(d => d.division == division).OrderByDescending(x => x.points).ThenByDescending(g => g.goalScored - g.goalConceded).ThenByDescending(g => g.goalScored).Take(2).ToList();
+
+                    var leagueCount = dbLeague.Leagues.Where(d => d.division == division).Count();
+                    if (leagueCount > 8)
+                    {
+                        var lowerLeagueCount = dbLeague.Leagues.Where(d => d.division == division + 1).Count();
+                        relegationList = dbLeague.Leagues.Where(d => d.division == division).OrderBy(x => x.points).ThenBy(g => g.goalScored - g.goalConceded).ThenBy(g => g.goalScored).Take(lowerLeagueCount > 2 ? 2 : lowerLeagueCount).ToList();
+                    }
+
+                    foreach (var promo in promotionList)
+                    {
+                        dbLeague.Leagues.Attach(promo);
+                        promo.division -= 1;
+                        //TryUpdateModel(promo);
+                    }
+
+                    foreach (var releg in relegationList)
+                    {
+                        dbLeague.Leagues.Attach(releg);
+                        releg.division += 1;
+                        //TryUpdateModel(releg);
+
+                    }
+                }
+
+                dbLeague.SaveChanges();
+                return "OK";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
 
         /// <summary>
         /// System awansów i spadków
@@ -84,57 +133,19 @@ namespace LechTyper.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult LeaguePromotions()
         {
-            if (dbLeague.Leagues.Any(x => x.matches >= 10))
-            {
-                try
-                {
-                    var lowestDivision = dbLeague.Leagues.OrderByDescending(x => x.division).Select(d => d.division).FirstOrDefault();
-                    List<League> promotionList = new List<League>();
-                    List<League> relegationList = new List<League>();
-
-                    for (int division = 1; division <= lowestDivision; division++)
-                    {
-                        if (division != 1)
-                            promotionList = dbLeague.Leagues.Where(d => d.division == division).OrderByDescending(x => x.points).ThenByDescending(g => g.goalScored - g.goalConceded).ThenByDescending(g => g.goalScored).Take(2).ToList();
-
-                        var leagueCount = dbLeague.Leagues.Where(d => d.division == division).Count();
-                        if (leagueCount > 8)
-                        {
-                            var lowerLeagueCount = dbLeague.Leagues.Where(d => d.division == division + 1).Count();
-                            relegationList = dbLeague.Leagues.Where(d => d.division == division).OrderBy(x => x.points).ThenBy(g => g.goalScored - g.goalConceded).ThenBy(g => g.goalScored).Take(lowerLeagueCount > 2 ? 2 : lowerLeagueCount).ToList();
-                        }
-
-                        foreach (var promo in promotionList)
-                        {
-                            promo.division -= 1;
-                            TryUpdateModel(promo);
-                        }
-
-                        foreach (var releg in relegationList)
-                        {
-                            releg.division += 1;
-                            TryUpdateModel(releg);
-                        }
-                    }
-
-                    dbLeague.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    return RedirectToAction("DatabaseError", "Error", e.Message);
-                }
-            }
+            var response = LeagueNewSeasonPromotion();
+            if (response != "OK")
+                return RedirectToAction("Error", "Error", response);
 
             return View("../Admin/League/LeaguePromotions", dbLeague.Leagues.Local.ToList());
         }
 
 
         /// <summary>
-        /// Aktualizacja składu lig
+        /// Aktualizacja składów lig
         /// </summary>
-        /// <returns>Widok</returns>
-        [Authorize(Roles = "admin")]
-        public ActionResult LeagueAddUsers()
+        /// <returns>Wynik dodawania użytkowników</returns>
+        public string LeagueNewSeasonAddUsers()
         {
             try
             {
@@ -151,12 +162,26 @@ namespace LechTyper.Controllers
                         lowestDivision++;
                 }
                 dbLeague.SaveChanges();
-                return View("../Admin/League/LeagueAddUsers", dbLeague.Leagues.Local.ToList());
+                return "OK";
             }
             catch (Exception e)
             {
-                return RedirectToAction("DatabaseError", "Error", e.Message);
+                return e.Message;
             }
+        }
+
+
+        /// <summary>
+        /// Aktualizacja składu lig
+        /// </summary>
+        /// <returns>Widok</returns>
+        [Authorize(Roles = "admin")]
+        public ActionResult LeagueAddUsers()
+        {
+            var response = LeagueNewSeasonAddUsers();
+            if (response != "OK")
+                return RedirectToAction("Error", "Error", response);
+            return View("../Admin/League/LeagueAddUsers", dbLeague.Leagues.Local.ToList());
         }
 
         /// <summary>
@@ -220,6 +245,40 @@ namespace LechTyper.Controllers
             }
         }
 
+        /// <summary>
+        /// Czyszczenie tabel bazy danych
+        /// </summary>
+        private void ClearTables()
+        {
+            //dbLeague.Database.ExecuteSqlCommand("TRUNCATE TABLE [League]");
+            dbFixture.Database.ExecuteSqlCommand("TRUNCATE TABLE [Fixture]");
+        }
+
+        /// <summary>
+        /// Przygotowywanie nowego sezonu
+        /// </summary>
+        public void PrepareNewSeason()
+        {
+            //saveOldTables
+            ClearTables();
+            var responsePromotion = LeagueNewSeasonPromotion();
+            var leagueList = dbLeague.Leagues.ToList();
+            foreach (var league in leagueList)
+            {
+                dbLeague.Leagues.Attach(league);
+                league.draw = 0;
+                league.goalConceded = 0;
+                league.goalScored = 0;
+                league.lose = 0;
+                league.matches = 0;
+                league.points = 0;
+                league.win = 0;
+            }
+            dbLeague.SaveChanges();
+            var addUserResponse = LeagueNewSeasonAddUsers();
+            var fixtureResponse = _fixtureController.CreateNewFixture();
+            //if all ok - send mail
+        }
 
         /// <summary>
         /// Przetwarzanie wyników
@@ -229,15 +288,17 @@ namespace LechTyper.Controllers
         {
             var match = _matchRepository.GetLastMatch();
             var tweetList = dbTwitter.Tweets.ToList();
-            var matchDay = _fixtureRepository.CurrentMatchDay();
+            var matchDay = _fixtureRepository.NextMatchDay();
             var fixtureList = dbFixture.Fixtures.Where(f => f.matchDay == matchDay).ToList();
 
-            var isSeasonCompleted = false;
+            var isSeasonCompleted = matchDay >= 9 ? true : false;
             string userName = "";
             try
             {
                 foreach (var fixture in fixtureList)
                 {
+                    dbFixture.Fixtures.Attach(fixture);
+
                     userName = dbUser.UserProfiles.Where(u => u.UserId == fixture.homeId).Select(u => u.UserName).FirstOrDefault();
                     CheckTweetResult(dbTwitter.Tweets.Where(t => t.userName == userName).FirstOrDefault(), match, fixture, fixture.homeId);
 
@@ -246,6 +307,9 @@ namespace LechTyper.Controllers
 
                     var host = dbLeague.Leagues.Where(u => u.userId == fixture.homeId).FirstOrDefault();
                     var guest = dbLeague.Leagues.Where(u => u.userId == fixture.guestId).FirstOrDefault();
+                    dbLeague.Leagues.Attach(host);
+                    dbLeague.Leagues.Attach(guest);
+
                     if (fixture.homeGoal > fixture.guestGoal)
                     {
                         host.points += 3;
@@ -269,17 +333,14 @@ namespace LechTyper.Controllers
                     host.matches += 1;
                     guest.matches += 1;
 
-                    dbFixture.Fixtures.Attach(fixture);
-                    dbLeague.Leagues.Attach(host);
-                    dbLeague.Leagues.Attach(guest);
                     if (host.matches >= 9 || guest.matches >= 9)
                         isSeasonCompleted = true;
                 }
 
                 dbFixture.SaveChanges();
                 dbLeague.SaveChanges();
-                //if(isSeasonCompleted)
-                //Nowy sezon
+                if (isSeasonCompleted)
+                    PrepareNewSeason();
                 return "OK";
             }
             catch (Exception e)
@@ -288,8 +349,6 @@ namespace LechTyper.Controllers
 
             }
         }
-
-
 
         /// <summary>
         /// Generowanie wyników spotkań

@@ -619,6 +619,15 @@ namespace LechTyper.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lech Poznań.
+        /// </summary>
+        public static string LechPoznan {
+            get {
+                return ResourceManager.GetString("LechPoznan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Błąd logowania!.
         /// </summary>
         public static string LogFailure {
@@ -1344,6 +1353,15 @@ namespace LechTyper.Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wybierz ligę.
+        /// </summary>
+        public static string SelectLeague {
+            get {
+                return ResourceManager.GetString("SelectLeague", resourceCulture);
             }
         }
         

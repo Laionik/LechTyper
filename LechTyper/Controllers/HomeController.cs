@@ -31,7 +31,6 @@ namespace LechTyper.Controllers
 
         public ActionResult Index()
         {
-            Play();
             return View();
         }
 
@@ -53,31 +52,29 @@ namespace LechTyper.Controllers
                 _twitterRepository = new TwitterRepository(new TwitterContext());
                 _twitterController = new TwitterController();
                 _leagueController = new LeagueController();
-                //foreach(var competition in competitionList)
-                //{
-                //    var response = _matchController.UpdateDatabaseCompetition(competition);
-                //}
+                foreach(var competition in competitionList)
+                {
+                    var response = _matchController.UpdateDatabaseCompetition(competition);
+                }
 
                 var nextMatchIn = _matchRepository.GetDaysToNextMatch();
                 var request = HttpContext.Request;
                 var address = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, Url.Action("CurrentMatchDayDisplay", "Fixture"));
 
-               //if(nextMatchIn <= 3)
-               // {       
-               //     _twitterRepository.PostMatchTweet(nextMatchIn, address);
-               //     var response = _twitterController.TwitterSearchPosts();
-               //    // if (response != "OK")
-               //    //     SEND MAIL
-               // }
-               //else if(_matchRepository.GetLastMatchDays() == -1)
-               //{
+               if(nextMatchIn <= 3)
+                {       
+                    _twitterRepository.PostMatchTweet(nextMatchIn, address);
+                    var response = _twitterController.TwitterSearchPosts();
+                   // if (response != "OK")
+                   //     SEND MAIL
+                }
+               else if(_matchRepository.GetLastMatchDays() == -1)
+               {
                    var lastMatchDate = _matchRepository.GetLastMatch().date;
-                   //var responseSearch = _twitterController.TwitterSearchPosts(lastMatchDate);
+                   var responseSearch = _twitterController.TwitterSearchPosts(lastMatchDate);
                    var responseLeague = _leagueController.ProcessResults();
-                   //_twitterRepository.PostAfterMatchTweet(address);
-
-                //leaguepromotion
-               //}
+                   _twitterRepository.PostAfterMatchTweet(address);
+               }
 
             }
             catch (Exception e)

@@ -30,9 +30,13 @@ namespace LechTyper.Controllers
         /// Wyświetlanie najlbiższej kolejki spotkań
         /// </summary>
         /// <returns>Widok</returns>
-        public ActionResult CurrentMatchDayDisplay()
+        public ActionResult MatchDayDisplay(bool nextMatchDay = true)
         {
-            var matchDay = _fixtureRepository.CurrentMatchDay();
+            int matchDay;
+            if (nextMatchDay)
+                matchDay = _fixtureRepository.NextMatchDay();
+            else
+                matchDay = _fixtureRepository.LastMatchDay();
             var fixtureList = _fixtureRepository.GetFixturesByMatchDay(matchDay);
             var userIdList = _fixtureRepository.GetUserIdByFixture(fixtureList);
             Dictionary<int, string> userNameDictionary = new Dictionary<int, string>();
@@ -75,28 +79,48 @@ namespace LechTyper.Controllers
                 }
             }
         }
-        
+
         /// <summary>
         /// Tworzy terminarz rozgrywek
         /// </summary>
+        /// <returns>Widok</returns> 
+        public string CreateNewFixture()
+        {
+            try
+            {
+                var divisionsList = _leagueRepository.GetDivisions();
+                var playerList = _leagueRepository.GetLeagues();
+                List<Fixture> fixtureDivision = new List<Fixture>();
+                foreach (var division in divisionsList)
+                {
+                    CreateFixtureForDivision(ref fixtureDivision, playerList.Where(d => d.division == division).OrderBy(u => u.userId).Select(u => u.userId).ToList());
+                }
+
+                foreach (var match in fixtureDivision)
+                {
+                    if (!dbFixture.Fixtures.Any(x => x.homeId == match.homeId && x.guestId == match.guestId && x.matchDay == match.matchDay))
+                        dbFixture.Fixtures.Add(match);
+                }
+                dbFixture.SaveChanges();
+                return "OK";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+        /// <summary>
+        /// Wywołuję metodę tworzenia terminarza
+        /// </summary>
         /// <returns>Widok</returns>   
-        // [Authorize(Roles = "admin")]
+         [Authorize(Roles = "admin")]
         public ActionResult CreateFixtures()
         {
-            var divisionsList = _leagueRepository.GetDivisions();
-            var playerList = _leagueRepository.GetLeagues();
-            List<Fixture> fixtureDivision = new List<Fixture>();
-            foreach(var division in divisionsList)
-            {
-                CreateFixtureForDivision(ref fixtureDivision, playerList.Where(d => d.division == division).OrderBy(u => u.userId).Select(u => u.userId).ToList());
-            }
+            var response = CreateNewFixture();
+            if(response != "OK")
+                return RedirectToAction("Error", "Error", response);
 
-            foreach(var match in fixtureDivision)
-            {
-                if (!dbFixture.Fixtures.Any(x => x.homeId == match.homeId && x.guestId == match.guestId && x.matchDay == match.matchDay))
-                    dbFixture.Fixtures.Add(match);
-            }
-            dbFixture.SaveChanges();
             return View("../Admin/Fixture/CreateFixtures", dbFixture.Fixtures.Local.OrderBy(x => x.id).ThenBy(x => x.matchDay).ToList());
         }
 

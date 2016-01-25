@@ -609,4 +609,10 @@
   <data name="PasswordOld" xml:space="preserve">
     <value>Aktualne hasło</value>
   </data>
+  <data name="SelectLeague" xml:space="preserve">
+    <value>Wybierz ligę</value>
+  </data>
+  <data name="LechPoznan" xml:space="preserve">
+    <value>Lech Poznań</value>
+  </data>
 </root>

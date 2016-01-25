@@ -18,6 +18,7 @@
                     <th></th>
                     <th>@ResourceMain.MatchHome</th>
                     <th>@ResourceMain.MatchGuest</th>
+                    <th>@ResourceMain.Result</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                         <td>@(Model.IndexOf(fixture) + 1)</td>
                         <td>@ViewBag.userNameDictionary[fixture.homeId]</td>
                         <td>@ViewBag.userNameDictionary[fixture.guestId]</td>
+                        <td>@fixture.homeGoal:@fixture.guestGoal</td>
                     </tr>
                 }
             </tbody>

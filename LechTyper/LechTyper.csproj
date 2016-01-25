@@ -485,7 +485,7 @@
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\League\LeagueResults.cshtml" />
     <Content Include="Views\League\LeagueDisplay.cshtml" />
-    <Content Include="Views\Fixture\CurrentMatchDayDisplay.cshtml" />
+    <Content Include="Views\Fixture\MatchDayDisplay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

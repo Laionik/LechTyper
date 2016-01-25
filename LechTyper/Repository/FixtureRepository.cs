@@ -20,9 +20,18 @@ namespace LechTyper.Repository
         /// Najbliższa kolejka typerów
         /// </summary>
         /// <returns>Numer kolejki</returns>
-        public int CurrentMatchDay()
+        public int NextMatchDay()
         {
             return dbFixture.Fixtures.Where(f => f.homeGoal == null).Select(f => f.matchDay).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Ostatnia kolejka typerów
+        /// </summary>
+        /// <returns>Numer kolejki</returns>
+        public int LastMatchDay()
+        {
+            return dbFixture.Fixtures.Where(f => f.homeGoal != null).Select(f => f.matchDay).ToList().Last();
         }
 
         /// <summary>
