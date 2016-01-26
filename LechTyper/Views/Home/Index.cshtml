@@ -41,9 +41,9 @@
                     <div class="row">
                         <div class="span6">
                             <div class="carousel-caption">
-                                <h1>Twoje statystyki</h1>
-                                <p class="lead">Sprawdź swoje statystyki - POPRAW RESOURCE</p>
-                               @*@Url.Action()*@
+                                <h1>Poprzednia kolejka</h1>
+                                <p class="lead">Sprawdź wyniki, które padły w poprzedniej kolejce!</p>
+                                @Html.ActionLink("Sprawdź", "MatchDayDisplay", "Fixture", new { nextMatchDay = false }, new { @class = "btn btn-large btn-primary" })
                             </div>
                         </div>
                         <div class="span6"> <img src="~/Content/img/slide/slide1.jpg"></div>
@@ -57,7 +57,7 @@
                             <div class="carousel-caption">
                                 <h1>Terminarz typerów</h1>
                                 <p class="lead">Sprawdź z kim stoczysz następny pojedynek!</p>
-                               @Html.ActionLink("Sprawdź", "CurrentMatchDayDisplay", "Fixture", null, new { @class = "btn btn-large btn-primary" })
+                               @Html.ActionLink("Sprawdź", "MatchDayDisplay", "Fixture", null, new { @class = "btn btn-large btn-primary" })
                             </div>
                         </div>
                         <div class="span6"> <img src="~/Content/img/slide/slide2.jpg"></div>

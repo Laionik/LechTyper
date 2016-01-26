@@ -26,11 +26,11 @@
                     <br />
                     @Html.LabelFor(m => m.UserName)
                     <br />
-
-                    @Model.UserName
+                    @Model.UserName 
+                    <br />
                     @if (ViewBag.ProviderDisplayName == "Twitter")
                     {
-                        @Html.PasswordFor(m => m.UserMail, new { @class = "input-xxlarge", @placeholder = ResourceMain.Mail })<br>
+                        @Html.TextBoxFor(m => m.UserMail, new { @class = "input-xxlarge", @placeholder = ResourceMain.Mail })<br>
                     }
                     else
                     {
@@ -40,6 +40,7 @@
                     <button type="submit" class="btn btn-primary">@ResourceMain.LogIn</button>
                 </fieldset>
             </form>
+        }
         </div>
     </div>
     <div class="hr-divider"></div>

@@ -105,15 +105,12 @@ namespace LechTyper.Controllers
                     {
                         dbLeague.Leagues.Attach(promo);
                         promo.division -= 1;
-                        //TryUpdateModel(promo);
                     }
 
                     foreach (var releg in relegationList)
                     {
                         dbLeague.Leagues.Attach(releg);
                         releg.division += 1;
-                        //TryUpdateModel(releg);
-
                     }
                 }
 
@@ -291,7 +288,7 @@ namespace LechTyper.Controllers
             var matchDay = _fixtureRepository.NextMatchDay();
             var fixtureList = dbFixture.Fixtures.Where(f => f.matchDay == matchDay).ToList();
 
-            var isSeasonCompleted = matchDay >= 9 ? true : false;
+            var isSeasonCompleted = matchDay >= 8 ? true : false;
             string userName = "";
             try
             {
@@ -333,7 +330,7 @@ namespace LechTyper.Controllers
                     host.matches += 1;
                     guest.matches += 1;
 
-                    if (host.matches >= 9 || guest.matches >= 9)
+                    if (host.matches >= 8 || guest.matches >= 8)
                         isSeasonCompleted = true;
                 }
 

@@ -15,7 +15,6 @@ using System.IO;
 using System.Threading;
 using System.Data.Objects;
 
-
 namespace LechTyper.Controllers
 {
     public class MatchController : Controller

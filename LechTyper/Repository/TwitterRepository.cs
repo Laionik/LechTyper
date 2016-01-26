@@ -85,13 +85,6 @@ namespace LechTyper.Repository
         public void PostTweet(int number)
         {
             Tweetinvi.Tweet.PublishTweet(DateTime.Now.ToString() + " wartość testowa " + number);
-            //var nextMatch = _matchRepository.GetNextMatch();
-            //var request = HttpContext.Request;
-            //var address = string.Format("{0}://{1}", request.Url.Scheme, request.Url.Authority);
-            //var tag = "#lechtypertest";
-            //StringBuilder sb = new StringBuilder();
-            //sb.AppendFormat("{0} : {1} już za {2} dni! Lista spotkań {3}. Zapraszam do typowania {4}", nextMatch.host, nextMatch.guest, nextMatch.date.Subtract(DateTime.Now).Days, address + Url.Action("CurrentMatchDayDisplay", "Fixture"), tag);
-            //Tweetinvi.Tweet.PublishTweet(sb.ToString());
         }
     }
 }
